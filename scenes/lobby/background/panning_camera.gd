@@ -1,8 +1,8 @@
 extends Camera2D
 
 @export var radius: float = 200.0
-@export var seconds_per_loop: float = 1.0
-@export var rotation_amount: float = 0.1
+@export var seconds_per_loop: float = 60.0
+@export var rotation_amount: float = 0.05
 
 var t: float = 0.0
 
