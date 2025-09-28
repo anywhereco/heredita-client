@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://co8osnbupcqjm"]
+[gd_scene load_steps=9 format=3 uid="uid://co8osnbupcqjm"]
 
 [ext_resource type="Shader" uid="uid://h6ps2oq513j8" path="res://scenes/lobby/foreground/background_blur.gdshader" id="1_t71vb"]
 [ext_resource type="Texture2D" uid="uid://c1kanb7wy7l6u" path="res://assets/logo.png" id="2_crsvy"]
 [ext_resource type="PackedScene" uid="uid://cfjumnaqf88s3" path="res://scenes/lobby/foreground/room/RoomTemplate.tscn" id="3_3knor"]
+[ext_resource type="FontVariation" uid="uid://hwc3xdnlf3ke" path="res://assets/font/_variants/pro450.tres" id="4_yf52t"]
+[ext_resource type="Script" uid="uid://dyad1l4xw802a" path="res://scenes/lobby/foreground/debug_info.gd" id="5_j6gyg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crsvy"]
 shader = ExtResource("1_t71vb")
@@ -15,6 +17,13 @@ content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 draw_center = false
+
+[sub_resource type="LabelSettings" id="LabelSettings_j6gyg"]
+font = ExtResource("4_yf52t")
+font_size = 20
+font_color = Color(0.8862615, 0.8862615, 0.88626134, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 0.5647059)
 
 [node name="Foreground" type="CanvasLayer"]
 
@@ -72,3 +81,17 @@ layout_mode = 2
 
 [node name="RoomTemplate3" parent="VBoxContainer/PanelContainer/ScrollContainer/Rooms" instance=ExtResource("3_3knor")]
 layout_mode = 2
+
+[node name="DebugInfo" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -191.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 64.25
+grow_horizontal = 0
+text = "MPMap Redrawn %s"
+label_settings = SubResource("LabelSettings_j6gyg")
+horizontal_alignment = 2
+script = ExtResource("5_j6gyg")
