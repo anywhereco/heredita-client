@@ -1,0 +1,9 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://dci33svbxkhv6"]
+
+[ext_resource type="FontFile" uid="uid://ds8yjjhtwbjxi" path="res://assets/font/fonts/CrimsonProperBold.ttf" id="1_v0wub"]
+
+[resource]
+base_font = ExtResource("1_v0wub")
+variation_opentype = {
+2003265652: 650
+}

@@ -1,0 +1,43 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="MPMap"
+config/version="0.14.0"
+run/main_scene="uid://bxwiva1eghxgy"
+config/features=PackedStringArray("4.5", "GL Compatibility")
+
+[autoload]
+
+Prompts="*res://libraries/Prompts.gd"
+LocalStorage="*res://libraries/LocalStorage.gd"
+QueryParams="*res://libraries/QueryParams.gd"
+State="*res://singletons/state/state.gd"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=480
+window/stretch/aspect="ignore"
+
+[editor]
+
+movie_writer/movie_file="/home/infernity/Godot/MPMap-Redrawn/vidya.avi"
+
+[gui]
+
+theme/custom="uid://csm3q8ve108a8"
+theme/custom_font="uid://hwc3xdnlf3ke"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
