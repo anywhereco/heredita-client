@@ -12,7 +12,7 @@ font_size = 15
 font_color = Color(1, 1, 1, 0.68235296)
 
 [node name="RoomTemplate" type="PanelContainer"]
-custom_minimum_size = Vector2(320, 44)
+custom_minimum_size = Vector2(480, 44)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -30,15 +30,13 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Elements"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.05
+size_flags_horizontal = 0
 alignment = 1
 
 [node name="Title" type="Label" parent="Elements/VBoxContainer"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.0
+size_flags_horizontal = 0
 text = "Long title... abc def ghi"
 text_overrun_behavior = 3
 
@@ -66,3 +64,6 @@ text_overrun_behavior = 3
 [node name="Button" type="Button" parent="Elements"]
 layout_mode = 2
 text = " Join "
+
+[node name="Rightpad" type="Control" parent="Elements"]
+layout_mode = 2
