@@ -2,4 +2,6 @@
 
 [node name="Editor" type="Node2D"]
 
+[node name="Map" type="Sprite2D" parent="."]
+
 [node name="UI" type="CanvasLayer" parent="."]
