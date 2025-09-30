@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dayrr5lupf1h2"]
+
+[ext_resource type="Shader" uid="uid://ds1kxrif2lqy" path="res://scenes/mapper/ui/glass.gdshader" id="1_o7r8c"]
+
+[resource]
+shader = ExtResource("1_o7r8c")
+shader_parameter/strength = 3.3
+shader_parameter/mix_percentage = 0.4530000215175

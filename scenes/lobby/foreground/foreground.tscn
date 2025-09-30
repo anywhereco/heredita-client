@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://co8osnbupcqjm"]
+[gd_scene load_steps=10 format=3 uid="uid://co8osnbupcqjm"]
 
 [ext_resource type="Shader" uid="uid://h6ps2oq513j8" path="res://scenes/lobby/foreground/background_blur.gdshader" id="1_t71vb"]
 [ext_resource type="Texture2D" uid="uid://c1kanb7wy7l6u" path="res://assets/logo.png" id="2_crsvy"]
 [ext_resource type="PackedScene" uid="uid://cfjumnaqf88s3" path="res://scenes/lobby/foreground/room/RoomTemplate.tscn" id="3_3knor"]
 [ext_resource type="FontVariation" uid="uid://hwc3xdnlf3ke" path="res://assets/font/_variants/pro450.tres" id="4_yf52t"]
 [ext_resource type="Script" uid="uid://dyad1l4xw802a" path="res://scenes/lobby/foreground/debug_info.gd" id="5_j6gyg"]
+[ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/lobby/foreground/temporary_mapper_opener.gd" id="6_6ju32"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crsvy"]
 shader = ExtResource("1_t71vb")
@@ -95,3 +96,11 @@ text = "MPMap Redrawn %s"
 label_settings = SubResource("LabelSettings_j6gyg")
 horizontal_alignment = 2
 script = ExtResource("5_j6gyg")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 22.0
+offset_top = 77.0
+offset_right = 245.0
+offset_bottom = 107.0
+text = "[Temporary] Open Mapper UI"
+script = ExtResource("6_6ju32")

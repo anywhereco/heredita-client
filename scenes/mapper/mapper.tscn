@@ -1,7 +1,233 @@
-[gd_scene format=3 uid="uid://bxwxbcrvqou86"]
+[gd_scene load_steps=11 format=3 uid="uid://bxwxbcrvqou86"]
+
+[ext_resource type="Texture2D" uid="uid://do2qcumlvx0lo" path="res://assets/map.png" id="1_5rw7w"]
+[ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/mapper/ui/glass.tres" id="1_agl36"]
+[ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="3_hddsb"]
+[ext_resource type="Script" uid="uid://cobvlsshktn31" path="res://scenes/mapper/tab_scroll_bar.gd" id="4_rficw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hddsb"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.19215687)
+border_color = Color(1, 1, 1, 0.54509807)
+corner_radius_bottom_right = 15
+corner_detail = 1
+anti_aliasing = false
+anti_aliasing_size = 0.01
+
+[sub_resource type="LabelSettings" id="LabelSettings_khegr"]
+font = ExtResource("3_hddsb")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_hxqh0"]
+font_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5rw7w"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+bg_color = Color(0, 0, 0, 0.19215687)
+border_color = Color(1, 1, 1, 0.54509807)
+corner_radius_top_left = 15
+corner_detail = 1
+anti_aliasing = false
+anti_aliasing_size = 0.01
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rficw"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.19215687)
+border_color = Color(1, 1, 1, 0.54509807)
+corner_detail = 1
+anti_aliasing = false
+anti_aliasing_size = 0.01
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_khegr"]
+bg_color = Color(0, 0, 0, 0.19215687)
+border_color = Color(1, 1, 1, 0.54509807)
+corner_detail = 1
+anti_aliasing = false
+anti_aliasing_size = 0.01
 
 [node name="Editor" type="Node2D"]
 
+[node name="Camera2D" type="Camera2D" parent="."]
+
 [node name="Map" type="Sprite2D" parent="."]
+texture = ExtResource("1_5rw7w")
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DateAgeBox" type="PanelContainer" parent="UI"]
+material = ExtResource("1_agl36")
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 230.0
+offset_bottom = 55.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hddsb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DateAgeBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Time" type="Label" parent="UI/DateAgeBox/VBoxContainer"]
+layout_mode = 2
+text = "December 31st, 9999 BC"
+label_settings = SubResource("LabelSettings_khegr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/DateAgeBox/VBoxContainer"]
+layout_mode = 2
+
+[node name="AgeLabel" type="Label" parent="UI/DateAgeBox/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Age of Something or Another"
+label_settings = SubResource("LabelSettings_hxqh0")
+
+[node name="Lore" type="Button" parent="UI/DateAgeBox/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FlatUnpaddedButton"
+theme_override_font_sizes/font_size = 11
+text = "  Lore"
+flat = true
+
+[node name="LargePadding" type="Control" parent="UI/DateAgeBox/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Close" type="Button" parent="UI/DateAgeBox/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FlatUnpaddedButton"
+theme_override_font_sizes/font_size = 11
+text = "<-    "
+flat = true
+
+[node name="ChatSplit" type="HSplitContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+dragger_visibility = 1
+drag_area_offset = 3
+drag_area_highlight_in_editor = true
+
+[node name="Empty" type="Control" parent="UI/ChatSplit"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_behavior_recursive = 1
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ChatSplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="TopBar" type="PanelContainer" parent="UI/ChatSplit/VBoxContainer"]
+material = ExtResource("1_agl36")
+custom_minimum_size = Vector2(135, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5rw7w")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ChatSplit/VBoxContainer/TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/ChatSplit/VBoxContainer/TopBar/VBoxContainer"]
+layout_mode = 2
+
+[node name="Close" type="Button" parent="UI/ChatSplit/VBoxContainer/TopBar/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FlatUnpaddedButton"
+theme_override_font_sizes/font_size = 11
+text = "->"
+flat = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ChatSplit/VBoxContainer/TopBar/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TabScrollBar" type="HScrollBar" parent="UI/ChatSplit/VBoxContainer/TopBar/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("4_rficw")
+
+[node name="TabScroll" type="ScrollContainer" parent="UI/ChatSplit/VBoxContainer/TopBar/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+scroll_deadzone = 3
+
+[node name="TabBar" type="TabBar" parent="UI/ChatSplit/VBoxContainer/TopBar/VBoxContainer/HBoxContainer/VBoxContainer/TabScroll"]
+layout_mode = 2
+current_tab = 0
+clip_tabs = false
+close_with_middle_mouse = false
+tab_close_display_policy = 1
+tab_count = 3
+tab_0/title = "Main"
+tab_1/title = "Main 2"
+tab_2/title = "Main 2 2"
+
+[node name="ChatBox" type="PanelContainer" parent="UI/ChatSplit/VBoxContainer"]
+material = ExtResource("1_agl36")
+custom_minimum_size = Vector2(135, 25)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_rficw")
+
+[node name="BottomPanel" type="PanelContainer" parent="UI/ChatSplit/VBoxContainer"]
+material = ExtResource("1_agl36")
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_khegr")
+
+[node name="FoldableContainer" type="FoldableContainer" parent="UI/ChatSplit/VBoxContainer/BottomPanel"]
+layout_mode = 2
+theme_type_variation = &"TransparentFoldableContainer"
+folded = true
+title = "8 in room"
+
+[node name="HFlowContainer" type="HFlowContainer" parent="UI/ChatSplit/VBoxContainer/BottomPanel/FoldableContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/ChatSplit/VBoxContainer/BottomPanel/FoldableContainer/HFlowContainer"]
+layout_mode = 2
+text = "User1"
+
+[node name="Label2" type="Label" parent="UI/ChatSplit/VBoxContainer/BottomPanel/FoldableContainer/HFlowContainer"]
+layout_mode = 2
+text = "User1"
+
+[node name="Label3" type="Label" parent="UI/ChatSplit/VBoxContainer/BottomPanel/FoldableContainer/HFlowContainer"]
+layout_mode = 2
+text = "User1"
+
+[node name="Label4" type="Label" parent="UI/ChatSplit/VBoxContainer/BottomPanel/FoldableContainer/HFlowContainer"]
+layout_mode = 2
+text = "User1"
+
+[node name="Label5" type="Label" parent="UI/ChatSplit/VBoxContainer/BottomPanel/FoldableContainer/HFlowContainer"]
+layout_mode = 2
+text = "User1"
+
+[node name="Label6" type="Label" parent="UI/ChatSplit/VBoxContainer/BottomPanel/FoldableContainer/HFlowContainer"]
+layout_mode = 2
+text = "User1"
+
+[node name="Label7" type="Label" parent="UI/ChatSplit/VBoxContainer/BottomPanel/FoldableContainer/HFlowContainer"]
+layout_mode = 2
+text = "User1"
+
+[node name="Label8" type="Label" parent="UI/ChatSplit/VBoxContainer/BottomPanel/FoldableContainer/HFlowContainer"]
+layout_mode = 2
+text = "User1"
