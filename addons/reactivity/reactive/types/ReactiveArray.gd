@@ -3,6 +3,9 @@ extends Reactive
 
 var value: Array : set = _set_value
 
+static func of_elements(...args: Array) -> ReactiveArray:
+	return new(args)
+
 func _set_value(new_value: Array):
 	value = new_value
 	value_changed.emit(self)
@@ -11,7 +14,6 @@ func _set_value(new_value: Array):
 func _init(initial_value: Array, initial_owner: Reactive = null) -> void:
 	super._init(initial_owner)
 	value = initial_value
-
 
 func get_at(i : int) -> Variant:
 	return value[i]
