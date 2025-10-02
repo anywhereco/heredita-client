@@ -1,47 +1,55 @@
 extends Node
 
-## Should include the http at the start, so e.g. "https://verycoolservice.infernity.dev"
-## Should not include the trailing slash.
-var http_server = ""
-
-## The token that thee HTTP service should use.
-var http_token = ""
-
 enum HTTPResult {
 	SUCCESSFUL,
-	UNREACHABLE,
+	INVALID,
 	FAILED_REQUEST,
 	BAD_RESPONSE
 }
 
-func request(endpoint,method,auth=null,query_params={},response_body_required=true) -> Result:
-	var req = HTTPRequest.new()
+func _create_url(domain: String, endpoint: String, parameters: Dictionary[String, Variant]) -> String:
+	if not domain.begins_with("http"):
+		domain = "https://" + domain
+	if not endpoint.ends_with("/"):
+		endpoint += "/"
+	var url := domain + "/" + endpoint
+	var query_string := ""
+	for key in parameters:
+		if query_string.is_empty():
+			query_string += ("?" + key.uri_encode() + "=" + str(parameters[key]).uri_encode())
+		else:
+			query_string += ("&" + key.uri_encode() + "=" + str(parameters[key]).uri_encode())
+	return url + query_string
+
+func request(
+			domain: String,
+			endpoint: String,
+			method: HTTPClient.Method = HTTPClient.METHOD_GET,
+			auth: String = "",
+			query_params: Dictionary[String, Variant] = {},
+			response_body_required: bool = true) -> Result:
+	
+	var req := HTTPRequest.new()
 	add_child(req)
-	req.request_completed.connect(req.queue_free.unbind(4))
+	req.request_completed.connect(req.queue_free)
 	
-	#var request_url = http_server+"/"+endpoint
-	var request_url = endpoint
-	var first_param = true
-	for key in query_params:
-		request_url += (("?" if first_param else "&") +
-						str(key).uri_encode() + "=" + str(query_params[key]).uri_encode())
-		first_param = false
+	var url := _create_url(domain, endpoint, query_params)
 	
-	var error = OK
+	var error := OK
 	if auth:
-		error = req.request(request_url, ["Authorization: Bearer %s" % http_token], method)
+		error = req.request(url, ["Authorization: Bearer " + auth], method)
 	else:
-		error = req.request(request_url, [], method)
+		error = req.request(url, [], method)
 		
 	if error != OK:
-		return Result.err(HTTPResult.UNREACHABLE)
+		return Result.err(HTTPResult.INVALID)
 	
 	var request_outcome = await req.request_completed
 	
-	var result = request_outcome[0]
-	var _response_code = request_outcome[1]
-	var _headers = request_outcome[2]
-	var body = request_outcome[3]
+	var result: int = request_outcome[0]
+	var _response_code: int = request_outcome[1]
+	var _headers: PackedStringArray = request_outcome[2]
+	var body: PackedByteArray = request_outcome[3]
 
 	if result != HTTPRequest.RESULT_SUCCESS:
 		return Result.err(HTTPResult.FAILED_REQUEST)
