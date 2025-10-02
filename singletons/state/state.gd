@@ -24,6 +24,8 @@ const ROOT_WINDOW_SCRIPT: Script = preload("res://singletons/state/window_notifi
 ## Warning: Do not use this scale for most things; only use it if you need an assured size for something nonessential.
 @onready var stretch_scale: float = _calculate_stretch_scale()
 
+var user: UserAccount
+
 func _ready() -> void:
 	root_window.set_script(ROOT_WINDOW_SCRIPT)
 	root_window.content_scale_factor = display_server_recommended_scale

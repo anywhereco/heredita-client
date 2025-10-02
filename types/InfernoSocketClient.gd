@@ -196,11 +196,11 @@ func _poll_string(message: Dictionary):
 				attempts_label.text = "%d attempts remaining" % _attempts
 				return
 			"_is2_username":
-				send("_is2_username", Globals.username)
+				send("_is2_username", State.user.name)
 				return
 			"_is2_token":
 				var token_res = LocalStorage.get_item("token")
-				if token_res.is_err() or not Globals.logged_in:
+				if token_res.is_err() or not State.user.is_account:
 					send("_is2_token", "")
 				send("_is2_token", token_res.val())
 				return
