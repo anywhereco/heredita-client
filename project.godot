@@ -33,6 +33,10 @@ window/stretch/aspect="ignore"
 
 movie_writer/movie_file="/home/infernity/Godot/MPMap-Redrawn/vidya.avi"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/reactivity/plugin.cfg")
+
 [gui]
 
 theme/custom="uid://csm3q8ve108a8"
