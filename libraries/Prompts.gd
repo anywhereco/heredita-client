@@ -1,7 +1,7 @@
 ## Library for creating prompt windows.
 extends Node
 
-@onready var _window_root = get_node('/root')  
+@onready var _window_root := get_node('/root')  
 
 ## The override UI.
 ##
@@ -10,10 +10,10 @@ extends Node
 var override_ui: Node
 
 ## If the user is currently already in a prompt.
-var in_prompt = false
+var in_prompt := false
 
 ## The prompt the user is in, or null if they are not in a prompt.
-var prompt: _Prompt = null
+var prompt: PromptInstance = null
 
 enum PromptCreationResult {
 	SUCCESSFUL,
@@ -30,8 +30,8 @@ enum PromptActionResult {
 func new_fullscreen_prompt(force: bool = false) -> Result:
 	if in_prompt and not force:
 		return Result.err(PromptCreationResult.IN_PROMPT)
-	var prompt_inst = preload("res://libraries/ui/prompt/Prompt.tscn").instantiate()
-	var ui = null
+	var prompt_inst := preload("res://libraries/ui/prompt/Prompt.tscn").instantiate()
+	var ui: Node = null
 	
 	if override_ui != null:
 		ui = override_ui

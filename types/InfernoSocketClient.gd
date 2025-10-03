@@ -2,7 +2,7 @@
 class_name InfernoSocketClient
 extends Node
 
-var return_handshake = {
+var return_handshake := {
 	"infernosocket_version" = [2, 1],
 	"software_version" = ProjectSettings.get_setting_with_override("application/config/version") 
 }
@@ -19,11 +19,11 @@ const PING_INTERVAL: float = 60
 var socket := WebSocketPeer.new()
 var last_state := WebSocketPeer.STATE_CLOSED
 var user_id: int = -2 # -1 is reserved for the server, so we default to -2
-var host = -2
+var host := -2
 
-var _prompt
-var _prompt_instance
-var _attempts = 5
+var _prompt: PromptInstance
+var _prompt_instance: Node
+var _attempts := 5
 
 var room_name: String
 var description: String
@@ -44,23 +44,23 @@ signal raw_message_received(string: String)
 
 signal raw_message_sent(string: String)
 
-func _init(url: String = ""):
+func _init(url: String = "") -> void:
 	websocket_url = url
 
-func _ready():
-	var err = self.connect_to_url(websocket_url)
+func _ready() -> void:
+	var err := self.connect_to_url(websocket_url)
 	if err != OK:
 		print("Unable to connect")
 		set_process(false)
 	
 
 #region Encode and Decode
-func _encode_data(value):
+func _encode_data(value: Variant) -> String:
 	return JSON.stringify(value)
 
-func _decode_data(string) -> Result:
-	var json = JSON.new()
-	var error = json.parse(string)
+func _decode_data(string: String) -> Result:
+	var json := JSON.new()
+	var error := json.parse(string)
 	if error != OK:
 		return Result.err(error)
 	return Result.ok(json.data)
@@ -78,7 +78,7 @@ func connect_to_url(url: String) -> int:
 	return OK
 
 func send(event: String, message: Variant = null) -> int:
-	var data = _encode_data({
+	var data := _encode_data({
 		"event": event,
 		"details": message,
 	})
@@ -89,11 +89,11 @@ func send_binary(event: int, target: int, message: PackedByteArray = PackedByteA
 	assert(event >= 0 and event <= 65535, "The event value should fit within a 16-bit int")
 	assert(target >= -32768 and target <= 32767, "The target value should fit within a 16-bit signed int")
 	raw_message_sent.emit("<Binary event %d>" % event)
-	var compression_size = 0xFFFF # Compression disabled
+	var compression_size := 0xFFFF # Compression disabled
 	if compress:
 		compression_size = len(message)
 		message = message.compress(FileAccess.COMPRESSION_FASTLZ)
-	var bytes = PackedByteArray()
+	var bytes := PackedByteArray()
 	bytes.resize(6)
 	bytes.encode_u16(0, event)
 	bytes.encode_s16(2, target)
@@ -121,10 +121,10 @@ func clear() -> void:
 func get_socket() -> WebSocketPeer:
 	return socket
 
-func int_keys(dict):
-	var new_dict = {}
-	for key in dict:
-		new_dict[int(key)] = dict[key]
+func int_keys(dict: Dictionary) -> Dictionary[int, Variant]:
+	var new_dict: Dictionary[int, Variant] = {}
+	for key: Variant in dict:
+		new_dict[key as int] = dict[key]
 	return new_dict
 
 #region Polling
@@ -143,23 +143,24 @@ func poll() -> void:
 	while socket.get_ready_state() == socket.STATE_OPEN and socket.get_available_packet_count():
 		_poll_loop()
 
-func _poll_loop():
-	var message_raw = get_message_raw()
-	var message_res: Result
+func _poll_loop() -> void:
+	var message_raw: Variant = get_message_raw()
 	if message_raw is String:
 		raw_message_received.emit(message_raw)
-		message_res = _decode_data(message_raw)
+		var message_res := _decode_data(message_raw as String) # Godot, I promise you this String is a String. I swear.
 		if message_res.is_err():
 			return
-		_poll_string(message_res.val())
+		_poll_string(message_res.val() as Dictionary)
 	else:
 		if message_raw == null:
 			return
 		_poll_binary(message_raw as PackedByteArray)
 
-func _poll_string(message: Dictionary):
+func _poll_string(message: Dictionary) -> void:
+	if message == null:
+		return
 	if message.has("event") and message.has("user_id"):
-		message["user_id"] = int(message["user_id"])
+		message["user_id"] = message["user_id"] as int
 		if message["user_id"] != -1:
 			message_received.emit(message["event"], message["user_id"], message.get("details", null))
 			return
@@ -168,17 +169,17 @@ func _poll_string(message: Dictionary):
 				send("_is2_room_info")
 				return
 			"_is2_room_info":
-				user_id = int(message.get("details").get("user_id"))
+				user_id = message.get("details").get("user_id") as int
 				host = message.get("details").get("host")
 				return
 			"_is2_login":
 				_prompt_instance = load("res://types/ui/PasswordPrompt.tscn").instantiate()
 				(_prompt_instance.find_child("PasswordEdit") as LineEdit).text_submitted.connect(
-					func password_attempt(pwd):
-					send("_is2_password_attempt", pwd)
+					func password_attempt(pwd: String) -> void:
+						send("_is2_password_attempt", pwd)
 				)
-				_prompt = Prompts.new_fullscreen_prompt()
-				if _prompt.is_err():
+				var _prompt_res := Prompts.new_fullscreen_prompt()
+				if _prompt_res.is_err():
 					close(1006, "Could not create login prompt, aborting")
 				_prompt = _prompt.val()
 				_prompt.add_child(_prompt_instance)
@@ -199,7 +200,7 @@ func _poll_string(message: Dictionary):
 				send("_is2_username", State.user.name)
 				return
 			"_is2_token":
-				var token_res = LocalStorage.get_item("token")
+				var token_res: Variant = LocalStorage.get_item("token")
 				if token_res.is_err() or not State.user.is_account:
 					send("_is2_token", "")
 				send("_is2_token", token_res.val())
@@ -208,11 +209,11 @@ func _poll_string(message: Dictionary):
 				room_name = message.get("details").get("name")
 				description = message.get("details").get("description")
 				room_state = message.get("details").get("state")
-				users = int_keys(message.get("details").get("users"))
+				users = int_keys(message.get("details").get("users") as Dictionary)
 				handshake_complete.emit()
 				return
 			"_is2_user_join":
-				users[int(message.get("details").get("user_id"))] = message.get("details").get("details")
+				users[message.get("details").get("user_id") as int] = message.get("details").get("details")
 				message_received.emit("is2_user_join", -1, message.get("details"))
 				return
 			"_is2_user_exit":
@@ -228,11 +229,11 @@ func _poll_string(message: Dictionary):
 			_:
 				message_received.emit(message["event"], message["user_id"], message.get("details", null))
 
-func _poll_binary(message: PackedByteArray):
-	var event = message.decode_u16(0)
-	var uid = message.decode_s16(2)
-	var size = message.decode_u16(4)
-	var data = message.slice(6)
+func _poll_binary(message: PackedByteArray) -> void:
+	var event := message.decode_u16(0)
+	var uid := message.decode_s16(2)
+	var size := message.decode_u16(4)
+	var data := message.slice(6)
 	raw_message_received.emit("<Binary event %d, \"userid\"=%d>" % [event, uid])
 	if size != 0xFFFF:
 		data = data.decompress(size, FileAccess.COMPRESSION_FASTLZ)

@@ -25,11 +25,11 @@ func _load_rooms() -> void:
 		pass
 		add_child(RoomTemplate.of(
 			self,
-			room["id"],
-			room["name"],
-			room["description"],
-			room["player_count"],
-			room["player_limit"]
+			room["id"] as String,
+			room["name"] as String,
+			room["description"] as String,
+			room["player_count"] as int,
+			room["player_limit"] as int
 		))
 	move_child(create, -1)
 	loading_placeholder.hide()

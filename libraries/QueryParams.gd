@@ -1,7 +1,7 @@
 extends Node
 
-var location = JavaScriptBridge.get_interface("location") if OS.has_feature("web") else null
-var params = JavaScriptBridge.create_object("URLSearchParams", location.search) if OS.has_feature("web") else null
+var location := JavaScriptBridge.get_interface("location") if OS.has_feature("web") else null
+var params: JavaScriptObject = JavaScriptBridge.create_object("URLSearchParams", location.search) if OS.has_feature("web") else null
 
 enum QueryParamResult {
 	SUCCESSFUL,

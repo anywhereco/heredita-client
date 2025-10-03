@@ -44,7 +44,7 @@ func request(
 	if error != OK:
 		return Result.err(HTTPResult.INVALID)
 	
-	var request_outcome = await req.request_completed
+	var request_outcome: Array = await req.request_completed
 	
 	var result: int = request_outcome[0]
 	var _response_code: int = request_outcome[1]
@@ -54,9 +54,9 @@ func request(
 	if result != HTTPRequest.RESULT_SUCCESS:
 		return Result.err(HTTPResult.FAILED_REQUEST)
 		
-	var json = JSON.new()
+	var json := JSON.new()
 	json.parse(body.get_string_from_utf8())
-	var response = json.get_data()
+	var response: Variant = json.get_data()
 	
 	if response == null and response_body_required:
 		return Result.err(HTTPResult.BAD_RESPONSE)

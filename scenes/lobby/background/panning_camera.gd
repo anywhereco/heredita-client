@@ -9,8 +9,8 @@ var t: float = 0.0
 func _process(delta: float) -> void: 
 	t += delta * (1/seconds_per_loop) * TAU
 
-	var x = radius * sin(t) * 1.6
-	var y = radius * sin(t) * cos(t)
+	var x := radius * sin(t) * 1.6
+	var y := radius * sin(t) * cos(t)
 
 	global_position = Vector2(x, y)
 

@@ -14,18 +14,17 @@ var handler: RoomHandler
 @onready var description: Label = %Description
 @onready var player_count: Label = %PlayerCount
 
-@warning_ignore("shadowed_variable") # This is static, so shadowing doesn't matter
-static func of(handler: RoomHandler,
-			   lobby_id: String,
-			   title: String,
+static func of(handler_: RoomHandler,
+			   lobby_id_: String,
+			   title_: String,
 			   desc: String,
 			   players: int,
 			   max_players: int) -> RoomTemplate:
 	var inst: RoomTemplate = ROOM_TEMPLATE.instantiate()
-	inst._readied.connect(func():
-		inst.handler = handler
-		inst.lobby_id = lobby_id
-		inst.title.text = title
+	inst._readied.connect(func() -> void:
+		inst.handler = handler_
+		inst.lobby_id = lobby_id_
+		inst.title.text = title_
 		inst.description.text = desc
 		inst.player_count.text = "%d/%d" % [players, max_players]
 	)

@@ -1,12 +1,12 @@
 extends Node
 
-func bb_escape(bbcode_text): #technically not a markdown function but theres no better place to put it
+func bb_escape(bbcode_text: String) -> String: #technically not a markdown function but theres no better place to put it
 	return bbcode_text.replace("[", "[lb]")
 
-func parse_markdown(text: String):
-	var idx = 0
-	var parsed = {t="text",c=[""],p=null,i=null} #type, content, parent
-	var current_layer = parsed
+func parse_markdown(text: String) -> Dictionary:
+	var idx := 0
+	var parsed := {t="text",c=[""],p=null,i=null} #type, content, parent
+	var current_layer := parsed
 	while idx < len(text):
 		if text[idx] == "*":
 			if current_layer.t == "italics":
