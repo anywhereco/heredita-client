@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=46 format=3 uid="uid://csm3q8ve108a8"]
+[gd_resource type="Theme" load_steps=50 format=3 uid="uid://csm3q8ve108a8"]
 
 [ext_resource type="FontVariation" uid="uid://hwc3xdnlf3ke" path="res://assets/font/_variants/pro450.tres" id="1_e8htd"]
 [ext_resource type="Texture2D" uid="uid://b5l2iegic583f" path="res://assets/theme_assets/check.png" id="2_f5r8q"]
@@ -232,6 +232,66 @@ expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bcf2e"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7666192, 0.7666196, 0.76661956, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7g2p0"]
+bg_color = Color(0.6784314, 0.6784314, 0.6784314, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6419338, 0.64193404, 0.641934, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_357y2"]
+bg_color = Color(0.8745098, 0.8745098, 0.8745098, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.91228896, 0.9122889, 0.91228884, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llqld"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.69965345, 0.69965345, 0.69965345, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+anti_aliasing = false
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e8htd"]
 content_margin_left = 2.0
 content_margin_top = 2.0
@@ -382,10 +442,10 @@ Panel/styles/panel = SubResource("StyleBoxFlat_0dftj")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_h5t51")
 Prompt/base_type = &"Panel"
 Prompt/styles/panel = SubResource("StyleBoxFlat_c03rl")
-RichTextLabel/font_sizes/bold_font_size = 18
-RichTextLabel/font_sizes/bold_italics_font_size = 18
-RichTextLabel/font_sizes/italics_font_size = 18
-RichTextLabel/font_sizes/normal_font_size = 18
+RichTextLabel/font_sizes/bold_font_size = 16
+RichTextLabel/font_sizes/bold_italics_font_size = 16
+RichTextLabel/font_sizes/italics_font_size = 16
+RichTextLabel/font_sizes/normal_font_size = 16
 RichTextLabel/fonts/bold_font = ExtResource("3_wms38")
 RichTextLabel/fonts/bold_italics_font = ExtResource("4_e8htd")
 RichTextLabel/fonts/italics_font = ExtResource("5_wms38")
@@ -396,8 +456,15 @@ TextEdit/font_sizes/font_size = 18
 TextEdit/fonts/font = ExtResource("1_e8htd")
 ToolButton/base_type = &"Button"
 ToolButton/colors/icon_disabled_color = Color(0.419813, 0.419813, 0.419813, 1)
-ToolButton/colors/icon_normal_color = Color(0.796243, 0.796243, 0.796243, 1)
-ToolButton/constants/icon_max_width = 40
+ToolButton/colors/icon_hover_color = Color(0.7647059, 0.7647059, 0.7647059, 1)
+ToolButton/colors/icon_hover_pressed_color = Color(0.6431373, 0.6431373, 0.6431373, 1)
+ToolButton/colors/icon_normal_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
+ToolButton/colors/icon_pressed_color = Color(0.69803923, 0.69803923, 0.69803923, 1)
+ToolButton/constants/icon_max_width = 32
+ToolButton/styles/hover = SubResource("StyleBoxFlat_bcf2e")
+ToolButton/styles/hover_pressed = SubResource("StyleBoxFlat_7g2p0")
+ToolButton/styles/normal = SubResource("StyleBoxFlat_357y2")
+ToolButton/styles/pressed = SubResource("StyleBoxFlat_llqld")
 TransparentFoldableContainer/base_type = &"FoldableContainer"
 TransparentFoldableContainer/styles/panel = SubResource("StyleBoxFlat_e8htd")
 TransparentFoldableContainer/styles/title_collapsed_hover_panel = SubResource("StyleBoxFlat_wms38")
