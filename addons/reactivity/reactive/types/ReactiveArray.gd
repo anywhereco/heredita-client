@@ -25,7 +25,6 @@ func set_at(i : int, v : Variant) -> void:
 func append(v : Variant) -> void:
 	value.append(v)
 	value_changed.emit(self)
-	
 
 func append_array(array : Array) -> void:
 	value.append_array(array)
