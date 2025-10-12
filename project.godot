@@ -42,6 +42,17 @@ movie_writer/movie_file="/home/infernity/Godot/MPMap-Redrawn/vidya.avi"
 
 enabled=PackedStringArray("res://addons/reactivity/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "gray",
+"res://assets/": "blue",
+"res://libraries/": "purple",
+"res://scenes/": "orange",
+"res://singletons/": "pink",
+"res://types/": "red"
+}
+
 [gui]
 
 theme/custom="uid://csm3q8ve108a8"
