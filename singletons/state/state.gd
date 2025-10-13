@@ -55,10 +55,10 @@ func _root_window_notifications(notif: int) -> void:
 			_root_window_rescaled_or_moved()
 
 func _root_window_rescaled_or_moved() -> void:
-	var prev_scale := scale
+	var prev_scale := scale.value
 	scale.value = _calculate_true_scale()
-	display_server_recommended_scale.value = DisplayServer.screen_get_scale(DisplayServer.SCREEN_OF_MAIN_WINDOW)
-	if prev_scale != scale:
+	display_server_recommended_scale.value = DisplayServer.screen_get_scale(DisplayServer.SCREEN_OF_MAIN_WINDOW) 
+	if prev_scale != scale.value:
 		root_window.content_scale_factor = scale.value
 	stretch_scale.value = _calculate_stretch_scale()
 	root_window_moved_or_resized.emit()
