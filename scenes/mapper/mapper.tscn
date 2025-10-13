@@ -1,13 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://bxwxbcrvqou86"]
+[gd_scene load_steps=21 format=3 uid="uid://bxwxbcrvqou86"]
 
 [ext_resource type="Texture2D" uid="uid://do2qcumlvx0lo" path="res://assets/map.png" id="1_5rw7w"]
 [ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/mapper/ui/glass.tres" id="1_agl36"]
 [ext_resource type="Script" uid="uid://cgdhk47tsamdl" path="res://scenes/mapper/mapper.gd" id="1_khegr"]
 [ext_resource type="Script" uid="uid://i3124dmjaoj6" path="res://scenes/mapper/right_items.gd" id="3_2upvi"]
+[ext_resource type="Script" uid="uid://clxj0fu6d2g3r" path="res://scenes/mapper/MapPanning.gd" id="3_grkin"]
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="3_hddsb"]
 [ext_resource type="Script" uid="uid://cobvlsshktn31" path="res://scenes/mapper/tab_scroll_bar.gd" id="4_rficw"]
 [ext_resource type="Texture2D" uid="uid://bf21ocaw21o0l" path="res://assets/icons/send.svg" id="5_rficw"]
 [ext_resource type="Texture2D" uid="uid://b75i52xuegece" path="res://assets/icons/tools/brush.svg" id="7_hxqh0"]
+[ext_resource type="Script" uid="uid://cyue2b6ml14cg" path="res://scenes/mapper/tool_changer.gd" id="9_xodf2"]
+[ext_resource type="Script" uid="uid://c3107fy0fo6nv" path="res://scenes/mapper/tool_ui.gd" id="10_keouw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5rw7w"]
 content_margin_left = 5.0
@@ -71,6 +74,9 @@ anti_aliasing_size = 0.01
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_grkin"]
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xodf2"]
+size = Vector2(64, 64)
+
 [node name="Mapper" type="Node2D"]
 script = ExtResource("1_khegr")
 
@@ -78,6 +84,7 @@ script = ExtResource("1_khegr")
 
 [node name="Map" type="Sprite2D" parent="."]
 texture = ExtResource("1_5rw7w")
+script = ExtResource("3_grkin")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -318,6 +325,7 @@ flat = true
 
 [node name="MenuItems" type="HBoxContainer" parent="UI/LeftItems/Toolkit/VBoxContainer"]
 layout_mode = 2
+script = ExtResource("9_xodf2")
 
 [node name="LeftTools" type="VBoxContainer" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
@@ -329,26 +337,26 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("7_hxqh0")
 
-[node name="Brush2" type="Button" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems/LeftTools"]
+[node name="Fill" type="Button" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems/LeftTools"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
-icon = ExtResource("7_hxqh0")
+icon = SubResource("PlaceholderTexture2D_xodf2")
 
-[node name="Brush3" type="Button" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems/LeftTools"]
+[node name="Line" type="Button" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems/LeftTools"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
-icon = ExtResource("7_hxqh0")
+icon = SubResource("PlaceholderTexture2D_xodf2")
 
-[node name="Brush4" type="Button" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems/LeftTools"]
+[node name="Pick" type="Button" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems/LeftTools"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
-icon = ExtResource("7_hxqh0")
+icon = SubResource("PlaceholderTexture2D_xodf2")
 
 [node name="RightTools" type="VBoxContainer" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
@@ -357,33 +365,33 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 4)
 layout_mode = 2
 
-[node name="Brush4" type="Button" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
+[node name="Inspect" type="Button" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
-icon = ExtResource("7_hxqh0")
+icon = SubResource("PlaceholderTexture2D_xodf2")
 
-[node name="Brush5" type="Button" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
+[node name="Pan" type="Button" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
-icon = ExtResource("7_hxqh0")
+icon = SubResource("PlaceholderTexture2D_xodf2")
 
-[node name="Brush6" type="Button" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
+[node name="Marking" type="Button" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
-icon = ExtResource("7_hxqh0")
+icon = SubResource("PlaceholderTexture2D_xodf2")
 
-[node name="Brush7" type="Button" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
+[node name="Select" type="Button" parent="UI/LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
-icon = ExtResource("7_hxqh0")
+icon = SubResource("PlaceholderTexture2D_xodf2")
 
 [node name="LargePadding" type="Control" parent="UI/LeftItems"]
 layout_mode = 2
@@ -395,6 +403,7 @@ material = ExtResource("1_agl36")
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_2upvi")
+script = ExtResource("10_keouw")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/LeftItems/ToolUI"]
 custom_minimum_size = Vector2(160, 200)
@@ -403,7 +412,8 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/LeftItems/ToolUI/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/LeftItems/ToolUI/VBoxContainer/HBoxContainer"]
+[node name="Title" type="Label" parent="UI/LeftItems/ToolUI/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Tool Name"
