@@ -1,7 +1,7 @@
 extends Sprite2D
 
 func _ready() -> void:
-	State.root_window_moved_or_resized.connect(rescale)
+	State.stretch_scale.value_changed.connect(rescale)
 
-func rescale() -> void:
-	scale = Vector2(State.stretch_scale, State.stretch_scale)
+func rescale(_scale: ReactiveFloat) -> void:
+	scale = Vector2(_scale.value, _scale.value)
