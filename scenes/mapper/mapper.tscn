@@ -219,6 +219,26 @@ material = ExtResource("1_agl36")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_khegr")
 
+[node name="ChatAnchor" type="Control" parent="UI/ChatSplit/RightItems/BottomPanel"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="UI/ChatSplit/RightItems/BottomPanel/ChatAnchor"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -99.0
+offset_top = -10.5
+offset_right = -13.0
+offset_bottom = 10.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "Zoom: 3 Jillion"
+horizontal_alignment = 2
+
 [node name="FoldableContainer" type="FoldableContainer" parent="UI/ChatSplit/RightItems/BottomPanel"]
 layout_mode = 2
 theme_type_variation = &"TransparentFoldableContainer"
