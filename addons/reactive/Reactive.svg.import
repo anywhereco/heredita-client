@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cn1jah1pwgf5b"
-path="res://.godot/imported/Reactive.svg-3e42934abd4e5076915e2869f2761b15.ctex"
+path="res://.godot/imported/Reactive.svg-1d96305277ccec58a32457232ef4aad4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/reactivity/Reactive.svg"
-dest_files=["res://.godot/imported/Reactive.svg-3e42934abd4e5076915e2869f2761b15.ctex"]
+source_file="res://addons/reactive/Reactive.svg"
+dest_files=["res://.godot/imported/Reactive.svg-1d96305277ccec58a32457232ef4aad4.ctex"]
 
 [params]
 

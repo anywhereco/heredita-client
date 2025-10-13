@@ -40,7 +40,7 @@ movie_writer/movie_file="/home/infernity/Godot/MPMap-Redrawn/vidya.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/reactivity/plugin.cfg")
+enabled=PackedStringArray("res://addons/reactive/plugin.cfg")
 
 [file_customization]
 
