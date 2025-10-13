@@ -28,7 +28,7 @@ var user: UserAccount
 
 func _ready() -> void:
 	root_window.set_script(ROOT_WINDOW_SCRIPT)
-	root_window.content_scale_factor = display_server_recommended_scale.value
+	root_window.content_scale_factor = scale.value
 
 func _calculate_true_scale() -> float:
 	var adjusted_resolution := root_window.size / display_server_recommended_scale.value
