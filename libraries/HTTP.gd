@@ -31,7 +31,7 @@ func request(
 	
 	var req := HTTPRequest.new()
 	add_child(req)
-	req.request_completed.connect(req.queue_free)
+	req.request_completed.connect(req.queue_free.unbind(4))
 	
 	var url := _create_url(domain, endpoint, query_params)
 	
