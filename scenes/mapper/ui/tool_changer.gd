@@ -14,4 +14,3 @@ func connect_buttons_recursively(node: Node) -> void:
 
 func _on_button_pressed(button_name: String) -> void:
 	mapper.tool.value = MapperRoot.Tool.get(button_name.to_upper())
-	print(mapper.tool.value)

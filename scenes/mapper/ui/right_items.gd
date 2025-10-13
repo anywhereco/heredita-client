@@ -9,7 +9,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if not have_processed:
-		print(size)
 		if size.x >= MAX_DEFAULT_CHAT_WIDTH:
 			size_flags_stretch_ratio = (MAX_DEFAULT_CHAT_WIDTH / size.x)
 		have_processed = true
