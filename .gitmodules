@@ -1,8 +1,0 @@
-[submodule "addons/Reactive"]
-	path = addons/Reactive
-	url = https://github.com/infernitydev/Reactive.git
-	branch = master
-[submodule "_ext/Reactive"]
-	path = _ext/Reactive
-	url = https://github.com/infernitydev/Reactive.git
-	branch = master
