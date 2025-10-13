@@ -9,7 +9,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var pan_dir := Input.get_vector("pan_left", "pan_right", "pan_up", "pan_down")
 	if pan_dir != Vector2.ZERO:
-		camera_pan(pan_dir * State.stretch_scale.value * delta * 600 / mapper.base_zoom.value)
+		camera_pan(pan_dir * State.display.stretch_scale.value * delta * 600 / mapper.base_zoom.value)
 	var zoom_intensity := 0
 	zoom_intensity += 1 if Input.is_action_just_pressed("zoom_up") else 0
 	zoom_intensity -= 1 if Input.is_action_just_pressed("zoom_down") else 0
