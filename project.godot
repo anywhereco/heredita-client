@@ -45,7 +45,8 @@ enabled=PackedStringArray("res://addons/reactive/plugin.cfg")
 [file_customization]
 
 folder_colors={
-"res://addons/": "gray",
+"res://_ext/": "gray",
+"res://addons/": "green",
 "res://assets/": "blue",
 "res://libraries/": "purple",
 "res://scenes/": "orange",
