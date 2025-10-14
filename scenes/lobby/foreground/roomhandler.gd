@@ -21,8 +21,6 @@ func _load_rooms() -> void:
 		
 	var rooms := await HTTP.request(Statics.MPMAP_URL, "rooms")
 	for room: Dictionary in rooms.val():
-		print(room)
-		pass
 		add_child(RoomTemplate.of(
 			self,
 			room["id"] as String,

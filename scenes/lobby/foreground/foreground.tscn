@@ -45,18 +45,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MainButtons" type="VBoxContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 20.0
 offset_top = 20.0
 offset_right = -20.0
-offset_bottom = -20.0
+offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="MainButtons"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -65,25 +65,33 @@ texture = ExtResource("2_crsvy")
 expand_mode = 4
 stretch_mode = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="ButtonRow" type="HBoxContainer" parent="MainButtons"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="MainButtons/ButtonRow"]
 layout_mode = 2
 text = "Reload"
 script = ExtResource("3_oqa71")
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+[node name="Button2" type="Button" parent="MainButtons/ButtonRow"]
+layout_mode = 2
+text = "[Temporary] Open Mapper UI"
+script = ExtResource("6_6ju32")
+
+[node name="Padding2" type="Control" parent="MainButtons"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MainButtons"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/PanelContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainButtons/PanelContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3knor")
 
-[node name="Rooms" type="VBoxContainer" parent="VBoxContainer/PanelContainer/ScrollContainer"]
+[node name="Rooms" type="VBoxContainer" parent="MainButtons/PanelContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -91,25 +99,25 @@ size_flags_vertical = 3
 theme_override_constants/separation = 10
 script = ExtResource("3_xc4ii")
 
-[node name="LoadingPlaceholder" type="CenterContainer" parent="VBoxContainer/PanelContainer/ScrollContainer/Rooms"]
+[node name="LoadingPlaceholder" type="CenterContainer" parent="MainButtons/PanelContainer/ScrollContainer/Rooms"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/ScrollContainer/Rooms/LoadingPlaceholder"]
+[node name="Label" type="Label" parent="MainButtons/PanelContainer/ScrollContainer/Rooms/LoadingPlaceholder"]
 layout_mode = 2
 text = "Loading rooms..."
 label_settings = SubResource("LabelSettings_d0eqv")
 
-[node name="Create" type="HBoxContainer" parent="VBoxContainer/PanelContainer/ScrollContainer/Rooms"]
+[node name="Create" type="HBoxContainer" parent="MainButtons/PanelContainer/ScrollContainer/Rooms"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VBoxContainer/PanelContainer/ScrollContainer/Rooms/Create"]
+[node name="Button" type="Button" parent="MainButtons/PanelContainer/ScrollContainer/Rooms/Create"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Create a room"
 
-[node name="MenuButton" type="MenuButton" parent="VBoxContainer/PanelContainer/ScrollContainer/Rooms/Create"]
+[node name="MenuButton" type="MenuButton" parent="MainButtons/PanelContainer/ScrollContainer/Rooms/Create"]
 layout_mode = 2
 text = "v"
 flat = false
@@ -117,24 +125,32 @@ item_count = 1
 popup/item_0/text = "Create local room"
 popup/item_0/id = 0
 
-[node name="DebugInfo" type="Label" parent="."]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -191.0
-offset_top = 20.0
-offset_right = -20.0
-offset_bottom = 64.25
-grow_horizontal = 0
-text = "MPMap Redrawn %s"
+[node name="Padding" type="Control" parent="MainButtons"]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+
+[node name="DebugInfo" type="Label" parent="MainButtons"]
+layout_mode = 2
+text = "MPMap Redrawn %s, an infernity.dev project"
 label_settings = SubResource("LabelSettings_j6gyg")
 horizontal_alignment = 2
 script = ExtResource("5_j6gyg")
 
-[node name="Button2" type="Button" parent="."]
-offset_left = 11.0
-offset_top = 16.0
-offset_right = 234.0
-offset_bottom = 46.0
-text = "[Temporary] Open Mapper UI"
-script = ExtResource("6_6ju32")
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -74.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 60.0
+grow_horizontal = 0
+
+[node name="Login" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Log in or create an account"
+
+[node name="Settings" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Settings"

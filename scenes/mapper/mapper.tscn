@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://bxwxbcrvqou86"]
 
 [ext_resource type="Texture2D" uid="uid://do2qcumlvx0lo" path="res://assets/map.png" id="1_5rw7w"]
-[ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/mapper/ui/glass.tres" id="1_agl36"]
+[ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/_shared/glass.tres" id="1_agl36"]
 [ext_resource type="Script" uid="uid://cgdhk47tsamdl" path="res://scenes/mapper/mapper.gd" id="1_khegr"]
 [ext_resource type="Script" uid="uid://bkwxqjeet2fxs" path="res://scenes/mapper/camera.gd" id="2_c11oq"]
 [ext_resource type="Script" uid="uid://i3124dmjaoj6" path="res://scenes/mapper/ui/right_items.gd" id="3_2upvi"]
