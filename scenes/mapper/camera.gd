@@ -3,6 +3,8 @@ extends Camera2D
 
 @onready var mapper: MapperRoot = $".."
 
+var wanted_position := Vector2.ZERO
+
 func _ready() -> void:
 	pass 
 
@@ -14,10 +16,11 @@ func _process(delta: float) -> void:
 	zoom_intensity += 1 if Input.is_action_just_pressed("zoom_up") else 0
 	zoom_intensity -= 1 if Input.is_action_just_pressed("zoom_down") else 0
 	camera_zoom(zoom_intensity)
+	position += (wanted_position - position) * (1 - exp(-40*delta))
 
 func camera_pan(direction: Vector2) -> void:
 	direction *= mapper.zoom.value
-	position += direction
+	wanted_position += direction
 
 const ZOOM_SNAPS := [0.5, 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64]
 
