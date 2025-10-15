@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://co8osnbupcqjm"]
+[gd_scene load_steps=15 format=3 uid="uid://co8osnbupcqjm"]
 
+[ext_resource type="Script" uid="uid://cqvgxydjyce6p" path="res://scenes/lobby/foreground/foreground.gd" id="1_hbrfk"]
 [ext_resource type="Shader" uid="uid://h6ps2oq513j8" path="res://scenes/lobby/foreground/background_blur.gdshader" id="1_t71vb"]
 [ext_resource type="Texture2D" uid="uid://c1kanb7wy7l6u" path="res://assets/logo.png" id="2_crsvy"]
 [ext_resource type="Script" uid="uid://bwliltv76v13d" path="res://scenes/lobby/foreground/reload.gd" id="3_oqa71"]
@@ -8,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dyad1l4xw802a" path="res://scenes/lobby/foreground/debug_info.gd" id="5_j6gyg"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="5_oqa71"]
 [ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/lobby/foreground/temporary_mapper_opener.gd" id="6_6ju32"]
+[ext_resource type="Script" uid="uid://dmr78u6gtdkfg" path="res://scenes/lobby/foreground/new_room/instantiate_room.gd" id="7_d0eqv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crsvy"]
 shader = ExtResource("1_t71vb")
@@ -34,6 +36,7 @@ outline_size = 10
 outline_color = Color(0, 0, 0, 0.5647059)
 
 [node name="Foreground" type="CanvasLayer"]
+script = ExtResource("1_hbrfk")
 
 [node name="BackgroundBlur" type="ColorRect" parent="."]
 top_level = true
@@ -68,7 +71,7 @@ stretch_mode = 4
 [node name="ButtonRow" type="HBoxContainer" parent="MainButtons"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="MainButtons/ButtonRow"]
+[node name="Reload" type="Button" parent="MainButtons/ButtonRow"]
 layout_mode = 2
 text = "Reload"
 script = ExtResource("3_oqa71")
@@ -116,6 +119,7 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Create a room"
+script = ExtResource("7_d0eqv")
 
 [node name="MenuButton" type="MenuButton" parent="MainButtons/PanelContainer/ScrollContainer/Rooms/Create"]
 layout_mode = 2

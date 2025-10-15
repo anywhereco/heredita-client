@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1070265sjc22"]
+
+[ext_resource type="Texture2D" uid="uid://xo4ohmgui0xg" path="res://assets/icons/file-opt.svg" id="1_wbeyb"]
+[ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="2_6cjg5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g1ry1"]
+font = ExtResource("2_6cjg5")
+font_color = Color(1, 0.55, 0.55, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.48235294)
+shadow_offset = Vector2(0, 0)
+
+[node name="ImagePickedTextContainer" type="MarginContainer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 8
+
+[node name="Contents" type="VBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="Image" type="TextureRect" parent="Contents"]
+clip_contents = true
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("1_wbeyb")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Error" type="Label" parent="Contents"]
+visible = false
+layout_mode = 2
+text = "File not accepted."
+label_settings = SubResource("LabelSettings_g1ry1")
+horizontal_alignment = 1
+
+[node name="Filename" type="Label" parent="Contents"]
+layout_mode = 2
+text = "fname"
+horizontal_alignment = 1

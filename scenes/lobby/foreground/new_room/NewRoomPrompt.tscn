@@ -1,23 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://faj2phk4p8di"]
+[gd_scene load_steps=6 format=3 uid="uid://faj2phk4p8di"]
 
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="1_5vjh0"]
+[ext_resource type="Script" uid="uid://j5d5mbyadwj8" path="res://libraries/ui/image_picker_button/image_picker_button.gd" id="2_fgy55"]
+[ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="2_fquqx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fgy55"]
 font = ExtResource("1_5vjh0")
 font_size = 20
 
-[node name="NewRoomPrompt" type="Control"]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="LabelSettings" id="LabelSettings_n8y21"]
+font = ExtResource("2_fquqx")
+font_size = 21
+font_color = Color(1, 1, 1, 0.5686275)
 
-[node name="Items" type="VBoxContainer" parent="."]
-layout_mode = 1
+[node name="NewRoomPrompt" type="VBoxContainer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -30,7 +26,26 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Items"]
+[node name="Title" type="Label" parent="."]
 layout_mode = 2
 text = "Create a Room"
 label_settings = SubResource("LabelSettings_fgy55")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Check the gallery"
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "or"
+label_settings = SubResource("LabelSettings_n8y21")
+
+[node name="ImagePickerButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Pick an image"
+script = ExtResource("2_fgy55")
+metadata/_custom_type_script = "uid://j5d5mbyadwj8"
