@@ -46,6 +46,6 @@ label_settings = SubResource("LabelSettings_n8y21")
 
 [node name="ImagePickerButton" type="Button" parent="HBoxContainer"]
 layout_mode = 2
-text = "Pick an image"
+text = "Pick an image or map"
 script = ExtResource("2_fgy55")
 metadata/_custom_type_script = "uid://j5d5mbyadwj8"

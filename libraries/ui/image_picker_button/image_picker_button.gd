@@ -6,10 +6,15 @@ const DEFAULT_IMAGE = preload("uid://xo4ohmgui0xg")
 
 var error_tween: Tween
 
-var NO_SVG_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.webp,*.bmp;Image Files;image/png,image/jpeg,image/webp,image/bmp"])
-var SVG_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.svg,*.webp,*.bmp;Image Files;image/png,image/jpeg,image/svg+xml,image/webp,image/bmp"])
+var NO_SVG_NO_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.webp,*.bmp;Image Files;image/png,image/jpeg,image/webp,image/bmp"])
+var SVG_NO_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.svg,*.webp,*.bmp;Image Files;image/png,image/jpeg,image/svg+xml,image/webp,image/bmp"])
+var NO_SVG_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.webp,*.bmp,*.mp;Image and Map Files;image/png,image/jpeg,image/webp,image/bmp,application/mpmap-map"])
+var SVG_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.svg,*.webp,*.bmp,*.mp;Image and Map Files;image/png,image/jpeg,image/svg+xml,image/webp,image/bmp,application/mpmap-map"])
 
 var image := ReactiveImage.new(null)
+
+## Potential extra data along with the image.
+var extra_data: Variant = null
 
 @onready var content: MarginContainer = _CONTAINER.instantiate()
 @onready var web_file_dialog := HTML5FileDialog.new()
@@ -20,6 +25,8 @@ var image := ReactiveImage.new(null)
 
 ## If SVGs should be allowed or not.
 @export var allow_svgs := false
+## If maps [.mp] should be allowed or not.
+@export var allow_maps := false
 
 var is_web := OS.get_name() == 'Web'
 
@@ -29,6 +36,7 @@ enum PickedImageError {
 	OK,
 	UNKNOWN,
 	SVG_NOT_ACCEPTED,
+	MP_NOT_ACCEPTED,
 	NOT_VALID_FILE_FORMAT
 }
 
@@ -69,9 +77,15 @@ func _pressed() -> void:
 		web_file_dialog.show()
 	else:
 		if allow_svgs:
-			file_dialog.filters = SVG_FILTER
+			if allow_maps:
+				file_dialog.filters = SVG_MAP_FILTER
+			else:
+				file_dialog.filters = SVG_NO_MAP_FILTER
 		else:
-			file_dialog.filters = NO_SVG_FILTER
+			if allow_maps:
+				file_dialog.filters = NO_SVG_MAP_FILTER
+			else:
+				file_dialog.filters = NO_SVG_NO_MAP_FILTER
 		file_dialog.popup_centered(file_dialog.min_size)
 
 func _err(code: PickedImageError) -> void:
