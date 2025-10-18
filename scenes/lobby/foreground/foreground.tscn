@@ -63,9 +63,10 @@ grow_vertical = 2
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
 texture = ExtResource("2_crsvy")
-expand_mode = 4
+expand_mode = 2
 stretch_mode = 4
 
 [node name="ButtonRow" type="HBoxContainer" parent="MainButtons"]
