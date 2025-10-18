@@ -12,8 +12,11 @@ var override_ui: Node
 ## If the user is currently already in a prompt.
 var in_prompt := false
 
-## The prompt the user is in, or null if they are not in a prompt.
-var prompt: PromptInstance = null
+## If a prompt was already closed in this frame.
+var prompt_already_closed := false
+
+## The prompts the user is in.
+var prompts: Array[PromptInstance] = []
 
 enum PromptCreationResult {
 	SUCCESSFUL,
@@ -23,13 +26,21 @@ enum PromptCreationResult {
 
 enum PromptActionResult {
 	SUCCESSFUL,
-	NOT_IN_PROMPT
+	NOT_IN_PROMPT,
+	INDEX_INVALID
 }
 
+func _process(_delta: float) -> void:
+	prompt_already_closed = false
+
 ## Returns a Result with the PanelContainer for the Prompt.
-func new_fullscreen_prompt(force: bool = false) -> Result:
-	if in_prompt and not force:
+func new_fullscreen_prompt(force: bool = false, exclusive: bool = false) -> Result:
+	if in_prompt and exclusive and not force:
 		return Result.err(PromptCreationResult.IN_PROMPT)
+	elif in_prompt and exclusive:
+		for prompt in prompts:
+			prompt.close()
+		
 	var prompt_inst := preload("res://libraries/ui/prompt/Prompt.tscn").instantiate()
 	var ui: Node = null
 	
@@ -44,31 +55,35 @@ func new_fullscreen_prompt(force: bool = false) -> Result:
 	if ui == null:
 		return Result.err(PromptCreationResult.NO_SUITABLE_UI)
 	
-	if in_prompt and force:
-		prompt.close()
-	
 	ui.add_child(prompt_inst)
-	prompt = prompt_inst.get_child(0).get_child(0)
-	return Result.ok(prompt)
+	var _prompt: PromptInstance = prompt_inst.get_child(0).get_child(0)
+	_prompt.idx = prompts.size()
+	prompts.append(_prompt)
+	_prompt.get_parent().get_parent().name = "prompt_%d" % _prompt.idx
+	return Result.ok(_prompt)
 
 ## Hides the prompt and returns it in a Result.
-func hide_prompt() -> Result:
+func hide_prompt(idx: int) -> Result:
 	if not in_prompt:
 		return Result.err(PromptActionResult.NOT_IN_PROMPT)
-	prompt.hide_prompt()
-	return Result.ok(prompt)
+	prompts[idx].hide_prompt()
+	return Result.ok(prompts[idx])
 	
 ## Shows the prompt and returns it in a Result.
-func show_prompt() -> Result:
+func show_prompt(idx: int) -> Result:
 	if not in_prompt:
 		return Result.err(PromptActionResult.NOT_IN_PROMPT)
-	prompt.show_prompt()
-	return Result.ok(prompt)
+	prompts[idx].show_prompt()
+	return Result.ok(prompts[idx])
 	
 ## Closes the prompt.
-func close_prompt() -> PromptActionResult:
+func close_prompt(idx: int) -> PromptActionResult:
 	if not in_prompt:
 		return PromptActionResult.NOT_IN_PROMPT
-	prompt.close()
+	prompts[idx].close()
+	_update_prompt_ids()
 	return PromptActionResult.SUCCESSFUL
 	
+func _update_prompt_ids() -> void:
+	for idx in range(prompts.size()):
+		prompts[idx].idx = idx
