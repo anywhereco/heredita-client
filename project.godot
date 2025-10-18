@@ -45,7 +45,6 @@ enabled=PackedStringArray("res://addons/html5_file_dialog/plugin.cfg", "res://ad
 [file_customization]
 
 folder_colors={
-"res://_ext/": "gray",
 "res://addons/": "green",
 "res://assets/": "blue",
 "res://libraries/": "purple",

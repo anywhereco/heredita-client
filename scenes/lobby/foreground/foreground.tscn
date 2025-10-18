@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://co8osnbupcqjm"]
 
-[ext_resource type="Script" uid="uid://cqvgxydjyce6p" path="res://scenes/lobby/foreground/foreground.gd" id="1_hbrfk"]
+[ext_resource type="Script" path="res://scenes/lobby/foreground/foreground.gd" id="1_hbrfk"]
 [ext_resource type="Shader" uid="uid://h6ps2oq513j8" path="res://scenes/lobby/foreground/background_blur.gdshader" id="1_t71vb"]
 [ext_resource type="Texture2D" uid="uid://c1kanb7wy7l6u" path="res://assets/logo.png" id="2_crsvy"]
 [ext_resource type="Script" uid="uid://bwliltv76v13d" path="res://scenes/lobby/foreground/reload.gd" id="3_oqa71"]
@@ -105,6 +105,7 @@ script = ExtResource("3_xc4ii")
 [node name="LoadingPlaceholder" type="CenterContainer" parent="MainButtons/PanelContainer/ScrollContainer/Rooms"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
 
 [node name="Label" type="Label" parent="MainButtons/PanelContainer/ScrollContainer/Rooms/LoadingPlaceholder"]
 layout_mode = 2
@@ -113,6 +114,7 @@ label_settings = SubResource("LabelSettings_d0eqv")
 
 [node name="Create" type="HBoxContainer" parent="MainButtons/PanelContainer/ScrollContainer/Rooms"]
 layout_mode = 2
+size_flags_vertical = 10
 
 [node name="Button" type="Button" parent="MainButtons/PanelContainer/ScrollContainer/Rooms/Create"]
 custom_minimum_size = Vector2(0, 50)
