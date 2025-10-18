@@ -2,6 +2,7 @@ class_name ImagePickerButton
 extends Button
 
 const _CONTAINER = preload("uid://b1070265sjc22")
+const DEFAULT_IMAGE = preload("uid://xo4ohmgui0xg")
 
 var error_tween: Tween
 
@@ -10,19 +11,19 @@ var SVG_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.svg,*.webp,*.bmp;Imag
 
 var image := ReactiveImage.new(null)
 
-@onready var margin_container: MarginContainer = _CONTAINER.instantiate()
+@onready var content: MarginContainer = _CONTAINER.instantiate()
 @onready var web_file_dialog := HTML5FileDialog.new()
 @onready var file_dialog: FileDialog = FileDialog.new()
-@onready var error: Label = margin_container.find_child("Error")
-@onready var filename: Label = margin_container.find_child("Filename")
-@onready var image_rect: TextureRect = margin_container.find_child("Image")
+@onready var error: Label = content.find_child("Error")
+@onready var filename: Label = content.find_child("Filename")
+@onready var image_rect: TextureRect = content.find_child("Image")
 
 ## If SVGs should be allowed or not.
 @export var allow_svgs := false
 
 var is_web := OS.get_name() == 'Web'
 
-var prev_margin_container_size: Vector2
+var prev_content_size: Vector2
 
 enum PickedImageError {
 	OK,
@@ -31,15 +32,16 @@ enum PickedImageError {
 	NOT_VALID_FILE_FORMAT
 }
 
+#region Private methods
 func _new_image(fname: String) -> void:
-	if not margin_container.visible:
-		margin_container.show()
+	if not content.visible:
+		content.show()
 	image_rect.texture = ImageTexture.create_from_image(image.value)
 	filename.text = fname
 
 func _ready() -> void:
-	add_child(margin_container)
-	prev_margin_container_size = margin_container.size
+	add_child(content)
+	prev_content_size = content.size
 	web_file_dialog.file_mode = HTML5FileDialog.FileMode.OPEN_FILE
 	web_file_dialog.filters = PackedStringArray(["image/*"])
 	web_file_dialog.file_selected.connect(_on_file_selected_html5)
@@ -49,16 +51,18 @@ func _ready() -> void:
 	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
 	file_dialog.file_selected.connect(_on_file_selected)
 	add_child(file_dialog, false, INTERNAL_MODE_BACK)
-	margin_container.show()
+	content.show()
 	filename.text = text
 	text = ""
 
-
 func _process(_delta: float) -> void:
-	if margin_container.size == prev_margin_container_size:
+	if not content:
 		return
-	prev_margin_container_size = margin_container.size
-	custom_minimum_size = prev_margin_container_size
+	_state_drawer()
+	if content.size == prev_content_size:
+		return
+	prev_content_size = content.size
+	custom_minimum_size = prev_content_size
 
 func _pressed() -> void:
 	if is_web:
@@ -70,7 +74,7 @@ func _pressed() -> void:
 			file_dialog.filters = NO_SVG_FILTER
 		file_dialog.popup_centered(file_dialog.min_size)
 
-func err(code: PickedImageError) -> void:
+func _err(code: PickedImageError) -> void:
 	if code == 0: 
 		return
 	var msg := "File not accepted."
@@ -89,26 +93,26 @@ func err(code: PickedImageError) -> void:
 	error_tween.tween_callback(error.hide)
 
 func _on_file_selected_html5(file: HTML5FileHandle) -> void:
-	var res := await file_handle_to_image(file)
+	var res := await _file_handle_to_image(file)
 	if res.is_err():
-		err(res.err_code() as int)
+		_err(res.err_code() as int)
 		return
 	image.value = res.val()
 	_new_image(file.filename as String) # If the filename is not a string i will Literally die
 
 func _on_file_selected(path: String) -> void:
 	if path.rsplit(".", false, 1)[1] == "svg":
-		err(PickedImageError.SVG_NOT_ACCEPTED)
+		_err(PickedImageError.SVG_NOT_ACCEPTED)
 		return
 	var img: Image = Image.load_from_file(path)
 	print(img)
 	if img == null:
-		err(PickedImageError.NOT_VALID_FILE_FORMAT)
+		_err(PickedImageError.NOT_VALID_FILE_FORMAT)
 		return
 	image.value = img
 	_new_image(path.get_file())
 
-func file_handle_to_image(file: HTML5FileHandle) -> Result:
+func _file_handle_to_image(file: HTML5FileHandle) -> Result:
 	var fmt := file.name.rsplit(".", false, 1)[1]
 	var buf := await file.as_buffer()
 	var _image := Image.new()
@@ -131,3 +135,30 @@ func file_handle_to_image(file: HTML5FileHandle) -> Result:
 	if _image.is_empty():
 		return Result.err(PickedImageError.NOT_VALID_FILE_FORMAT)
 	return Result.ok(_image)
+
+func _state_drawer() -> void:
+	var state := get_draw_mode()
+	var modulus := Color(1,1,1,1)
+	match state:
+		DrawMode.DRAW_NORMAL:
+			modulus = get_theme_color("font_color")
+		DrawMode.DRAW_PRESSED:
+			modulus = get_theme_color("font_pressed_color")
+		DrawMode.DRAW_HOVER:
+			modulus = get_theme_color("font_hover_color")
+		DrawMode.DRAW_DISABLED:
+			modulus = get_theme_color("font_disabled_color")
+		DrawMode.DRAW_HOVER_PRESSED:
+			modulus = get_theme_color("font_hover_pressed_color")
+		_:
+			assert(false, "all draw modes should have been accounted for, but drawmode %d was not!" % state)
+	content.modulate = modulus
+
+#endregion
+#region Public methods
+
+func reset() -> void: # TODO allow resetting of the image
+	image.value = null
+	image_rect.texture = DEFAULT_IMAGE
+	
+#endregion
