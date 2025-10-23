@@ -18,7 +18,6 @@ config/features=PackedStringArray("4.5", "GL Compatibility")
 [autoload]
 
 Prompts="*res://libraries/Prompts.gd"
-LocalStorage="*res://libraries/LocalStorage.gd"
 QueryParams="*res://libraries/QueryParams.gd"
 State="*res://singletons/state/state.gd"
 HTTP="*res://libraries/HTTP.gd"

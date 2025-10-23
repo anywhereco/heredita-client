@@ -20,6 +20,7 @@ func _load_rooms() -> void:
 		child_to_delete.queue_free()
 		
 	var rooms := await HTTP.request(Statics.MPMAP_URL, "rooms")
+	# TODO error check!!
 	for room: Dictionary in rooms.val():
 		add_child(RoomTemplate.of(
 			self,
