@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://co8osnbupcqjm"]
+[gd_scene load_steps=16 format=3 uid="uid://co8osnbupcqjm"]
 
-[ext_resource type="Script" path="res://scenes/lobby/foreground/foreground.gd" id="1_hbrfk"]
+[ext_resource type="Script" uid="uid://cqvgxydjyce6p" path="res://scenes/lobby/foreground/foreground.gd" id="1_hbrfk"]
 [ext_resource type="Shader" uid="uid://h6ps2oq513j8" path="res://scenes/lobby/foreground/background_blur.gdshader" id="1_t71vb"]
 [ext_resource type="Texture2D" uid="uid://c1kanb7wy7l6u" path="res://assets/logo.png" id="2_crsvy"]
 [ext_resource type="Script" uid="uid://bwliltv76v13d" path="res://scenes/lobby/foreground/reload.gd" id="3_oqa71"]
 [ext_resource type="Script" uid="uid://ccm6h71syvpb" path="res://scenes/lobby/foreground/roomhandler.gd" id="3_xc4ii"]
+[ext_resource type="Script" uid="uid://bo7jlrc3hs4b5" path="res://scenes/lobby/foreground/keep_logo_size.gd" id="4_ilv83"]
 [ext_resource type="FontVariation" uid="uid://hwc3xdnlf3ke" path="res://assets/font/_variants/pro450.tres" id="4_yf52t"]
 [ext_resource type="Script" uid="uid://dyad1l4xw802a" path="res://scenes/lobby/foreground/debug_info.gd" id="5_j6gyg"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="5_oqa71"]
@@ -63,11 +64,12 @@ grow_vertical = 2
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 3
+size_flags_vertical = 4
 size_flags_stretch_ratio = 0.25
 texture = ExtResource("2_crsvy")
 expand_mode = 2
 stretch_mode = 4
+script = ExtResource("4_ilv83")
 
 [node name="ButtonRow" type="HBoxContainer" parent="MainButtons"]
 layout_mode = 2
