@@ -10,7 +10,6 @@ func _ready() -> void:
 		window.onbeforeunload = callback # CRITICAL: why does this not fucking run???
 
 func _notification(what: int) -> void:
-	print(what)
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_PAUSED:
 		save()
 	var file := FileAccess.open("user://testa.txt", FileAccess.WRITE)
