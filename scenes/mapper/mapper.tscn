@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://bxwxbcrvqou86"]
+[gd_scene load_steps=24 format=3 uid="uid://bxwxbcrvqou86"]
 
 [ext_resource type="Texture2D" uid="uid://do2qcumlvx0lo" path="res://assets/map.png" id="1_5rw7w"]
 [ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/_shared/glass.tres" id="1_agl36"]
 [ext_resource type="Script" uid="uid://cgdhk47tsamdl" path="res://scenes/mapper/mapper.gd" id="1_khegr"]
 [ext_resource type="Script" uid="uid://bkwxqjeet2fxs" path="res://scenes/mapper/camera.gd" id="2_c11oq"]
 [ext_resource type="Script" uid="uid://i3124dmjaoj6" path="res://scenes/mapper/ui/right_items.gd" id="3_2upvi"]
+[ext_resource type="Shader" uid="uid://w00h63rrn517" path="res://assets/Map.gdshader" id="3_c11oq"]
 [ext_resource type="Script" uid="uid://clxj0fu6d2g3r" path="res://scenes/mapper/map/map_core.gd" id="3_grkin"]
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="3_hddsb"]
 [ext_resource type="Script" uid="uid://cobvlsshktn31" path="res://scenes/mapper/ui/tab_scroll_bar.gd" id="4_rficw"]
@@ -12,6 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://b75i52xuegece" path="res://assets/icons/tools/brush.svg" id="7_hxqh0"]
 [ext_resource type="Script" uid="uid://cyue2b6ml14cg" path="res://scenes/mapper/ui/tool_changer.gd" id="9_xodf2"]
 [ext_resource type="Script" uid="uid://c3107fy0fo6nv" path="res://scenes/mapper/ui/tool_ui.gd" id="10_keouw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g5yh5"]
+shader = ExtResource("3_c11oq")
+shader_parameter/linear_interp = true
+shader_parameter/interp_sharpness = Vector2i(1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5rw7w"]
 content_margin_left = 5.0
@@ -86,6 +92,7 @@ script = ExtResource("2_c11oq")
 
 [node name="Map" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_g5yh5")
 texture = ExtResource("1_5rw7w")
 script = ExtResource("3_grkin")
 

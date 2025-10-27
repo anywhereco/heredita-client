@@ -1,6 +1,6 @@
 @abstract 
+extends Node
 class_name NetworkingProvider
-extends Resource
 
 enum NetworkingType {
 	LOCAL,

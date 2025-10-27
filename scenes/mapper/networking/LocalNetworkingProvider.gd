@@ -1,6 +1,8 @@
 @abstract 
 extends NetworkingProvider
 
+var server: LocalServer = LocalServer.new()
+
 @abstract
 func send_pixels(color: Color, pixels: Array[Vector2i]) -> void
 
