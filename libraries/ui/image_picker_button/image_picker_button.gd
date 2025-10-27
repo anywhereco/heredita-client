@@ -36,7 +36,7 @@ enum PickedImageError {
 	OK,
 	UNKNOWN,
 	SVG_NOT_ACCEPTED,
-	MP_NOT_ACCEPTED,
+	MAP_NOT_ACCEPTED,
 	NOT_VALID_FILE_FORMAT
 }
 
@@ -95,6 +95,8 @@ func _err(code: PickedImageError) -> void:
 	match code:
 		PickedImageError.SVG_NOT_ACCEPTED:
 			msg = "SVGs aren't allowed here."
+		PickedImageError.MAP_NOT_ACCEPTED:
+			msg = "Maps aren't allowed here."
 		PickedImageError.NOT_VALID_FILE_FORMAT:
 			msg = "Invalid file format."
 	error.text = msg
@@ -146,6 +148,11 @@ func _file_handle_to_image(file: HTML5FileHandle) -> Result:
 				return Result.err(PickedImageError.SVG_NOT_ACCEPTED)
 		"webp":
 			_image.load_webp_from_buffer(buf)
+		"mp":
+			if allow_maps:
+				# TODO actually implement the file format [maybe elsewhere]
+				push_error("Map attempted to load, but not implemented yet!! D:")
+			return Result.err(PickedImageError.MAP_NOT_ACCEPTED)
 	if _image.is_empty():
 		return Result.err(PickedImageError.NOT_VALID_FILE_FORMAT)
 	return Result.ok(_image)
@@ -171,7 +178,8 @@ func _state_drawer() -> void:
 #endregion
 #region Public methods
 
-func reset() -> void: # TODO allow resetting of the image
+func reset() -> void:
+	extra_data = null
 	image.value = null
 	image_rect.texture = DEFAULT_IMAGE
 	
