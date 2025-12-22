@@ -11,7 +11,7 @@ enum NetworkingType {
 signal message_recieved(from: int, message: String)
 
 @warning_ignore("unused_signal")
-signal pixels_recieved(from: int, message: String)
+signal pixels_recieved(from: int, color: Color, pixels: Array[Vector2i])
 
 @abstract
 func send_pixels(color: Color, pixels: Array[Vector2i]) -> void
