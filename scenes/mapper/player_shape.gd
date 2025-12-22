@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 			
 	var angle := vel.angle() + angle_offset
 
-	if not Input.is_key_pressed(KEY_SHIFT) and vel.length_squared() > 0.05:
+	if vel.length_squared() > 0.05:
 		self.rotation.y += (((angle * -1) + deg_to_rad(-90)) - rotation.y) * (1 - exp(-20*delta))
 		
 	last_vel = vel
