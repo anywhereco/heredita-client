@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmfinmmve5h47"]
+
+[ext_resource type="Script" uid="uid://casjubdmfl0xa" path="res://scenes/mapper/mapper_3d.gd" id="1_htv7j"]
+[ext_resource type="Texture2D" uid="uid://do2qcumlvx0lo" path="res://assets/map.png" id="1_vg5mj"]
+[ext_resource type="PackedScene" uid="uid://yb2j237qhuec" path="res://scenes/mapper/ui/ui.tscn" id="2_htv7j"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_76f00"]
+
+[node name="Mapper3D" type="Node3D"]
+script = ExtResource("1_htv7j")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CSGSphere3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="CSGSphere3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGSphere3D/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_76f00")
+
+[node name="Map" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+texture_filter = 0
+texture = ExtResource("1_vg5mj")
+
+[node name="UI" parent="." instance=ExtResource("2_htv7j")]
