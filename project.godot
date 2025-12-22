@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="MPMap"
+config/name="Dominion Dice"
 config/version="0.14.0"
 run/main_scene="uid://bxwiva1eghxgy"
 config/features=PackedStringArray("4.5", "GL Compatibility")
