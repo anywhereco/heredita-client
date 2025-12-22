@@ -36,6 +36,7 @@ window/stretch/aspect="ignore"
 [editor]
 
 movie_writer/movie_file="/home/infernity/Godot/MPMap-Redrawn/vidya.avi"
+movie_writer/disable_vsync=true
 
 [editor_plugins]
 

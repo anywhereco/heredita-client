@@ -1,12 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://bmfinmmve5h47"]
+[gd_scene load_steps=16 format=3 uid="uid://bmfinmmve5h47"]
 
 [ext_resource type="Script" uid="uid://casjubdmfl0xa" path="res://scenes/mapper/mapper_3d.gd" id="1_htv7j"]
 [ext_resource type="Texture2D" uid="uid://do2qcumlvx0lo" path="res://assets/map.png" id="1_vg5mj"]
 [ext_resource type="PackedScene" uid="uid://yb2j237qhuec" path="res://scenes/mapper/ui/ui.tscn" id="2_htv7j"]
-[ext_resource type="Script" uid="uid://ddbnc776wuh7i" path="res://scenes/mapper/player.gd" id="2_mxy8m"]
+[ext_resource type="Script" uid="uid://ddbnc776wuh7i" path="res://scenes/mapper/player_shape.gd" id="2_mxy8m"]
 [ext_resource type="Script" uid="uid://bnnb4ayaos0ow" path="res://scenes/mapper/camera3d.gd" id="3_c4ga5"]
-[ext_resource type="Script" uid="uid://c1m5ewhnxff8g" path="res://scenes/mapper/player_movement.gd" id="3_sm41v"]
+[ext_resource type="Script" uid="uid://c1m5ewhnxff8g" path="res://scenes/mapper/player.gd" id="3_sm41v"]
 [ext_resource type="Texture2D" uid="uid://d07780ryakfgd" path="res://assets/shmile.png" id="3_wvm7y"]
+[ext_resource type="Script" uid="uid://b2ln5lyiu705a" path="res://scenes/mapper/camera_pivot.gd" id="5_1goaf"]
 [ext_resource type="Script" uid="uid://clxj0fu6d2g3r" path="res://scenes/mapper/map/map_core.gd" id="6_sm41v"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_76f00"]
@@ -48,7 +49,7 @@ size = Vector3(5000, 1, 5000)
 [node name="Mapper3D" type="Node3D"]
 script = ExtResource("1_htv7j")
 
-[node name="PlayerCollision" type="CharacterBody3D" parent="."]
+[node name="Player" type="CharacterBody3D" parent="."]
 collision_layer = 3
 collision_mask = 3
 axis_lock_angular_x = true
@@ -57,11 +58,11 @@ axis_lock_angular_z = true
 slide_on_ceiling = false
 script = ExtResource("3_sm41v")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCollision"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_76f00")
 
-[node name="Player" type="CSGSphere3D" parent="PlayerCollision"]
+[node name="PlayerShape" type="CSGSphere3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 layers = 524288
 material_override = SubResource("StandardMaterial3D_mxy8m")
@@ -69,7 +70,7 @@ radial_segments = 24
 rings = 12
 script = ExtResource("2_mxy8m")
 
-[node name="Name" type="Label3D" parent="PlayerCollision"]
+[node name="Name" type="Label3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3021612, 0)
 billboard = 1
 double_sided = false
@@ -78,14 +79,16 @@ outline_render_priority = 0
 text = "Whirp"
 font_size = 40
 
-[node name="CameraPivot" type="Node3D" parent="PlayerCollision"]
+[node name="CameraPivot" type="Node3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+top_level = true
+script = ExtResource("5_1goaf")
 
-[node name="CameraArm" type="SpringArm3D" parent="PlayerCollision/CameraPivot"]
+[node name="CameraArm" type="SpringArm3D" parent="Player/CameraPivot"]
 collision_mask = 2147483648
 spring_length = 5.0
 
-[node name="PlayerCamera" type="Camera3D" parent="PlayerCollision/CameraPivot/CameraArm"]
+[node name="PlayerCamera" type="Camera3D" parent="Player/CameraPivot/CameraArm"]
 environment = SubResource("Environment_c4ga5")
 script = ExtResource("3_c4ga5")
 

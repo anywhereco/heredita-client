@@ -19,10 +19,14 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and \
-	(event.button_mask & (MOUSE_BUTTON_MASK_MIDDLE | MOUSE_BUTTON_MASK_RIGHT)) != 0:
+	(event.button_mask & MOUSE_BUTTON_MASK_RIGHT) != 0:
 		@warning_ignore("unsafe_call_argument")
 		camera_pan(event)
-	elif event.is_action_pressed("zoom_out"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	if event.is_action_pressed("zoom_out"):
 		camera_arm.spring_length = minf(50, camera_arm.spring_length * 1.1)
 	elif event.is_action_pressed("zoom_in"):
 		camera_arm.spring_length = maxf(2.5, camera_arm.spring_length * (1/1.1))
