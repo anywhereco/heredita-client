@@ -25,7 +25,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("zoom_out"):
 		camera_arm.spring_length = minf(50, camera_arm.spring_length * 1.1)
 	elif event.is_action_pressed("zoom_in"):
-		camera_arm.spring_length = maxf(4, camera_arm.spring_length * (1/1.1))
+		camera_arm.spring_length = maxf(2.5, camera_arm.spring_length * (1/1.1))
 
 func camera_pan(event: InputEventMouseMotion) -> void:
 	camera_pivot.rotation.x -= event.relative.y * mouse_sensitivity

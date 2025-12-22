@@ -7,4 +7,4 @@ func _ready() -> void:
 	
 func _process(delta: float) -> void:
 	text = "\n"
-	text += "fps: %s\n" % Engine.get_frames_per_second()w
+	text += "fps: %s\n" % Engine.get_frames_per_second()
