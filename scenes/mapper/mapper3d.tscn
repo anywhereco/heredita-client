@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bmfinmmve5h47"]
+[gd_scene load_steps=14 format=3 uid="uid://bmfinmmve5h47"]
 
 [ext_resource type="Script" uid="uid://casjubdmfl0xa" path="res://scenes/mapper/mapper_3d.gd" id="1_htv7j"]
 [ext_resource type="Texture2D" uid="uid://do2qcumlvx0lo" path="res://assets/map.png" id="1_vg5mj"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://ddbnc776wuh7i" path="res://scenes/mapper/player.gd" id="2_mxy8m"]
 [ext_resource type="Script" uid="uid://bnnb4ayaos0ow" path="res://scenes/mapper/camera3d.gd" id="3_c4ga5"]
 [ext_resource type="Script" uid="uid://c1m5ewhnxff8g" path="res://scenes/mapper/player_movement.gd" id="3_sm41v"]
+[ext_resource type="Script" uid="uid://clxj0fu6d2g3r" path="res://scenes/mapper/map/map_core.gd" id="6_sm41v"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_76f00"]
 
@@ -91,6 +92,7 @@ transparent = false
 double_sided = false
 texture_filter = 0
 texture = ExtResource("1_vg5mj")
+script = ExtResource("6_sm41v")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map"]
 collision_layer = 2147483649

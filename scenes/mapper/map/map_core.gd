@@ -1,5 +1,5 @@
 class_name Map
-extends Sprite2D
+extends Sprite3D
 
 @onready var mapper: MapperRoot = $".."
 
