@@ -12,8 +12,6 @@ enum Tool {
 	SELECT
 }
 
-var zoom := ReactiveFloat.new(1)
-
 var tool := ReactiveInt.new(Tool.BRUSH)
 
 var base_zoom := ReactiveFloat.new(1)

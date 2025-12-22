@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bxwxbcrvqou86"]
+[gd_scene load_steps=25 format=3 uid="uid://bxwxbcrvqou86"]
 
 [ext_resource type="Texture2D" uid="uid://do2qcumlvx0lo" path="res://assets/map.png" id="1_5rw7w"]
 [ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/_shared/glass.tres" id="1_agl36"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bf21ocaw21o0l" path="res://assets/icons/send.svg" id="5_rficw"]
 [ext_resource type="Texture2D" uid="uid://b75i52xuegece" path="res://assets/icons/tools/brush.svg" id="7_hxqh0"]
 [ext_resource type="Script" uid="uid://cyue2b6ml14cg" path="res://scenes/mapper/ui/tool_changer.gd" id="9_xodf2"]
+[ext_resource type="Script" uid="uid://q730t7bfxbrx" path="res://scenes/mapper/ui/infotracker.gd" id="10_g5yh5"]
 [ext_resource type="Script" uid="uid://c3107fy0fo6nv" path="res://scenes/mapper/ui/tool_ui.gd" id="10_keouw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5yh5"]
@@ -230,7 +231,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_khegr")
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Label" type="Label" parent="UI/ChatSplit/RightItems/BottomPanel/ChatAnchor"]
+[node name="Infotracker" type="Label" parent="UI/ChatSplit/RightItems/BottomPanel/ChatAnchor"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -245,6 +246,7 @@ grow_horizontal = 0
 grow_vertical = 2
 text = "Zoom: 3 Jillion"
 horizontal_alignment = 2
+script = ExtResource("10_g5yh5")
 
 [node name="FoldableContainer" type="FoldableContainer" parent="UI/ChatSplit/RightItems/BottomPanel"]
 layout_mode = 2

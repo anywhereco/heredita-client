@@ -39,3 +39,14 @@ func camera_zoom(intensity: float) -> void:
 			zoom_to_set = snap
 	mapper.effective_zoom.value = zoom_to_set
 	zoom = Vector2(zoom_to_set, zoom_to_set)
+
+func _input(event: InputEvent) -> void:
+	if event is not InputEventMouseMotion:
+		return
+	var move_event: InputEventMouseMotion = event
+	if ((move_event.button_mask & (MOUSE_BUTTON_MASK_MIDDLE | MOUSE_BUTTON_MASK_RIGHT)) == 0):
+		return
+	var motion := move_event.screen_relative / mapper.effective_zoom.value
+	wanted_position -= motion
+	position -= motion
+		
