@@ -1,12 +1,25 @@
 extends CSGSphere3D
 
-@onready var camera_pivot: Node3D = $"../CameraPivot"
+@onready var player: CharacterBody3D = $".."
 
+var last_vel := Vector2.ZERO
+var angle_offset := 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
 func _process(delta: float) -> void:
-	if not Input.is_key_pressed(KEY_SHIFT):
-		self.rotation.y += (camera_pivot.rotation.y - rotation.y) * (1 - exp(-20*delta))
+	var vel := Vector2(player.velocity.x, player.velocity.z)
+	if abs(vel.angle() - last_vel.angle()) > 2:
+		if signf((vel - last_vel).angle()) == 1:
+			angle_offset -= TAU
+		else:
+			angle_offset += TAU
+			
+	var angle := vel.angle() + angle_offset
+
+	if not Input.is_key_pressed(KEY_SHIFT) and vel.length_squared() > 0.05:
+		self.rotation.y += (((angle * -1) + deg_to_rad(-90)) - rotation.y) * (1 - exp(-20*delta))
+		
+	last_vel = vel
