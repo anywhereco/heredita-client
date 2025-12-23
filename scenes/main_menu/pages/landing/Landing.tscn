@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=3 uid="uid://crasgtic6vnmh"]
+
+[ext_resource type="Texture2D" uid="uid://c0udqbl4trv2i" path="res://assets/logo_large.png" id="1_e06ia"]
+
+[node name="Landing" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftSide" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Play" type="Button" parent="HBoxContainer/LeftSide"]
+layout_mode = 2
+theme_type_variation = &"PrimaryButtons"
+text = "Play"
+
+[node name="Stagger" type="HBoxContainer" parent="HBoxContainer/LeftSide"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Settings" type="Button" parent="HBoxContainer/LeftSide/Stagger"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"PrimaryButtons"
+text = "Settings"
+
+[node name="Padding" type="Control" parent="HBoxContainer/LeftSide/Stagger"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="Stagger2" type="HBoxContainer" parent="HBoxContainer/LeftSide"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Settings" type="Button" parent="HBoxContainer/LeftSide/Stagger2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"PrimaryButtons"
+text = "Account"
+
+[node name="Padding" type="Control" parent="HBoxContainer/LeftSide/Stagger2"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="Padding" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(43, 0)
+layout_mode = 2
+
+[node name="RightSide" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/RightSide"]
+layout_mode = 2
+texture = ExtResource("1_e06ia")
+expand_mode = 5
