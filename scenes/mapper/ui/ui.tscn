@@ -1,10 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://yb2j237qhuec"]
+[gd_scene load_steps=18 format=3 uid="uid://yb2j237qhuec"]
 
 [ext_resource type="Script" uid="uid://i3124dmjaoj6" path="res://scenes/mapper/ui/right_items.gd" id="1_itatv"]
 [ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/_shared/glass.tres" id="2_tv71d"]
 [ext_resource type="Script" uid="uid://cobvlsshktn31" path="res://scenes/mapper/ui/tab_scroll_bar.gd" id="3_mey8b"]
 [ext_resource type="Texture2D" uid="uid://bf21ocaw21o0l" path="res://assets/icons/send.svg" id="4_rh4gq"]
-[ext_resource type="Script" uid="uid://q730t7bfxbrx" path="res://scenes/mapper/ui/infotracker.gd" id="5_em4te"]
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="6_wbt2f"]
 [ext_resource type="Script" uid="uid://cyue2b6ml14cg" path="res://scenes/mapper/ui/tool_changer.gd" id="7_0sgq1"]
 [ext_resource type="Texture2D" uid="uid://b75i52xuegece" path="res://assets/icons/tools/brush.svg" id="8_2eddf"]
@@ -198,23 +197,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_khegr")
 [node name="ChatAnchor" type="Control" parent="ChatSplit/RightItems/BottomPanel"]
 layout_mode = 2
 size_flags_horizontal = 0
-
-[node name="Infotracker" type="Label" parent="ChatSplit/RightItems/BottomPanel/ChatAnchor"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -99.0
-offset_top = -10.5
-offset_right = -13.0
-offset_bottom = 10.5
-grow_horizontal = 0
-grow_vertical = 2
-text = "Zoom: 3 Jillion"
-horizontal_alignment = 2
-script = ExtResource("5_em4te")
 
 [node name="FoldableContainer" type="FoldableContainer" parent="ChatSplit/RightItems/BottomPanel"]
 layout_mode = 2

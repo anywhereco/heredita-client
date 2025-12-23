@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://cww8q0kd7eghb"]
+[gd_scene load_steps=14 format=3 uid="uid://cww8q0kd7eghb"]
 
 [ext_resource type="Texture2D" uid="uid://c1kanb7wy7l6u" path="res://assets/logo.png" id="1_u72k2"]
 [ext_resource type="Script" uid="uid://bo7jlrc3hs4b5" path="res://scenes/main_menu/pages/room_list/keep_logo_size.gd" id="2_ad10x"]
 [ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/main_menu/pages/room_list/temporary_mapper_opener.gd" id="3_lh7oj"]
+[ext_resource type="Script" uid="uid://cfggt4nqijly5" path="res://scenes/main_menu/pages/room_list/return_to_landing.gd" id="3_vv0m7"]
 [ext_resource type="Script" uid="uid://bwliltv76v13d" path="res://scenes/main_menu/pages/room_list/reload.gd" id="4_em73g"]
 [ext_resource type="Script" uid="uid://ccm6h71syvpb" path="res://scenes/main_menu/pages/room_list/roomhandler.gd" id="5_2ry5b"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="6_8mxs2"]
@@ -65,9 +66,10 @@ script = ExtResource("2_ad10x")
 layout_mode = 2
 alignment = 2
 
-[node name="Button" type="Button" parent="Rooms/ButtonRow"]
+[node name="Back" type="Button" parent="Rooms/ButtonRow"]
 layout_mode = 2
 text = "Back"
+script = ExtResource("3_vv0m7")
 
 [node name="Control" type="Control" parent="Rooms/ButtonRow"]
 layout_mode = 2

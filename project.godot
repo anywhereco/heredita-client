@@ -21,6 +21,7 @@ Prompts="*res://libraries/Prompts.gd"
 QueryParams="*res://libraries/QueryParams.gd"
 State="*res://singletons/state/state.gd"
 HTTP="*res://libraries/HTTP.gd"
+DebugLayer="*res://singletons/debug/DebugLayer.tscn"
 
 [debug]
 

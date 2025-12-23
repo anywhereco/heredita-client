@@ -8,3 +8,4 @@
 [node name="Background" parent="." instance=ExtResource("1_1ig7j")]
 
 [node name="Foreground" parent="." instance=ExtResource("2_ukx7c")]
+unique_name_in_owner = true
