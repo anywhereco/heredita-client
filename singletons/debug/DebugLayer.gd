@@ -6,12 +6,13 @@ var original_text: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	@warning_ignore("unsafe_call_argument")
 	label.text = label.text.replace("!VER", ProjectSettings.get_setting("application/config/version"))
 	original_text = label.text
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	label.text = original_text % [Engine.get_frames_per_second()]
 	
 func _unhandled_key_input(event: InputEvent) -> void:
