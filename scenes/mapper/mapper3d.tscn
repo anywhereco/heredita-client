@@ -55,7 +55,6 @@ normal_enabled = true
 uv1_scale = Vector3(24, 12, 2)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_l0uxc"]
-size = Vector2(200, 100)
 
 [node name="Mapper3D" type="Node3D"]
 script = ExtResource("1_htv7j")

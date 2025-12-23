@@ -7,6 +7,7 @@ const CHUNK_SIZE: int = 256
 
 @onready var mapper: MapperRoot = $".."
 @onready var player_camera: Camera3D = $"../LocalPlayer/CameraPivot/CameraArm/PlayerCamera"
+@onready var water: MeshInstance3D = $"../Water"
 
 @onready var chunk_container_node: Node3D = $MapChunks
 
@@ -62,7 +63,8 @@ func _ready() -> void:
 				chunks_edited.append([])
 			chunks.get(x_idx).insert(y_idx, chunk)
 			chunks_edited.get(x_idx).insert(y_idx, chunk)
-			
+	water.mesh.size = map_space_to_world_space(Vector2.ZERO).abs() * 2
+
 func _process(_delta: float) -> void:
 	pass
 
