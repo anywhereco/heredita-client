@@ -1,7 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://bmfinmmve5h47"]
+[gd_scene load_steps=17 format=3 uid="uid://bmfinmmve5h47"]
 
 [ext_resource type="Script" uid="uid://casjubdmfl0xa" path="res://scenes/mapper/mapper_3d.gd" id="1_htv7j"]
-[ext_resource type="Texture2D" uid="uid://do2qcumlvx0lo" path="res://assets/map.png" id="1_vg5mj"]
 [ext_resource type="PackedScene" uid="uid://yb2j237qhuec" path="res://scenes/mapper/ui/ui.tscn" id="2_htv7j"]
 [ext_resource type="Script" uid="uid://ddbnc776wuh7i" path="res://scenes/mapper/player_shape.gd" id="2_mxy8m"]
 [ext_resource type="Script" uid="uid://bnnb4ayaos0ow" path="res://scenes/mapper/camera3d.gd" id="3_c4ga5"]
@@ -9,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://d07780ryakfgd" path="res://assets/shmile.png" id="3_wvm7y"]
 [ext_resource type="Script" uid="uid://b2ln5lyiu705a" path="res://scenes/mapper/camera_pivot.gd" id="5_1goaf"]
 [ext_resource type="Script" uid="uid://clxj0fu6d2g3r" path="res://scenes/mapper/map/map_core.gd" id="6_sm41v"]
-[ext_resource type="Script" uid="uid://w62vrm6i25wb" path="res://scenes/mapper/epik_ball_generator.gd" id="10_agntw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_76f00"]
 
@@ -48,27 +46,16 @@ reflected_light_source = 2
 [sub_resource type="BoxShape3D" id="BoxShape3D_htv7j"]
 size = Vector3(5000, 1, 5000)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1goaf"]
-load_path = "res://.godot/imported/waterheight_specular(2).png-ab1b18dd5463518d1c0539e7aad15fb7.s3tc.ctex"
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l0uxc"]
 render_priority = -1
-albedo_color = Color(0.47060567, 0.48105788, 0.75959206, 1)
-metallic = 0.31
-metallic_specular = 0.66
+albedo_color = Color(0.15433392, 0.15552339, 0.31057543, 1)
+metallic = 0.55
+metallic_specular = 0.45
 normal_enabled = true
-normal_scale = 2.45
-normal_texture = SubResource("CompressedTexture2D_1goaf")
 uv1_scale = Vector3(24, 12, 2)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_l0uxc"]
 size = Vector2(200, 100)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kc0x"]
-transparency = 1
-albedo_color = Color(1, 1, 1, 0.5176471)
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_kx3ff"]
 
 [node name="Mapper3D" type="Node3D"]
 script = ExtResource("1_htv7j")
@@ -117,12 +104,7 @@ environment = SubResource("Environment_c4ga5")
 near = 0.15
 script = ExtResource("3_c4ga5")
 
-[node name="Map" type="Sprite3D" parent="."]
-pixel_size = 0.125
-axis = 1
-double_sided = false
-texture_filter = 0
-texture = ExtResource("1_vg5mj")
+[node name="Map" type="Node3D" parent="."]
 script = ExtResource("6_sm41v")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map"]
@@ -133,33 +115,11 @@ collision_mask = 2147483649
 transform = Transform3D(0.9999619, 0, -0.008726535, 0, 1, 0, 0.008726535, 0, 0.9999619, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_htv7j")
 
+[node name="MapChunks" type="Node3D" parent="Map"]
+
 [node name="Water" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 material_override = SubResource("StandardMaterial3D_l0uxc")
 mesh = SubResource("PlaneMesh_l0uxc")
 
-[node name="Frame" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
-material_override = SubResource("StandardMaterial3D_l0uxc")
-skeleton = NodePath("../Water")
-
 [node name="UI" parent="." instance=ExtResource("2_htv7j")]
-
-[node name="EpikBallGenerator" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.06544, 11.211412)
-script = ExtResource("10_agntw")
-
-[node name="EpicBallGenerator" type="CSGSphere3D" parent="EpikBallGenerator"]
-radius = 0.7
-material = SubResource("StandardMaterial3D_0kc0x")
-
-[node name="BallTemplate" type="RigidBody3D" parent="EpikBallGenerator"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9999, 0)
-visible = false
-mass = 0.01
-freeze = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="EpikBallGenerator/BallTemplate"]
-shape = SubResource("SphereShape3D_kx3ff")
-
-[node name="Shape" type="CSGSphere3D" parent="EpikBallGenerator/BallTemplate"]

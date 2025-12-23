@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://co8osnbupcqjm"]
 
 [ext_resource type="Script" uid="uid://cqvgxydjyce6p" path="res://scenes/main_menu/foreground.gd" id="1_hbrfk"]
-[ext_resource type="Shader" uid="uid://h6ps2oq513j8" path="res://scenes/main_menu/background_blur.gdshader" id="1_t71vb"]
+[ext_resource type="Shader" uid="uid://h6ps2oq513j8" path="res://scenes/main_menu/background/background_blur.gdshader" id="1_t71vb"]
 [ext_resource type="PackedScene" uid="uid://crasgtic6vnmh" path="res://scenes/main_menu/pages/landing/Landing.tscn" id="3_su6od"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crsvy"]

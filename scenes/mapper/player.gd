@@ -3,10 +3,11 @@ extends CharacterBody3D
 @onready var camera_pivot: Node3D = $CameraPivot
 
 const SPEED = 5.0
+const SPRINT_MULT = 3.0
 const JUMP_VELOCITY = 4.5
 
 func setup_velocity(direction: Vector3, delta: float) -> void:
-	var target_vel := direction * SPEED
+	var target_vel := direction * SPEED * (SPRINT_MULT if Input.is_key_pressed(KEY_SHIFT) else 1.0)
 	var clock: float
 	if direction:
 		clock = -60 if is_on_floor() else -40
