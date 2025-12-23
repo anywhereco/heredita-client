@@ -2,23 +2,13 @@
 
 [ext_resource type="Script" uid="uid://i3124dmjaoj6" path="res://scenes/mapper/ui/right_items.gd" id="1_itatv"]
 [ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/_shared/glass.tres" id="2_tv71d"]
-[ext_resource type="Script" uid="uid://cobvlsshktn31" path="res://scenes/mapper/ui/tab_scroll_bar.gd" id="3_mey8b"]
+[ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="4_itatv"]
 [ext_resource type="Texture2D" uid="uid://bf21ocaw21o0l" path="res://assets/icons/send.svg" id="4_rh4gq"]
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="6_wbt2f"]
 [ext_resource type="Script" uid="uid://cyue2b6ml14cg" path="res://scenes/mapper/ui/tool_changer.gd" id="7_0sgq1"]
 [ext_resource type="Texture2D" uid="uid://b75i52xuegece" path="res://assets/icons/tools/brush.svg" id="8_2eddf"]
+[ext_resource type="Texture2D" uid="uid://c1f7wmtt6awxc" path="res://assets/icons/tools/inprogress.png" id="8_tv71d"]
 [ext_resource type="Script" uid="uid://c3107fy0fo6nv" path="res://scenes/mapper/ui/tool_ui.gd" id="9_x7h6p"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5rw7w"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-bg_color = Color(0, 0, 0, 0.19215687)
-border_color = Color(1, 1, 1, 0.54509807)
-corner_radius_top_left = 15
-corner_detail = 1
-anti_aliasing = false
-anti_aliasing_size = 0.01
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rficw"]
 content_margin_left = 5.0
@@ -37,6 +27,9 @@ border_color = Color(1, 1, 1, 0.54509807)
 corner_detail = 1
 anti_aliasing = false
 anti_aliasing_size = 0.01
+
+[sub_resource type="LabelSettings" id="LabelSettings_mey8b"]
+font = ExtResource("4_itatv")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hddsb"]
 content_margin_left = 5.0
@@ -71,9 +64,6 @@ anti_aliasing_size = 0.01
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_grkin"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xodf2"]
-size = Vector2(64, 64)
-
 [node name="UI" type="CanvasLayer"]
 
 [node name="ChatSplit" type="HSplitContainer" parent="."]
@@ -102,54 +92,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("1_itatv")
 
-[node name="TopBar" type="PanelContainer" parent="ChatSplit/RightItems"]
-material = ExtResource("2_tv71d")
-custom_minimum_size = Vector2(135, 25)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5rw7w")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ChatSplit/RightItems/TopBar"]
-layout_mode = 2
-theme_override_constants/separation = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ChatSplit/RightItems/TopBar/VBoxContainer"]
-layout_mode = 2
-
-[node name="Close" type="Button" parent="ChatSplit/RightItems/TopBar/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"FlatUnpaddedButton"
-theme_override_font_sizes/font_size = 11
-text = "->"
-flat = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ChatSplit/RightItems/TopBar/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="TabScrollBar" type="HScrollBar" parent="ChatSplit/RightItems/TopBar/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-script = ExtResource("3_mey8b")
-
-[node name="TabScroll" type="ScrollContainer" parent="ChatSplit/RightItems/TopBar/VBoxContainer/HBoxContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-horizontal_scroll_mode = 3
-vertical_scroll_mode = 0
-scroll_deadzone = 3
-
-[node name="TabBar" type="TabBar" parent="ChatSplit/RightItems/TopBar/VBoxContainer/HBoxContainer/VBoxContainer/TabScroll"]
-layout_mode = 2
-current_tab = 0
-clip_tabs = false
-close_with_middle_mouse = false
-tab_close_display_policy = 1
-tab_count = 4
-tab_0/title = "Main"
-tab_1/title = "Main 2"
-tab_2/title = "Main 2 2"
-tab_3/title = "+"
-
 [node name="ChatBox" type="PanelContainer" parent="ChatSplit/RightItems"]
 material = ExtResource("2_tv71d")
 custom_minimum_size = Vector2(135, 25)
@@ -164,13 +106,13 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ChatMessages" type="RichTextLabel" parent="ChatSplit/RightItems/ChatBox/VBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ChatSplit/RightItems/ChatBox/VBoxContainer/PanelContainer"]
 layout_mode = 2
-text = "Whirling: buh.
-Digi: I hate yuo. >:[
-LegitSi: why am i here.
-Whirling: to provide a long message
-LegitSi: Understandable, have a nice day.
+
+[node name="ChatMessages" type="RichTextLabel" parent="ChatSplit/RightItems/ChatBox/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[i]Chat is disabled in singleplayer![/i]
 "
 scroll_active = false
 scroll_following = true
@@ -184,61 +126,41 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Message"
+editable = false
 
 [node name="Button" type="Button" parent="ChatSplit/RightItems/ChatBox/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+disabled = true
 icon = ExtResource("4_rh4gq")
 
-[node name="BottomPanel" type="PanelContainer" parent="ChatSplit/RightItems"]
+[node name="RoomCount" type="PanelContainer" parent="ChatSplit/RightItems"]
 material = ExtResource("2_tv71d")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_khegr")
 
-[node name="ChatAnchor" type="Control" parent="ChatSplit/RightItems/BottomPanel"]
+[node name="ChatAnchor" type="Control" parent="ChatSplit/RightItems/RoomCount"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="FoldableContainer" type="FoldableContainer" parent="ChatSplit/RightItems/BottomPanel"]
+[node name="FoldableContainer" type="FoldableContainer" parent="ChatSplit/RightItems/RoomCount"]
 layout_mode = 2
 theme_type_variation = &"TransparentFoldableContainer"
 folded = true
-title = "8 in room"
+title = "1 in room"
 
-[node name="HFlowContainer" type="HFlowContainer" parent="ChatSplit/RightItems/BottomPanel/FoldableContainer"]
+[node name="HFlowContainer" type="HFlowContainer" parent="ChatSplit/RightItems/RoomCount/FoldableContainer"]
 visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ChatSplit/RightItems/BottomPanel/FoldableContainer/HFlowContainer"]
+[node name="Label" type="Label" parent="ChatSplit/RightItems/RoomCount/FoldableContainer/HFlowContainer"]
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
-text = "User1"
-
-[node name="Label2" type="Label" parent="ChatSplit/RightItems/BottomPanel/FoldableContainer/HFlowContainer"]
-layout_mode = 2
-text = "User1"
-
-[node name="Label3" type="Label" parent="ChatSplit/RightItems/BottomPanel/FoldableContainer/HFlowContainer"]
-layout_mode = 2
-text = "User1"
-
-[node name="Label4" type="Label" parent="ChatSplit/RightItems/BottomPanel/FoldableContainer/HFlowContainer"]
-layout_mode = 2
-text = "User1"
-
-[node name="Label5" type="Label" parent="ChatSplit/RightItems/BottomPanel/FoldableContainer/HFlowContainer"]
-layout_mode = 2
-text = "User1"
-
-[node name="Label6" type="Label" parent="ChatSplit/RightItems/BottomPanel/FoldableContainer/HFlowContainer"]
-layout_mode = 2
-text = "User1"
-
-[node name="Label7" type="Label" parent="ChatSplit/RightItems/BottomPanel/FoldableContainer/HFlowContainer"]
-layout_mode = 2
-text = "User1"
-
-[node name="Label8" type="Label" parent="ChatSplit/RightItems/BottomPanel/FoldableContainer/HFlowContainer"]
-layout_mode = 2
-text = "User1"
+size_flags_horizontal = 3
+text = "You are in singleplayer!"
+label_settings = SubResource("LabelSettings_mey8b")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="LeftItems" type="VBoxContainer" parent="."]
 anchors_preset = 9
@@ -256,6 +178,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hddsb")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LeftItems/DateAgeBox"]
+visible = false
 layout_mode = 2
 alignment = 1
 
@@ -289,6 +212,11 @@ theme_type_variation = &"FlatUnpaddedButton"
 theme_override_font_sizes/font_size = 11
 text = "<-    "
 flat = true
+
+[node name="Label" type="Label" parent="LeftItems/DateAgeBox"]
+layout_mode = 2
+text = "Calendar soon™"
+autowrap_mode = 2
 
 [node name="Toolkit" type="PanelContainer" parent="LeftItems"]
 material = ExtResource("2_tv71d")
@@ -332,23 +260,26 @@ icon = ExtResource("8_2eddf")
 [node name="Fill" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/LeftTools"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
-icon = SubResource("PlaceholderTexture2D_xodf2")
+icon = ExtResource("8_tv71d")
 
 [node name="Line" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/LeftTools"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
-icon = SubResource("PlaceholderTexture2D_xodf2")
+icon = ExtResource("8_tv71d")
 
 [node name="Pick" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/LeftTools"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
-icon = SubResource("PlaceholderTexture2D_xodf2")
+icon = ExtResource("8_tv71d")
 
 [node name="RightTools" type="VBoxContainer" parent="LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
@@ -360,30 +291,34 @@ layout_mode = 2
 [node name="Inspect" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
-icon = SubResource("PlaceholderTexture2D_xodf2")
+icon = ExtResource("8_tv71d")
 
 [node name="Pan" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
-icon = SubResource("PlaceholderTexture2D_xodf2")
+icon = ExtResource("8_tv71d")
 
 [node name="Marking" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
-icon = SubResource("PlaceholderTexture2D_xodf2")
+icon = ExtResource("8_tv71d")
 
 [node name="Select" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
-icon = SubResource("PlaceholderTexture2D_xodf2")
+icon = ExtResource("8_tv71d")
 
 [node name="LargePadding" type="Control" parent="LeftItems"]
 layout_mode = 2
