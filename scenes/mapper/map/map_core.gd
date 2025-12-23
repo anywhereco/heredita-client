@@ -8,12 +8,12 @@ const CHUNK_SIZE: int = 256
 @onready var mapper: MapperRoot = $".."
 @onready var player_camera: Camera3D = $"../LocalPlayer/CameraPivot/CameraArm/PlayerCamera"
 
-@onready var map_chunks: Node3D = $MapChunks
+@onready var chunk_container_node: Node3D = $MapChunks
 
 var map_pos: ReactiveVector2 = ReactiveVector2.new(Vector2.INF)
 ## Array[Array[bool]], x,y/z order
 var chunks_edited: Array[Array] = []
-## Array[Array[Image]], x,y/z order
+## Array[Array[Sprite3D]], x,y/z order
 var chunks: Array[Array] = []
 
 var original_map: Image = preload("uid://do2qcumlvx0lo")
@@ -40,6 +40,10 @@ func _ready() -> void:
 	original_map_size = original_map.get_size()
 	for x: int in range(0, original_map_size.x, CHUNK_SIZE):
 		for y: int in range(0, original_map_size.y, CHUNK_SIZE):
+			@warning_ignore("integer_division")
+			var x_idx := x/CHUNK_SIZE
+			@warning_ignore("integer_division")
+			var y_idx := y/CHUNK_SIZE
 			var chunk_coords := Rect2i(Vector2i(x,y), Vector2i(CHUNK_SIZE, CHUNK_SIZE))
 			var img := Image.create_empty(CHUNK_SIZE, CHUNK_SIZE, false, original_map.get_format())
 			img.blit_rect(original_map, chunk_coords, Vector2i.ZERO)
@@ -52,8 +56,13 @@ func _ready() -> void:
 			chunk.name = "MapChunk%d:%d" % [x, y]
 			chunk.pixel_size = pixel_size
 			chunk.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
-			map_chunks.add_child(chunk)
-
+			chunk_container_node.add_child(chunk)
+			if chunks.size() <= x_idx:
+				chunks.append([])
+				chunks_edited.append([])
+			chunks.get(x_idx).insert(y_idx, chunk)
+			chunks_edited.get(x_idx).insert(y_idx, chunk)
+			
 func _process(_delta: float) -> void:
 	pass
 
@@ -72,4 +81,5 @@ func _unhandled_input(event: InputEvent) -> void:
 		map_pos.value = world_space_to_map_space(intersect_pos)
 		if not is_in_bounding_box(map_pos.value, Vector2.ZERO, original_map_size):
 			return
+		@warning_ignore("unused_variable")
 		var map_pos_int := Vector2i(map_pos.value)
