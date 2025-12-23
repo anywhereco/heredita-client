@@ -1,0 +1,145 @@
+[gd_scene load_steps=13 format=3 uid="uid://cww8q0kd7eghb"]
+
+[ext_resource type="Texture2D" uid="uid://c1kanb7wy7l6u" path="res://assets/logo.png" id="1_u72k2"]
+[ext_resource type="Script" uid="uid://bo7jlrc3hs4b5" path="res://scenes/lobby/foreground/keep_logo_size.gd" id="2_ad10x"]
+[ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/lobby/foreground/temporary_mapper_opener.gd" id="3_lh7oj"]
+[ext_resource type="Script" uid="uid://bwliltv76v13d" path="res://scenes/lobby/foreground/reload.gd" id="4_em73g"]
+[ext_resource type="Script" uid="uid://ccm6h71syvpb" path="res://scenes/lobby/foreground/roomhandler.gd" id="5_2ry5b"]
+[ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="6_8mxs2"]
+[ext_resource type="Script" uid="uid://dmr78u6gtdkfg" path="res://scenes/lobby/foreground/new_room/instantiate_room.gd" id="7_myu5w"]
+[ext_resource type="FontVariation" uid="uid://hwc3xdnlf3ke" path="res://assets/font/_variants/pro450.tres" id="8_iouc7"]
+[ext_resource type="Script" uid="uid://dyad1l4xw802a" path="res://scenes/lobby/foreground/debug_info.gd" id="9_kpbv2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3knor"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+draw_center = false
+
+[sub_resource type="LabelSettings" id="LabelSettings_d0eqv"]
+font = ExtResource("6_8mxs2")
+font_size = 18
+font_color = Color(1, 1, 1, 0.70980394)
+
+[sub_resource type="LabelSettings" id="LabelSettings_j6gyg"]
+font = ExtResource("8_iouc7")
+font_size = 20
+font_color = Color(0.8862615, 0.8862615, 0.88626134, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 0.5647059)
+
+[node name="Padding" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Rooms" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Rooms"]
+visible = false
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.25
+texture = ExtResource("1_u72k2")
+expand_mode = 2
+stretch_mode = 4
+script = ExtResource("2_ad10x")
+
+[node name="ButtonRow" type="HBoxContainer" parent="Rooms"]
+layout_mode = 2
+alignment = 2
+
+[node name="Button" type="Button" parent="Rooms/ButtonRow"]
+layout_mode = 2
+text = "Back"
+
+[node name="Control" type="Control" parent="Rooms/ButtonRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button2" type="Button" parent="Rooms/ButtonRow"]
+layout_mode = 2
+text = "[Temporary] Open Mapper UI"
+script = ExtResource("3_lh7oj")
+
+[node name="Reload" type="Button" parent="Rooms/ButtonRow"]
+layout_mode = 2
+text = "Reload"
+script = ExtResource("4_em73g")
+
+[node name="Padding2" type="Control" parent="Rooms"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Rooms"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Rooms/PanelContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3knor")
+
+[node name="Rooms" type="VBoxContainer" parent="Rooms/PanelContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+script = ExtResource("5_2ry5b")
+
+[node name="LoadingPlaceholder" type="CenterContainer" parent="Rooms/PanelContainer/ScrollContainer/Rooms"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="Label" type="Label" parent="Rooms/PanelContainer/ScrollContainer/Rooms/LoadingPlaceholder"]
+layout_mode = 2
+text = "Loading rooms..."
+label_settings = SubResource("LabelSettings_d0eqv")
+
+[node name="Create" type="HBoxContainer" parent="Rooms/PanelContainer/ScrollContainer/Rooms"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Button" type="Button" parent="Rooms/PanelContainer/ScrollContainer/Rooms/Create"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Create a room"
+script = ExtResource("7_myu5w")
+
+[node name="MenuButton" type="MenuButton" parent="Rooms/PanelContainer/ScrollContainer/Rooms/Create"]
+layout_mode = 2
+text = "v"
+flat = false
+item_count = 1
+popup/item_0/text = "Create local room"
+popup/item_0/id = 0
+
+[node name="Padding" type="Control" parent="Rooms"]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+
+[node name="DebugInfo" type="Label" parent="Rooms"]
+layout_mode = 2
+text = "Dominion Dice %s"
+label_settings = SubResource("LabelSettings_j6gyg")
+horizontal_alignment = 2
+script = ExtResource("9_kpbv2")
