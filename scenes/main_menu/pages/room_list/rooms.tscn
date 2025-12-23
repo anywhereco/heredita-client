@@ -1,14 +1,14 @@
 [gd_scene load_steps=13 format=3 uid="uid://cww8q0kd7eghb"]
 
 [ext_resource type="Texture2D" uid="uid://c1kanb7wy7l6u" path="res://assets/logo.png" id="1_u72k2"]
-[ext_resource type="Script" uid="uid://bo7jlrc3hs4b5" path="res://scenes/lobby/foreground/keep_logo_size.gd" id="2_ad10x"]
-[ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/lobby/foreground/temporary_mapper_opener.gd" id="3_lh7oj"]
-[ext_resource type="Script" uid="uid://bwliltv76v13d" path="res://scenes/lobby/foreground/reload.gd" id="4_em73g"]
-[ext_resource type="Script" uid="uid://ccm6h71syvpb" path="res://scenes/lobby/foreground/roomhandler.gd" id="5_2ry5b"]
+[ext_resource type="Script" uid="uid://bo7jlrc3hs4b5" path="res://scenes/main_menu/pages/room_list/keep_logo_size.gd" id="2_ad10x"]
+[ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/main_menu/pages/room_list/temporary_mapper_opener.gd" id="3_lh7oj"]
+[ext_resource type="Script" uid="uid://bwliltv76v13d" path="res://scenes/main_menu/pages/room_list/reload.gd" id="4_em73g"]
+[ext_resource type="Script" uid="uid://ccm6h71syvpb" path="res://scenes/main_menu/pages/room_list/roomhandler.gd" id="5_2ry5b"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="6_8mxs2"]
-[ext_resource type="Script" uid="uid://dmr78u6gtdkfg" path="res://scenes/lobby/foreground/new_room/instantiate_room.gd" id="7_myu5w"]
+[ext_resource type="Script" uid="uid://dmr78u6gtdkfg" path="res://scenes/main_menu/pages/room_list/new_room/instantiate_room.gd" id="7_myu5w"]
 [ext_resource type="FontVariation" uid="uid://hwc3xdnlf3ke" path="res://assets/font/_variants/pro450.tres" id="8_iouc7"]
-[ext_resource type="Script" uid="uid://dyad1l4xw802a" path="res://scenes/lobby/foreground/debug_info.gd" id="9_kpbv2"]
+[ext_resource type="Script" uid="uid://dyad1l4xw802a" path="res://scenes/main_menu/pages/room_list/debug_info.gd" id="9_kpbv2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3knor"]
 content_margin_left = 4.0
