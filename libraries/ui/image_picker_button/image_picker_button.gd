@@ -8,8 +8,8 @@ var error_tween: Tween
 
 var NO_SVG_NO_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.webp,*.bmp;Image Files;image/png,image/jpeg,image/webp,image/bmp"])
 var SVG_NO_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.svg,*.webp,*.bmp;Image Files;image/png,image/jpeg,image/svg+xml,image/webp,image/bmp"])
-var NO_SVG_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.webp,*.bmp,*.mp;Image and Map Files;image/png,image/jpeg,image/webp,image/bmp,application/mpmap-map"])
-var SVG_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.svg,*.webp,*.bmp,*.mp;Image and Map Files;image/png,image/jpeg,image/svg+xml,image/webp,image/bmp,application/mpmap-map"])
+var NO_SVG_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.webp,*.bmp,*.mp;Image and Map Files;image/png,image/jpeg,image/webp,image/bmp,application/heredita-map"])
+var SVG_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.svg,*.webp,*.bmp,*.mp;Image and Map Files;image/png,image/jpeg,image/svg+xml,image/webp,image/bmp,application/heredita-map"])
 
 var image := ReactiveImage.new(null)
 
