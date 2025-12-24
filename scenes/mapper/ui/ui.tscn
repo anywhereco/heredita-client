@@ -463,6 +463,7 @@ text = "Target"
 icon = SubResource("GradientTexture2D_em4te")
 
 [node name="ColorPicker" type="ColorPicker" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
+visible = false
 layout_mode = 2
 edit_alpha = false
 edit_intensity = false
