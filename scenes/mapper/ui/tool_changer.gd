@@ -22,9 +22,5 @@ func _on_button_pressed(button_name: String) -> void:
 	mapper.tool.value = MapperRoot.Tool.get(button_name.to_upper())
 
 func try_resize() -> void:
-	# INFO: this code is really stupid, you should redo it - whirp
-	custom_minimum_size.x = brush.size.x
-	while size.y > State.display.get_window().size.y - (left_items.size.y - size.y):
-		print("a")
-		await get_tree().process_frame
-		custom_minimum_size.x += brush.size.x
+	# TODO!!
+	pass

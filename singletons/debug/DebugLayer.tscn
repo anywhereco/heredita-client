@@ -9,6 +9,7 @@ shadow_color = Color(0, 0, 0, 1)
 layer = 1023
 
 [node name="DebugLayer" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,6 +27,6 @@ anchor_right = 1.0
 offset_bottom = 21.0
 grow_horizontal = 2
 mouse_behavior_recursive = 1
-text = "Dominion Dice version !VER at %d FPS"
+text = "Heredita version !VER at %d FPS"
 label_settings = SubResource("LabelSettings_ovp2x")
 horizontal_alignment = 1
