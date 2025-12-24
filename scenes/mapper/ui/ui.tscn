@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://yb2j237qhuec"]
+[gd_scene load_steps=26 format=3 uid="uid://yb2j237qhuec"]
 
 [ext_resource type="Script" uid="uid://i3124dmjaoj6" path="res://scenes/mapper/ui/right_items.gd" id="1_itatv"]
 [ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/_shared/glass.tres" id="2_tv71d"]
@@ -69,11 +69,31 @@ anti_aliasing_size = 0.01
 font = ExtResource("4_itatv")
 font_color = Color(0.69965345, 0.69965345, 0.69965345, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_rh4gq"]
-
 [sub_resource type="LabelSettings" id="LabelSettings_em4te"]
 font = ExtResource("6_wbt2f")
 font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_rh4gq"]
+
+[sub_resource type="Gradient" id="Gradient_tv71d"]
+offsets = PackedFloat32Array(0.08522727, 0.09280303)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mey8b"]
+gradient = SubResource("Gradient_tv71d")
+width = 18
+height = 18
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_rh4gq"]
+offsets = PackedFloat32Array(0.08522727, 0.09280303)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_em4te"]
+gradient = SubResource("Gradient_rh4gq")
+width = 18
+height = 18
+fill_to = Vector2(0, 1)
 
 [node name="UI" type="CanvasLayer"]
 
@@ -257,7 +277,7 @@ text = "    "
 flat = true
 
 [node name="MenuItems" type="HFlowContainer" parent="LeftItems/Toolkit/VBoxContainer"]
-custom_minimum_size = Vector2(39, 0)
+custom_minimum_size = Vector2(78, 0)
 layout_mode = 2
 size_flags_vertical = 6
 script = ExtResource("7_0sgq1")
@@ -338,7 +358,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_2upvi")
 script = ExtResource("9_x7h6p")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LeftItems/ToolUI"]
-custom_minimum_size = Vector2(160, 250)
+custom_minimum_size = Vector2(160, 226)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer"]
@@ -364,6 +384,7 @@ size_flags_vertical = 3
 script = ExtResource("10_tv71d")
 
 [node name="none" type="CenterContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -387,8 +408,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="brush" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer"]
-visible = false
+[node name="brush" type="VBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -396,21 +416,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
-custom_minimum_size = Vector2(120, 0)
+[node name="HBoxContainer" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/VBoxContainer"]
-layout_mode = 2
-text = "Brush size"
-label_settings = SubResource("LabelSettings_rh4gq")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer"]
 custom_minimum_size = Vector2(24, 28)
 layout_mode = 2
 text = "1"
@@ -418,7 +427,18 @@ label_settings = SubResource("LabelSettings_em4te")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSlider" type="HSlider" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Brush size"
+label_settings = SubResource("LabelSettings_rh4gq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -427,3 +447,26 @@ max_value = 10.0
 value = 1.0
 ticks_on_borders = true
 ticks_position = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
+layout_mode = 2
+alignment = 1
+
+[node name="Paint" type="Button" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2"]
+layout_mode = 2
+text = "Paint"
+icon = SubResource("GradientTexture2D_mey8b")
+
+[node name="Target" type="Button" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2"]
+layout_mode = 2
+text = "Target"
+icon = SubResource("GradientTexture2D_em4te")
+
+[node name="ColorPicker" type="ColorPicker" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
+layout_mode = 2
+edit_alpha = false
+edit_intensity = false
+picker_shape = 3
+can_add_swatches = false
+sampler_visible = false
+presets_visible = false

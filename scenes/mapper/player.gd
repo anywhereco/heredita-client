@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 @onready var camera_pivot: Node3D = $CameraPivot
+@onready var map: Map = $"../Map"
 
 const SPEED = 5.0
 const SPRINT_MULT = 3.0
@@ -49,4 +50,12 @@ func _physics_process(delta: float) -> void:
 	
 	setup_velocity(direction, delta)
 	
+	var pos2: Vector2 = Vector2(position.x, position.z)
+	
+	if not map.map_world_bounds.has_point(pos2):
+		if not map.map_world_bounds.has_point(Vector2(position.x, 0)):
+			position.x = -position.x
+			camera_pivot.position = position
+		#if not map.map_world_bounds.has_point(Vector2(0, position.z)):
+		#	position.z = -position.z
 	move_and_slide()

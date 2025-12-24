@@ -19,6 +19,7 @@ var chunks: Array[Array] = []
 
 var original_map: Image = preload("uid://do2qcumlvx0lo")
 var original_map_size: Vector2
+var map_world_bounds: Rect2
 
 func is_in_bounding_box(test_point: Vector2, min_corner: Vector2, max_corner: Vector2) -> bool:
 	return (test_point.x >= min_corner.x and 
@@ -64,6 +65,7 @@ func _ready() -> void:
 			chunks.get(x_idx).insert(y_idx, chunk)
 			chunks_edited.get(x_idx).insert(y_idx, chunk)
 	water.mesh.size = map_space_to_world_space(Vector2.ZERO).abs() * 2
+	map_world_bounds = Rect2(map_space_to_world_space(Vector2.ZERO), map_space_to_world_space(Vector2.ZERO).abs() * 2)
 
 func _process(_delta: float) -> void:
 	pass
