@@ -140,8 +140,9 @@ custom_minimum_size = Vector2(0, 7)
 layout_mode = 2
 
 [node name="DebugInfo" type="Label" parent="Rooms"]
+visible = false
 layout_mode = 2
-text = "Dominion Dice %s"
+text = "Heredita %s"
 label_settings = SubResource("LabelSettings_j6gyg")
 horizontal_alignment = 2
 script = ExtResource("9_kpbv2")

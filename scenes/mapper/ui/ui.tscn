@@ -269,9 +269,18 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_2eddf")
 
+[node name="Pan" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems"]
+layout_mode = 2
+theme_type_variation = &"ToolButton"
+disabled = true
+toggle_mode = true
+button_group = SubResource("ButtonGroup_grkin")
+icon = ExtResource("8_tv71d")
+
 [node name="Fill" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_tv71d")
@@ -293,14 +302,6 @@ button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_tv71d")
 
 [node name="Inspect" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems"]
-layout_mode = 2
-theme_type_variation = &"ToolButton"
-disabled = true
-toggle_mode = true
-button_group = SubResource("ButtonGroup_grkin")
-icon = ExtResource("8_tv71d")
-
-[node name="Pan" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 disabled = true
@@ -363,7 +364,6 @@ size_flags_vertical = 3
 script = ExtResource("10_tv71d")
 
 [node name="none" type="CenterContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -388,6 +388,7 @@ custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="brush" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
