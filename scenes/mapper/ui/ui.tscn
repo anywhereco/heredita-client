@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://yb2j237qhuec"]
+[gd_scene load_steps=22 format=3 uid="uid://yb2j237qhuec"]
 
 [ext_resource type="Script" uid="uid://i3124dmjaoj6" path="res://scenes/mapper/ui/right_items.gd" id="1_itatv"]
 [ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/_shared/glass.tres" id="2_tv71d"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b75i52xuegece" path="res://assets/icons/tools/brush.svg" id="8_2eddf"]
 [ext_resource type="Texture2D" uid="uid://c1f7wmtt6awxc" path="res://assets/icons/tools/inprogress.png" id="8_tv71d"]
 [ext_resource type="Script" uid="uid://c3107fy0fo6nv" path="res://scenes/mapper/ui/tool_ui.gd" id="9_x7h6p"]
+[ext_resource type="Script" uid="uid://cccfbeboro2t7" path="res://scenes/mapper/ui/tool_ui_container.gd" id="10_tv71d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rficw"]
 content_margin_left = 5.0
@@ -63,6 +64,16 @@ anti_aliasing = false
 anti_aliasing_size = 0.01
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_grkin"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tv71d"]
+font = ExtResource("4_itatv")
+font_color = Color(0.69965345, 0.69965345, 0.69965345, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rh4gq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_em4te"]
+font = ExtResource("6_wbt2f")
+font_size = 24
 
 [node name="UI" type="CanvasLayer"]
 
@@ -175,6 +186,7 @@ grow_vertical = 2
 material = ExtResource("2_tv71d")
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_hddsb")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LeftItems/DateAgeBox"]
@@ -237,27 +249,34 @@ text = "Tools"
 horizontal_alignment = 1
 
 [node name="Close" type="Button" parent="LeftItems/Toolkit/VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 theme_type_variation = &"FlatUnpaddedButton"
 theme_override_font_sizes/font_size = 11
-text = "<-  "
+text = "    "
 flat = true
 
-[node name="MenuItems" type="HBoxContainer" parent="LeftItems/Toolkit/VBoxContainer"]
+[node name="MenuItems" type="HFlowContainer" parent="LeftItems/Toolkit/VBoxContainer"]
+custom_minimum_size = Vector2(39, 0)
 layout_mode = 2
+size_flags_vertical = 6
 script = ExtResource("7_0sgq1")
 
-[node name="LeftTools" type="VBoxContainer" parent="LeftItems/Toolkit/VBoxContainer/MenuItems"]
-layout_mode = 2
-
-[node name="Brush" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/LeftTools"]
+[node name="Brush" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_2eddf")
 
-[node name="Fill" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/LeftTools"]
+[node name="Fill" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems"]
+layout_mode = 2
+theme_type_variation = &"ToolButton"
+toggle_mode = true
+button_group = SubResource("ButtonGroup_grkin")
+icon = ExtResource("8_tv71d")
+
+[node name="Line" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 disabled = true
@@ -265,7 +284,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_tv71d")
 
-[node name="Line" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/LeftTools"]
+[node name="Pick" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 disabled = true
@@ -273,7 +292,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_tv71d")
 
-[node name="Pick" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/LeftTools"]
+[node name="Inspect" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 disabled = true
@@ -281,14 +300,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_tv71d")
 
-[node name="RightTools" type="VBoxContainer" parent="LeftItems/Toolkit/VBoxContainer/MenuItems"]
-layout_mode = 2
-
-[node name="Padding" type="Control" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
-custom_minimum_size = Vector2(0, 4)
-layout_mode = 2
-
-[node name="Inspect" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
+[node name="Pan" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 disabled = true
@@ -296,7 +308,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_tv71d")
 
-[node name="Pan" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
+[node name="Marking" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 disabled = true
@@ -304,15 +316,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_tv71d")
 
-[node name="Marking" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
-layout_mode = 2
-theme_type_variation = &"ToolButton"
-disabled = true
-toggle_mode = true
-button_group = SubResource("ButtonGroup_grkin")
-icon = ExtResource("8_tv71d")
-
-[node name="Select" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems/RightTools"]
+[node name="Select" type="Button" parent="LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 disabled = true
@@ -333,7 +337,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_2upvi")
 script = ExtResource("9_x7h6p")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LeftItems/ToolUI"]
-custom_minimum_size = Vector2(160, 200)
+custom_minimum_size = Vector2(160, 250)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer"]
@@ -343,12 +347,82 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Tool Name"
+text = "Tool UI"
 horizontal_alignment = 1
 
 [node name="Close" type="Button" parent="LeftItems/ToolUI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"FlatUnpaddedButton"
 theme_override_font_sizes/font_size = 11
-text = "<-  "
+text = "     "
 flat = true
+
+[node name="ToolUIContainer" type="Control" parent="LeftItems/ToolUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("10_tv71d")
+
+[node name="none" type="CenterContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/none"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/none/VBoxContainer"]
+layout_mode = 2
+text = "Click a tool to equip it!"
+label_settings = SubResource("LabelSettings_tv71d")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/none/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="brush" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/VBoxContainer"]
+layout_mode = 2
+text = "Brush size"
+label_settings = SubResource("LabelSettings_rh4gq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 28)
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_em4te")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+ticks_on_borders = true
+ticks_position = 3

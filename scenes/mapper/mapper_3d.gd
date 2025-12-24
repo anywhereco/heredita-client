@@ -12,7 +12,12 @@ enum Tool {
 	SELECT
 }
 
+static var _instance: MapperRoot
+
 var tool := ReactiveInt.new(Tool.BRUSH)
+
+func _init() -> void:
+	_instance = self
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
