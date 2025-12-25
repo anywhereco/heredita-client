@@ -3,7 +3,7 @@ extends Node3D
 
 static var _instance: Map
 
-const CHUNK_SIZE: int = 128
+const CHUNK_SIZE: int = 256
 const CHUNK_SIZE_FLOAT: float = float(CHUNK_SIZE)
 
 @export_range(1.0/16, 1, 1.0/16) var pixel_size: float = 1.0/8
