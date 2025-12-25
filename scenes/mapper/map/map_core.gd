@@ -19,6 +19,8 @@ var map_pos: ReactiveVector2 = ReactiveVector2.new(Vector2.INF)
 var chunks_edited: Array[Array] = []
 ## Array[Array[Sprite3D]], x,y/z order
 var chunks: Array[Array] = []
+## Array[Array[Image]], x,y/z order
+var chunk_images: Array[Array] = []
 
 var original_map: Image = preload("uid://do2qcumlvx0lo")
 var preview_texture: Image = preload("uid://bug42uo2av8i2")
@@ -55,6 +57,8 @@ func get_pixel_at(pos: Vector2) -> Color:
 	var chunk_coords := get_chunk_grid_coords(pos)
 	var chunk: Image = chunks[chunk_coords.x][chunk_coords.y].texture.get_image()
 	return chunk.get_pixelv(Vector2i(get_chunk_relative_coords(pos)))
+
+## CRITICAL(demoreq): needs to be changed to chunk_images!
 
 func set_pixel_at(pos: Vector2, color: Color) -> bool:
 	if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
@@ -130,6 +134,7 @@ func _ready() -> void:
 				chunks_edited.append([])
 			chunks.get(x_idx).insert(y_idx, chunk)
 			chunks_edited.get(x_idx).insert(y_idx, false)
+			chunk_images.get(x_idx).insert(y_idx, img)
 	water.mesh.size = map_space_to_world_space(Vector2.ZERO).abs() * 2
 	map_world_bounds = Rect2(map_space_to_world_space(Vector2.ZERO), map_space_to_world_space(Vector2.ZERO).abs() * 2)
 
