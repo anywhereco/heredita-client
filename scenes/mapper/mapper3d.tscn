@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bmfinmmve5h47"]
+[gd_scene load_steps=18 format=3 uid="uid://bmfinmmve5h47"]
 
 [ext_resource type="Script" uid="uid://casjubdmfl0xa" path="res://scenes/mapper/mapper_3d.gd" id="1_htv7j"]
 [ext_resource type="PackedScene" uid="uid://yb2j237qhuec" path="res://scenes/mapper/ui/ui.tscn" id="2_htv7j"]
@@ -44,8 +44,11 @@ ambient_light_source = 3
 ambient_light_color = Color(0.38445106, 0.4548104, 0.54517436, 1)
 reflected_light_source = 2
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_htv7j"]
-size = Vector3(5000, 1, 5000)
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_wvm7y"]
+plane = Plane(0, 1, 0, -0.5)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wvm7y"]
+size = Vector2(33, 33)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l0uxc"]
 render_priority = -1
@@ -86,8 +89,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3021612, 0)
 visible = false
 billboard = 1
 double_sided = false
-render_priority = 2
-outline_render_priority = 1
+render_priority = 32
+outline_render_priority = 31
 text = "Whirp"
 font_size = 40
 
@@ -114,9 +117,16 @@ collision_mask = 2147483649
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/StaticBody3D"]
 transform = Transform3D(0.9999619, 0, -0.008726535, 0, 1, 0, 0.008726535, 0, 0.9999619, 0, -0.5, 0)
-shape = SubResource("BoxShape3D_htv7j")
+shape = SubResource("WorldBoundaryShape3D_wvm7y")
 
 [node name="MapChunks" type="Node3D" parent="Map"]
+
+[node name="Sprite3D" type="Sprite3D" parent="Map"]
+modulate = Color(1, 1, 1, 0.5019608)
+pixel_size = 0.125
+axis = 1
+render_priority = 1
+texture = SubResource("PlaceholderTexture2D_wvm7y")
 
 [node name="Water" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
