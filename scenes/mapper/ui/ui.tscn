@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://yb2j237qhuec"]
+[gd_scene load_steps=23 format=3 uid="uid://yb2j237qhuec"]
 
 [ext_resource type="Script" uid="uid://i3124dmjaoj6" path="res://scenes/mapper/ui/right_items.gd" id="1_itatv"]
 [ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/_shared/glass.tres" id="2_tv71d"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c1f7wmtt6awxc" path="res://assets/icons/tools/inprogress.png" id="8_tv71d"]
 [ext_resource type="Script" uid="uid://c3107fy0fo6nv" path="res://scenes/mapper/ui/tool_ui.gd" id="9_x7h6p"]
 [ext_resource type="Script" uid="uid://cccfbeboro2t7" path="res://scenes/mapper/ui/tool_ui_container.gd" id="10_tv71d"]
+[ext_resource type="PackedScene" uid="uid://ciprbhp7oi7jo" path="res://scenes/mapper/ui/color_picker.tscn" id="11_mey8b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rficw"]
 content_margin_left = 5.0
@@ -74,26 +75,6 @@ font = ExtResource("6_wbt2f")
 font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_rh4gq"]
-
-[sub_resource type="Gradient" id="Gradient_tv71d"]
-offsets = PackedFloat32Array(0.08522727, 0.09280303)
-colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_mey8b"]
-gradient = SubResource("Gradient_tv71d")
-width = 18
-height = 18
-fill_to = Vector2(0, 1)
-
-[sub_resource type="Gradient" id="Gradient_rh4gq"]
-offsets = PackedFloat32Array(0.08522727, 0.09280303)
-colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_em4te"]
-gradient = SubResource("Gradient_rh4gq")
-width = 18
-height = 18
-fill_to = Vector2(0, 1)
 
 [node name="UI" type="CanvasLayer"]
 
@@ -358,7 +339,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_2upvi")
 script = ExtResource("9_x7h6p")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LeftItems/ToolUI"]
-custom_minimum_size = Vector2(160, 226)
+custom_minimum_size = Vector2(160, 206)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer"]
@@ -378,19 +359,14 @@ theme_override_font_sizes/font_size = 11
 text = "     "
 flat = true
 
-[node name="ToolUIContainer" type="Control" parent="LeftItems/ToolUI/VBoxContainer"]
+[node name="ToolUIContainer" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("10_tv71d")
 
 [node name="none" type="CenterContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer"]
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -409,12 +385,8 @@ custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="brush" type="VBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
 layout_mode = 2
@@ -450,24 +422,50 @@ ticks_position = 3
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Paint" type="Button" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2"]
+[node name="Paint" type="VBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="Label" type="Label" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Paint"]
 layout_mode = 2
 text = "Paint"
-icon = SubResource("GradientTexture2D_mey8b")
+horizontal_alignment = 1
 
-[node name="Target" type="Button" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2"]
+[node name="ColorPicker" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Paint" instance=ExtResource("11_mey8b")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Target" type="VBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="Label" type="Label" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Target"]
 layout_mode = 2
 text = "Target"
-icon = SubResource("GradientTexture2D_em4te")
+horizontal_alignment = 1
 
-[node name="ColorPicker" type="ColorPicker" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
-visible = false
+[node name="ColorPicker" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Target" instance=ExtResource("11_mey8b")]
 layout_mode = 2
-edit_alpha = false
-edit_intensity = false
-picker_shape = 3
-can_add_swatches = false
-sampler_visible = false
-presets_visible = false
+size_flags_horizontal = 0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "HSV"
+
+[node name="Button2" type="Button" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "RGB"
+
+[node name="Button3" type="Button" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Preset"

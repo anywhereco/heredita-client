@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://ciprbhp7oi7jo"]
+
+[ext_resource type="Script" uid="uid://c43omewlw0mxg" path="res://scenes/mapper/ui/color_picker.gd" id="1_2kfen"]
+[ext_resource type="Script" uid="uid://c020hb7atwvkj" path="res://scenes/mapper/ui/color_hsv.gd" id="2_61vie"]
+[ext_resource type="Shader" uid="uid://dif81fw64ymyb" path="res://scenes/mapper/ui/shaders/sv_rect.gdshader" id="2_aub21"]
+[ext_resource type="Texture2D" uid="uid://hlopdqhei3b6" path="res://assets/theme_assets/hue_slider.png" id="3_rtn1r"]
+[ext_resource type="Texture2D" uid="uid://bxp786hfaau82" path="res://assets/theme_assets/picker_dot.png" id="4_6v1ti"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_by36x"]
+texture = ExtResource("3_rtn1r")
+texture_margin_left = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rtn1r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_by36x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_61vie"]
+resource_local_to_scene = true
+shader = ExtResource("2_aub21")
+shader_parameter/hue = Vector3(1, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_2kfen"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_aub21"]
+gradient = SubResource("Gradient_2kfen")
+
+[node name="ColorPicker" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_2kfen")
+
+[node name="Pickers" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HSV" type="HBoxContainer" parent="Pickers"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_61vie")
+
+[node name="Hue" type="VSlider" parent="Pickers/HSV"]
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxTexture_by36x")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_rtn1r")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_by36x")
+max_value = 359.0
+
+[node name="SVRect" type="TextureRect" parent="Pickers/HSV"]
+material = SubResource("ShaderMaterial_61vie")
+layout_mode = 2
+texture = SubResource("GradientTexture2D_aub21")
+expand_mode = 3
+
+[node name="Dot" type="TextureRect" parent="Pickers/HSV/SVRect"]
+layout_mode = 1
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 4.0
+offset_bottom = 4.0
+mouse_filter = 2
+texture = ExtResource("4_6v1ti")
+stretch_mode = 2
+
+[node name="RGB" type="HBoxContainer" parent="Pickers"]
+layout_mode = 2
+
+[node name="Preset" type="Control" parent="Pickers"]
+layout_mode = 2
+
+[node name="Color" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[connection signal="value_changed" from="Pickers/HSV/Hue" to="Pickers/HSV" method="_hue_changed"]
+[connection signal="gui_input" from="Pickers/HSV/SVRect" to="Pickers/HSV" method="_sv_gui_input"]
