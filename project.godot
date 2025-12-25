@@ -37,7 +37,7 @@ window/stretch/aspect="ignore"
 
 [editor]
 
-movie_writer/movie_file="C:/Users/xanma/Documents/programs/godot/projects/recordings/movie.avi"
+movie_writer/movie_file="/home/infernity/Godot/MPMap-Redrawn/vidya.avi"
 
 [editor_plugins]
 

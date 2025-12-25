@@ -14,7 +14,6 @@ const CHUNK_SIZE_FLOAT: float = float(CHUNK_SIZE)
 @onready var chunk_container_node: Node3D = $MapChunks
 @onready var preview_plane: Sprite3D = $PreviewPlane
 
-var map_pos: ReactiveVector2 = ReactiveVector2.new(Vector2.INF)
 ## Array[Array[bool]], x,y/z order
 var chunks_edited: Array[Array] = []
 ## Array[Array[Sprite3D]], x,y/z order
@@ -25,7 +24,11 @@ var chunk_images: Array[Array] = []
 var original_map: Image = preload("uid://do2qcumlvx0lo")
 var preview_texture: Image = preload("uid://bug42uo2av8i2")
 var original_map_size: Vector2
+
 var map_world_bounds: Rect2
+
+var map_pos: ReactiveVector2 = ReactiveVector2.new(Vector2.INF)
+var map_pos_updated_already: bool = false
 
 func is_in_bounding_box(test_point: Vector2, min_corner: Vector2, max_corner: Vector2) -> bool:
 	return (test_point.x >= min_corner.x and 
@@ -55,8 +58,16 @@ func get_pixel_at(pos: Vector2) -> Color:
 	if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
 		return Color(-1, -1, -1, -1)
 	var chunk_coords := get_chunk_grid_coords(pos)
-	var chunk: Image = chunks[chunk_coords.x][chunk_coords.y].texture.get_image()
+	var chunk: Image = chunk_images[chunk_coords.x][chunk_coords.y]
 	return chunk.get_pixelv(Vector2i(get_chunk_relative_coords(pos)))
+	
+#func get_pixels_at(rect: Rect2i) -> Image:
+	#if not Rect2i(Vector2i.ZERO, original_map_size).encloses(rect):
+		#return
+		#rect.
+	#var chunk_coords := get_chunk_grid_coords(pos)
+	#var chunk: Image = chunks[chunk_coords.x][chunk_coords.y].texture.get_image()
+	#return chunk.get_pixelv(Vector2i(get_chunk_relative_coords(pos)))
 
 ## CRITICAL(demoreq): needs to be changed to chunk_images!
 
@@ -64,7 +75,7 @@ func set_pixel_at(pos: Vector2, color: Color) -> bool:
 	if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
 		return false
 	var chunk_coords := get_chunk_grid_coords(pos)
-	var chunk: Image = chunks[chunk_coords.x][chunk_coords.y].texture.get_image()
+	var chunk: Image = chunk_images[chunk_coords.x][chunk_coords.y]
 	chunk.set_pixelv(Vector2i(get_chunk_relative_coords(pos)), color)
 	chunks_edited[chunk_coords.x][chunk_coords.y] = true
 	return true
@@ -74,7 +85,7 @@ func set_pixels_at(positions: PackedVector2Array, color: Color) -> void:
 		if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
 			continue
 		var chunk_coords := get_chunk_grid_coords(pos)
-		var chunk: Image = chunks[chunk_coords.x][chunk_coords.y].texture.get_image()
+		var chunk: Image = chunk_images[chunk_coords.x][chunk_coords.y]
 		chunk.set_pixelv(Vector2i(get_chunk_relative_coords(pos)), color)
 		chunks_edited[chunk_coords.x][chunk_coords.y] = true
 
@@ -83,7 +94,7 @@ func set_pixels_at_targeted(positions: PackedVector2Array, color: Color, target:
 		if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
 			continue
 		var chunk_coords := get_chunk_grid_coords(pos)
-		var chunk: Image = chunks[chunk_coords.x][chunk_coords.y].texture.get_image()
+		var chunk: Image = chunk_images[chunk_coords.x][chunk_coords.y]
 		var relative_coords := get_chunk_relative_coords(pos)
 		if chunk.get_pixelv(relative_coords).is_equal_approx(target):
 			chunk.set_pixelv(Vector2i(get_chunk_relative_coords(pos)), color)
@@ -95,7 +106,7 @@ func set_pixels_at_map_pos_targeted(positions: PackedVector2Array, color: Color,
 		if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
 			continue
 		var chunk_coords := get_chunk_grid_coords(pos)
-		var chunk: Image = chunks[chunk_coords.x][chunk_coords.y].texture.get_image()
+		var chunk: Image = chunk_images[chunk_coords.x][chunk_coords.y]
 		var relative_coords := get_chunk_relative_coords(pos)
 		if chunk.get_pixelv(relative_coords).is_equal_approx(target):
 			chunk.set_pixelv(Vector2i(get_chunk_relative_coords(pos)), color)
@@ -132,6 +143,7 @@ func _ready() -> void:
 			if chunks.size() <= x_idx:
 				chunks.append([])
 				chunks_edited.append([])
+				chunk_images.append([])
 			chunks.get(x_idx).insert(y_idx, chunk)
 			chunks_edited.get(x_idx).insert(y_idx, false)
 			chunk_images.get(x_idx).insert(y_idx, img)
@@ -139,6 +151,8 @@ func _ready() -> void:
 	map_world_bounds = Rect2(map_space_to_world_space(Vector2.ZERO), map_space_to_world_space(Vector2.ZERO).abs() * 2)
 
 func update_map_pos() -> void:
+	if map_pos_updated_already:
+		return
 	var mouse_position := get_window().get_mouse_position()
 	# The map is at zero on the Y axis
 	var intersect: Variant = Plane.PLANE_XZ.intersects_ray(
@@ -155,6 +169,7 @@ func update_map_pos() -> void:
 		return
 	if Vector2i(prev_pos) != Vector2i(map_pos.value) and MapperRoot._instance.tool.value == MapperRoot.Tool.BRUSH:
 		update_brush_preview()
+	map_pos_updated_already = true
 
 func update_brush_preview() -> void:
 	var clipped := map_space_to_world_space(Vector2i(map_pos.value))
@@ -170,9 +185,10 @@ func _process(_delta: float) -> void:
 	for x in range(0, chunks_edited.size()):
 		for y in range(0, chunks_edited[0].size()):
 			if chunks_edited[x][y] == false:
-				return
-			chunks[x][y].texture.update(chunks[x][y].texture.get_image())
+				continue
+			chunks[x][y].texture.update(chunk_images[x][y])
 			chunks_edited[x][y] = false
+	map_pos_updated_already = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:

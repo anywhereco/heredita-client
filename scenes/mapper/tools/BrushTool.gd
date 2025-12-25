@@ -25,13 +25,13 @@ func _map_ready() -> void:
 	)
 
 func get_image_for_brush() -> Image:
-	var image := shape.get_as_image(size)
+	var image := shape.get_as_image(size).duplicate(true)
 	var width: int = image.get_width()
 	var height: int = image.get_height()
 
 	for y in range(height):
 		for x in range(width):
-			var pos := Vector2i(Map._instance.map_pos.value - shape.get_image_pixel_offset() + Vector2(x, y))
+			var pos := Vector2i(Map._instance.map_pos.value - shape.image_pixel_offset + Vector2(x, y))
 			var color := Map._instance.get_pixel_at(pos)
 			if color.is_equal_approx(target_color) && image.get_pixel(x, y) == Color.WHITE:
 				image.set_pixel(x, y, Color.WHITE)
