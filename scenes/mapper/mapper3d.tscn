@@ -109,6 +109,7 @@ script = ExtResource("3_c4ga5")
 
 [node name="Map" type="Node3D" parent="."]
 script = ExtResource("6_sm41v")
+pixel_size = 0.0625
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map"]
 collision_layer = 2147483649
