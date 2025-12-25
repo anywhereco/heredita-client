@@ -1,5 +1,6 @@
-[gd_scene load_steps=23 format=3 uid="uid://yb2j237qhuec"]
+[gd_scene load_steps=29 format=3 uid="uid://yb2j237qhuec"]
 
+[ext_resource type="Script" uid="uid://8x5gnweq47eb" path="res://scenes/mapper/ui/ui_root.gd" id="1_em4te"]
 [ext_resource type="Script" uid="uid://i3124dmjaoj6" path="res://scenes/mapper/ui/right_items.gd" id="1_itatv"]
 [ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/_shared/glass.tres" id="2_tv71d"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="4_itatv"]
@@ -11,6 +12,9 @@
 [ext_resource type="Script" uid="uid://c3107fy0fo6nv" path="res://scenes/mapper/ui/tool_ui.gd" id="9_x7h6p"]
 [ext_resource type="Script" uid="uid://cccfbeboro2t7" path="res://scenes/mapper/ui/tool_ui_container.gd" id="10_tv71d"]
 [ext_resource type="PackedScene" uid="uid://ciprbhp7oi7jo" path="res://scenes/mapper/ui/color_picker.tscn" id="11_mey8b"]
+[ext_resource type="Script" uid="uid://db26k4s8p0vg1" path="res://scenes/mapper/ui/brush_size.gd" id="12_0sgq1"]
+[ext_resource type="Script" uid="uid://boffekhvui4ql" path="res://scenes/mapper/ui/brush.gd" id="12_2eddf"]
+[ext_resource type="FontVariation" uid="uid://hwc3xdnlf3ke" path="res://assets/font/_variants/pro450.tres" id="12_wbt2f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rficw"]
 content_margin_left = 5.0
@@ -76,7 +80,16 @@ font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_rh4gq"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_0sgq1"]
+font = ExtResource("12_wbt2f")
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_2eddf"]
+font = ExtResource("12_wbt2f")
+font_size = 18
+
 [node name="UI" type="CanvasLayer"]
+script = ExtResource("1_em4te")
 
 [node name="ChatSplit" type="HSplitContainer" parent="."]
 anchors_preset = 15
@@ -365,7 +378,6 @@ size_flags_vertical = 3
 script = ExtResource("10_tv71d")
 
 [node name="none" type="CenterContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -385,13 +397,15 @@ custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="brush" type="VBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("12_2eddf")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer"]
+[node name="Size" type="Label" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer"]
 custom_minimum_size = Vector2(24, 28)
 layout_mode = 2
 text = "1"
@@ -399,18 +413,19 @@ label_settings = SubResource("LabelSettings_em4te")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer"]
+[node name="BrushSize" type="VBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("12_0sgq1")
 
-[node name="Label" type="Label" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/BrushSize"]
 layout_mode = 2
 text = "Brush size"
 label_settings = SubResource("LabelSettings_rh4gq")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSlider" type="HSlider" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/VBoxContainer"]
+[node name="HSlider" type="HSlider" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/BrushSize"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -432,7 +447,8 @@ size_flags_horizontal = 2
 
 [node name="Label" type="Label" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Paint"]
 layout_mode = 2
-text = "Paint"
+text = "Paint [Q]"
+label_settings = SubResource("LabelSettings_0sgq1")
 horizontal_alignment = 1
 
 [node name="ColorPicker" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Paint" instance=ExtResource("11_mey8b")]
@@ -445,7 +461,8 @@ size_flags_horizontal = 2
 
 [node name="Label" type="Label" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Target"]
 layout_mode = 2
-text = "Target"
+text = "Target [E]"
+label_settings = SubResource("LabelSettings_2eddf")
 horizontal_alignment = 1
 
 [node name="ColorPicker" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Target" instance=ExtResource("11_mey8b")]
@@ -453,6 +470,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
+visible = false
 layout_mode = 2
 
 [node name="Button" type="Button" parent="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3"]
@@ -469,3 +487,5 @@ text = "RGB"
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Preset"
+
+[connection signal="value_changed" from="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/BrushSize/HSlider" to="LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/BrushSize" method="_on_slider_changed"]

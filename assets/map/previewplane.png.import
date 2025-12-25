@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://bug42uo2av8i2"
+path="res://.godot/imported/previewplane.png-671df5a40e167d436e365d2629aa3372.image"
+
+[deps]
+
+source_file="res://assets/map/previewplane.png"
+dest_files=["res://.godot/imported/previewplane.png-671df5a40e167d436e365d2629aa3372.image"]
+
+[params]
+

@@ -1,16 +1,18 @@
 class_name Map
 extends Node3D
 
+static var _instance: Map
+
 const CHUNK_SIZE: int = 128
 const CHUNK_SIZE_FLOAT: float = float(CHUNK_SIZE)
 
 @export_range(1.0/16, 1, 1.0/16) var pixel_size: float = 1.0/8
 
-@onready var mapper: MapperRoot = $".."
 @onready var player_camera: Camera3D = $"../LocalPlayer/CameraPivot/CameraArm/PlayerCamera"
 @onready var water: MeshInstance3D = $"../Water"
 
 @onready var chunk_container_node: Node3D = $MapChunks
+@onready var preview_plane: Sprite3D = $PreviewPlane
 
 var map_pos: ReactiveVector2 = ReactiveVector2.new(Vector2.INF)
 ## Array[Array[bool]], x,y/z order
@@ -19,6 +21,7 @@ var chunks_edited: Array[Array] = []
 var chunks: Array[Array] = []
 
 var original_map: Image = preload("uid://do2qcumlvx0lo")
+var preview_texture: Image = preload("uid://bug42uo2av8i2")
 var original_map_size: Vector2
 var map_world_bounds: Rect2
 
@@ -53,8 +56,54 @@ func get_pixel_at(pos: Vector2) -> Color:
 	var chunk: Image = chunks[chunk_coords.x][chunk_coords.y].texture.get_image()
 	return chunk.get_pixelv(Vector2i(get_chunk_relative_coords(pos)))
 
-# Called when the node enters the scene tree for the first time.
+func set_pixel_at(pos: Vector2, color: Color) -> bool:
+	if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
+		return false
+	var chunk_coords := get_chunk_grid_coords(pos)
+	var chunk: Image = chunks[chunk_coords.x][chunk_coords.y].texture.get_image()
+	chunk.set_pixelv(Vector2i(get_chunk_relative_coords(pos)), color)
+	chunks_edited[chunk_coords.x][chunk_coords.y] = true
+	return true
+
+func set_pixels_at(positions: PackedVector2Array, color: Color) -> void:
+	for pos in positions:
+		if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
+			continue
+		var chunk_coords := get_chunk_grid_coords(pos)
+		var chunk: Image = chunks[chunk_coords.x][chunk_coords.y].texture.get_image()
+		chunk.set_pixelv(Vector2i(get_chunk_relative_coords(pos)), color)
+		chunks_edited[chunk_coords.x][chunk_coords.y] = true
+
+func set_pixels_at_targeted(positions: PackedVector2Array, color: Color, target: Color) -> void:
+	for pos in positions:
+		if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
+			continue
+		var chunk_coords := get_chunk_grid_coords(pos)
+		var chunk: Image = chunks[chunk_coords.x][chunk_coords.y].texture.get_image()
+		var relative_coords := get_chunk_relative_coords(pos)
+		if chunk.get_pixelv(relative_coords).is_equal_approx(target):
+			chunk.set_pixelv(Vector2i(get_chunk_relative_coords(pos)), color)
+			chunks_edited[chunk_coords.x][chunk_coords.y] = true
+			
+func set_pixels_at_map_pos_targeted(positions: PackedVector2Array, color: Color, target: Color) -> void:
+	for pos in positions:
+		pos += Vector2(Vector2i(map_pos.value))
+		if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
+			continue
+		var chunk_coords := get_chunk_grid_coords(pos)
+		var chunk: Image = chunks[chunk_coords.x][chunk_coords.y].texture.get_image()
+		var relative_coords := get_chunk_relative_coords(pos)
+		if chunk.get_pixelv(relative_coords).is_equal_approx(target):
+			chunk.set_pixelv(Vector2i(get_chunk_relative_coords(pos)), color)
+			chunks_edited[chunk_coords.x][chunk_coords.y] = true
+
+
+func _init() -> void:
+	_instance = self
+
 func _ready() -> void:
+	preview_plane.texture.set_image(preview_texture)
+	
 	original_map_size = original_map.get_size()
 	for x: int in range(0, original_map_size.x, CHUNK_SIZE):
 		for y: int in range(0, original_map_size.y, CHUNK_SIZE):
@@ -80,7 +129,7 @@ func _ready() -> void:
 				chunks.append([])
 				chunks_edited.append([])
 			chunks.get(x_idx).insert(y_idx, chunk)
-			chunks_edited.get(x_idx).insert(y_idx, chunk)
+			chunks_edited.get(x_idx).insert(y_idx, false)
 	water.mesh.size = map_space_to_world_space(Vector2.ZERO).abs() * 2
 	map_world_bounds = Rect2(map_space_to_world_space(Vector2.ZERO), map_space_to_world_space(Vector2.ZERO).abs() * 2)
 
@@ -95,18 +144,33 @@ func update_map_pos() -> void:
 		return
 	@warning_ignore("unsafe_call_argument")
 	var intersect_pos: Vector2 = Vector2(intersect.x, intersect.z)
+	var prev_pos := map_pos.value
 	map_pos.value = world_space_to_map_space(intersect_pos)
 	if not is_in_bounding_box(map_pos.value, Vector2.ZERO, original_map_size):
 		return
-	
+	if Vector2i(prev_pos) != Vector2i(map_pos.value) and MapperRoot._instance.tool.value == MapperRoot.Tool.BRUSH:
+		update_brush_preview()
+
+func update_brush_preview() -> void:
+	var clipped := map_space_to_world_space(Vector2i(map_pos.value))
+	clipped = clipped + Vector2(pixel_size*1/2, pixel_size*1/2)
+	preview_plane.position = Vector3(clipped.x, 0, clipped.y)
+	MapperRoot._instance.brush._update_brush()
 
 func _process(_delta: float) -> void:
-	pass
+	if MapperRoot._instance.tool.value == MapperRoot.Tool.BRUSH:
+		preview_plane.visible = true
+	else:
+		preview_plane.visible = false
+	for x in range(0, chunks_edited.size()):
+		for y in range(0, chunks_edited[0].size()):
+			if chunks_edited[x][y] == false:
+				return
+			chunks[x][y].texture.update(chunks[x][y].texture.get_image())
+			chunks_edited[x][y] = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
 		update_map_pos()
-		@warning_ignore("unused_variable")
-		var map_pos_int := Vector2i(map_pos.value)
-	MapperRoot._instance.process_tool_use(event, self)
+	MapperRoot._instance.process_tool_use(event)
 	

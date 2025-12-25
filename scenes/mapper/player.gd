@@ -31,7 +31,10 @@ func setup_velocity(direction: Vector3, delta: float) -> void:
 	else:
 		velocity.x = lerp(velocity.x, target_vel.x, weight)
 		velocity.z = lerp(velocity.z, target_vel.z, weight)
-
+	
+	if velocity.length_squared() > 0.1:
+		map.update_map_pos() # This prevents moving from breaking your cursor position.
+	
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -54,7 +57,7 @@ func _physics_process(delta: float) -> void:
 	
 	if not map.map_world_bounds.has_point(pos2):
 		if not map.map_world_bounds.has_point(Vector2(position.x, 0)):
-			position.x = -position.x
+			position.x = -position.x * 0.99
 			camera_pivot.position = position
 		#if not map.map_world_bounds.has_point(Vector2(0, position.z)):
 		#	position.z = -position.z

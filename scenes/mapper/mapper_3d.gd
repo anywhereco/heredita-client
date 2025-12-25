@@ -17,24 +17,29 @@ static var _instance: MapperRoot
 
 var tool := ReactiveInt.new(Tool.NONE)
 
+var brush: BrushTool = BrushTool.new()
+
+func _brush_size_changed(_reactive: ReactiveInt) -> void:
+	brush.size = UIRoot._instance.brush_ui.size_controller.brush_size.value
+	Map._instance.preview_plane.texture.update(brush.get_image_for_brush())
+
 func _init() -> void:
 	_instance = self
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	brush._map_ready()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
 
-func process_tool_use(event: InputEvent, map: Map) -> void:
+func process_tool_use(event: InputEvent) -> void:
 	match tool.value:
 		Tool.NONE:
 			return
 		Tool.BRUSH:
-			if event.is_action_pressed("pick_paint"):
-				pass
+			brush.brush_events(event)
 		_:
 			push_error("Tool \"%s\" doesn't have code to handle events!" % MapperRoot.Tool.keys()[tool.value].to_lower())
 			return

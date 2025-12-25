@@ -1,6 +1,7 @@
+class_name HereditaColorPicker
 extends Control
 
-enum MODE {
+enum Mode {
 	HSV,
 	RGB,
 	PRESET
@@ -16,16 +17,16 @@ func _value_changed(new_color: ReactiveColor) -> void:
 	$Color.color = new_color.value
 	active_picker._value_changed(new_color)
 
-func set_mode(mode: MODE) -> void:
+func set_mode(mode: Mode) -> void:
 	for child in $Pickers.get_children():
 		child.hide()
-	if mode == MODE.HSV:
+	if mode == Mode.HSV:
 		active_picker = $Pickers/HSV
-	elif mode == MODE.RGB:
+	elif mode == Mode.RGB:
 		active_picker = $Pickers/RGB
-	elif mode == MODE.PRESET:
+	elif mode == Mode.PRESET:
 		active_picker = $Pickers/Preset
 	else:
-		push_error("???")
+		push_error("Unknown mode %d" % mode)
 	active_picker.show()
 	active_picker._value_changed(color)
