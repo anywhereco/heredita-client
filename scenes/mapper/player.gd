@@ -58,4 +58,5 @@ func _physics_process(delta: float) -> void:
 			camera_pivot.position = position
 		#if not map.map_world_bounds.has_point(Vector2(0, position.z)):
 		#	position.z = -position.z
+		
 	move_and_slide()

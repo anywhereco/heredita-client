@@ -1,7 +1,8 @@
 class_name Map
 extends Node3D
 
-const CHUNK_SIZE: int = 256
+const CHUNK_SIZE: int = 128
+const CHUNK_SIZE_FLOAT: float = float(CHUNK_SIZE)
 
 @export_range(1.0/16, 1, 1.0/16) var pixel_size: float = 1.0/8
 
@@ -37,6 +38,21 @@ func map_space_to_world_space(_map_pos: Vector2) -> Vector2:
 	_map_pos *= pixel_size
 	return _map_pos
 
+func get_chunk_grid_coords(pos: Vector2) -> Vector2i:
+	@warning_ignore("narrowing_conversion")
+	return Vector2i(floorf(pos.x/CHUNK_SIZE_FLOAT), floorf(pos.y/CHUNK_SIZE_FLOAT))
+
+func get_chunk_relative_coords(pos: Vector2) -> Vector2:
+	return Vector2(fposmod(pos.x, CHUNK_SIZE_FLOAT), fposmod(pos.y, CHUNK_SIZE_FLOAT))
+
+## If a position is invalid, returns Color(-1, -1, -1, -1).
+func get_pixel_at(pos: Vector2) -> Color:
+	if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
+		return Color(-1, -1, -1, -1)
+	var chunk_coords := get_chunk_grid_coords(pos)
+	var chunk: Image = chunks[chunk_coords.x][chunk_coords.y].texture.get_image()
+	return chunk.get_pixelv(Vector2i(get_chunk_relative_coords(pos)))
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	original_map_size = original_map.get_size()
@@ -53,9 +69,10 @@ func _ready() -> void:
 			chunk.texture = ImageTexture.create_from_image(img)
 			chunk.axis = Vector3.Axis.AXIS_Y
 			chunk.double_sided = false
-			var center := map_space_to_world_space(Vector2(x+128, y+128))
+			@warning_ignore("integer_division")
+			var center := map_space_to_world_space(Vector2(x+(CHUNK_SIZE/2), y+(CHUNK_SIZE/2)))
 			chunk.position = Vector3(center.x, 0, center.y)
-			chunk.name = "MapChunk%d:%d" % [x, y]
+			chunk.name = "MapChunk%d:%d" % [x_idx, y_idx]
 			chunk.pixel_size = pixel_size
 			chunk.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 			chunk_container_node.add_child(chunk)
@@ -67,23 +84,29 @@ func _ready() -> void:
 	water.mesh.size = map_space_to_world_space(Vector2.ZERO).abs() * 2
 	map_world_bounds = Rect2(map_space_to_world_space(Vector2.ZERO), map_space_to_world_space(Vector2.ZERO).abs() * 2)
 
+func update_map_pos() -> void:
+	var mouse_position := get_window().get_mouse_position()
+	# The map is at zero on the Y axis
+	var intersect: Variant = Plane.PLANE_XZ.intersects_ray(
+		player_camera.project_ray_origin(mouse_position),
+		player_camera.project_ray_normal(mouse_position)
+	)
+	if intersect is not Vector3:
+		return
+	@warning_ignore("unsafe_call_argument")
+	var intersect_pos: Vector2 = Vector2(intersect.x, intersect.z)
+	map_pos.value = world_space_to_map_space(intersect_pos)
+	if not is_in_bounding_box(map_pos.value, Vector2.ZERO, original_map_size):
+		return
+	
+
 func _process(_delta: float) -> void:
 	pass
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
-		var mouse_position := get_window().get_mouse_position()
-		# The map is at zero on the Y axis
-		var intersect: Variant = Plane.PLANE_XZ.intersects_ray(
-			player_camera.project_ray_origin(mouse_position),
-			player_camera.project_ray_normal(mouse_position)
-		)
-		if intersect is not Vector3:
-			return
-		@warning_ignore("unsafe_call_argument")
-		var intersect_pos: Vector2 = Vector2(intersect.x, intersect.z)
-		map_pos.value = world_space_to_map_space(intersect_pos)
-		if not is_in_bounding_box(map_pos.value, Vector2.ZERO, original_map_size):
-			return
+		update_map_pos()
 		@warning_ignore("unused_variable")
 		var map_pos_int := Vector2i(map_pos.value)
+	MapperRoot._instance.process_tool_use(event, self)
+	

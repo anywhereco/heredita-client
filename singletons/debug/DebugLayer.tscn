@@ -27,6 +27,6 @@ anchor_right = 1.0
 offset_bottom = 21.0
 grow_horizontal = 2
 mouse_behavior_recursive = 1
-text = "Heredita version !VER at %d FPS"
+text = "Heredita version !VER at %d/%d FPS"
 label_settings = SubResource("LabelSettings_ovp2x")
 horizontal_alignment = 1
