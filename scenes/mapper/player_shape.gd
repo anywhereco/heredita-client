@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	var vel := Vector2(player.velocity.x, player.velocity.z)
-	if abs(vel.angle() - last_vel.angle()) > 2:
+	if abs(vel.angle() - last_vel.angle()) > PI:
 		if signf((vel - last_vel).angle()) == 1:
 			angle_offset -= TAU
 		else:
@@ -20,6 +20,5 @@ func _process(delta: float) -> void:
 	var angle := vel.angle() + angle_offset
 
 	if vel.length_squared() > 0.05:
-		self.rotation.y += (((angle * -1) + deg_to_rad(-90)) - rotation.y) * (1 - exp(-20*delta))
-		
-	last_vel = vel
+		rotation.y += (((angle * -1) + deg_to_rad(-90)) - rotation.y) * (1 - exp(-20*delta))
+		last_vel = vel
