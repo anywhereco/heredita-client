@@ -20,6 +20,10 @@ func connect_buttons_recursively(node: Node) -> void:
 
 func _on_button_pressed(button_name: String) -> void:
 	mapper.tool.value = MapperRoot.Tool.get(button_name.to_upper())
+	
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("tool_brush"):
+		mapper.tool.value = MapperRoot.Tool.BRUSH
 
 func try_resize() -> void:
 	# TODO!!

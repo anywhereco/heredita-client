@@ -14,6 +14,8 @@ const CHUNK_SIZE_FLOAT: float = float(CHUNK_SIZE)
 @onready var chunk_container_node: Node3D = $MapChunks
 @onready var preview_plane: Sprite3D = $PreviewPlane
 
+var default_target_color: Color = Color(1,1,1)
+
 ## Array[Array[bool]], x,y/z order
 var chunks_edited: Array[Array] = []
 ## Array[Array[Sprite3D]], x,y/z order

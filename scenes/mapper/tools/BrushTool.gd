@@ -4,8 +4,8 @@ extends Resource
 var size: int = 1
 var shape: BrushShapeMap = BrushShapeMap.new()
 var is_painting: bool = false
-var paint_color: Color = Color.WHITE
-var target_color: Color = Color.WHITE
+var paint_color: ReactiveColor = ReactiveColor.new(Color.WHITE)
+var target_color: ReactiveColor = ReactiveColor.new(Color.WHITE)
 
 func _init() -> void:
 	pass
@@ -13,16 +13,18 @@ func _init() -> void:
 func _map_ready() -> void:
 	UIRoot._instance.brush_ui.size_controller.brush_size.value_changed.connect(_brush_size_changed.unbind(1))
 	_brush_size_changed()
-	UIRoot._instance.brush_ui.target_picker.color.value_changed.connect(
-		func(color: ReactiveColor) -> void:
-			target_color = color.value
+	target_color = UIRoot._instance.brush_ui.target_picker.color
+	target_color.value_changed.connect(
+		func(_color: ReactiveColor) -> void:
 			_update_brush()
 	)
-	UIRoot._instance.brush_ui.paint_picker.color.value_changed.connect(
-		func(color: ReactiveColor) -> void:
-			paint_color = color.value
+	paint_color = UIRoot._instance.brush_ui.paint_picker.color
+	paint_color.value_changed.connect(
+		func(_color: ReactiveColor) -> void:
 			_update_brush()
 	)
+	paint_color.value = Color() #black feels more sensible as a default for paint
+	target_color.value = Map._instance.default_target_color
 
 func get_image_for_brush() -> Image:
 	var image := shape.get_as_image(size).duplicate(true)
@@ -33,7 +35,7 @@ func get_image_for_brush() -> Image:
 		for x in range(width):
 			var pos := Vector2i(Map._instance.map_pos.value - shape.image_pixel_offset + Vector2(x, y))
 			var color := Map._instance.get_pixel_at(pos)
-			if color.is_equal_approx(target_color) && image.get_pixel(x, y) == Color.WHITE:
+			if color.is_equal_approx(target_color.value) && image.get_pixel(x, y) == Color.WHITE:
 				image.set_pixel(x, y, Color.WHITE)
 			else:
 				image.set_pixel(x, y, Color.TRANSPARENT)
@@ -55,7 +57,7 @@ func brush_events(event: InputEvent) -> void:
 		is_painting = false
 	
 	if is_painting:
-		Map._instance.set_pixels_at_map_pos_targeted(shape.get_vec2s(size), paint_color, target_color)
+		Map._instance.set_pixels_at_map_pos_targeted(shape.get_vec2s(size), paint_color.value, target_color.value)
 
 func _brush_size_changed() -> void:
 	size = UIRoot._instance.brush_ui.size_controller.brush_size.value
@@ -63,6 +65,6 @@ func _brush_size_changed() -> void:
 
 func _update_brush() -> void:
 	Map._instance.preview_plane.texture.update(get_image_for_brush())
-	var mod := paint_color
+	var mod := paint_color.value
 	mod.a = 0.5
 	Map._instance.preview_plane.modulate = mod

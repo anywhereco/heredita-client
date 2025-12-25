@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://yb2j237qhuec"]
 
-[ext_resource type="Script" uid="uid://8x5gnweq47eb" path="res://scenes/mapper/ui/ui_root.gd" id="1_em4te"]
+[ext_resource type="Script" path="res://scenes/mapper/ui/ui_root.gd" id="1_em4te"]
 [ext_resource type="Script" uid="uid://i3124dmjaoj6" path="res://scenes/mapper/ui/right_items.gd" id="1_itatv"]
 [ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/_shared/glass.tres" id="2_tv71d"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="4_itatv"]
@@ -12,8 +12,8 @@
 [ext_resource type="Script" uid="uid://c3107fy0fo6nv" path="res://scenes/mapper/ui/tool_ui.gd" id="9_x7h6p"]
 [ext_resource type="Script" uid="uid://cccfbeboro2t7" path="res://scenes/mapper/ui/tool_ui_container.gd" id="10_tv71d"]
 [ext_resource type="PackedScene" uid="uid://ciprbhp7oi7jo" path="res://scenes/mapper/ui/color_picker.tscn" id="11_mey8b"]
-[ext_resource type="Script" uid="uid://db26k4s8p0vg1" path="res://scenes/mapper/ui/brush_size.gd" id="12_0sgq1"]
-[ext_resource type="Script" uid="uid://boffekhvui4ql" path="res://scenes/mapper/ui/brush.gd" id="12_2eddf"]
+[ext_resource type="Script" path="res://scenes/mapper/ui/brush_size.gd" id="12_0sgq1"]
+[ext_resource type="Script" path="res://scenes/mapper/ui/brush.gd" id="12_2eddf"]
 [ext_resource type="FontVariation" uid="uid://hwc3xdnlf3ke" path="res://assets/font/_variants/pro450.tres" id="12_wbt2f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rficw"]
