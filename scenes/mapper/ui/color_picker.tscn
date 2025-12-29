@@ -1,13 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://ciprbhp7oi7jo"]
+[gd_scene load_steps=23 format=3 uid="uid://ciprbhp7oi7jo"]
 
 [ext_resource type="Script" uid="uid://c43omewlw0mxg" path="res://scenes/mapper/ui/color_picker.gd" id="1_2kfen"]
 [ext_resource type="Script" uid="uid://c020hb7atwvkj" path="res://scenes/mapper/ui/color_hsv.gd" id="2_61vie"]
 [ext_resource type="Shader" uid="uid://dif81fw64ymyb" path="res://scenes/mapper/ui/shaders/sv_rect.gdshader" id="2_aub21"]
-[ext_resource type="Texture2D" uid="uid://hlopdqhei3b6" path="res://assets/theme_assets/hue_slider.png" id="3_rtn1r"]
 [ext_resource type="Texture2D" uid="uid://bxp786hfaau82" path="res://assets/theme_assets/picker_dot.png" id="4_6v1ti"]
+[ext_resource type="Script" uid="uid://dsd5d5f31kt1" path="res://scenes/mapper/ui/color_rgb.gd" id="5_rtn1r"]
+[ext_resource type="Script" uid="uid://nmhryjoffl4a" path="res://scenes/mapper/ui/color_hex.gd" id="6_by36x"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_by36x"]
+load_path = "res://.godot/imported/hue_slider.png-e589502fee6207c4f08c873daa1f9177.ctex"
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_by36x"]
-texture = ExtResource("3_rtn1r")
+texture = SubResource("CompressedTexture2D_by36x")
 texture_margin_left = 10.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rtn1r"]
@@ -25,6 +29,39 @@ colors = PackedColorArray(0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_aub21"]
 gradient = SubResource("Gradient_2kfen")
+
+[sub_resource type="Gradient" id="Gradient_tuh2h"]
+colors = PackedColorArray(1, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pdj07"]
+gradient = SubResource("Gradient_tuh2h")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cjq6g"]
+texture = SubResource("GradientTexture2D_pdj07")
+texture_margin_left = 10.0
+
+[sub_resource type="Gradient" id="Gradient_7fk1t"]
+colors = PackedColorArray(0, 1, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qatfr"]
+gradient = SubResource("Gradient_7fk1t")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_53u0u"]
+texture = SubResource("GradientTexture2D_qatfr")
+texture_margin_left = 10.0
+
+[sub_resource type="Gradient" id="Gradient_dqofd"]
+colors = PackedColorArray(0, 0, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_macmq"]
+gradient = SubResource("Gradient_dqofd")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0f68k"]
+texture = SubResource("GradientTexture2D_macmq")
+texture_margin_left = 10.0
 
 [node name="ColorPicker" type="VBoxContainer"]
 anchors_preset = 15
@@ -68,9 +105,41 @@ texture = ExtResource("4_6v1ti")
 stretch_mode = 2
 
 [node name="RGB" type="HBoxContainer" parent="Pickers"]
+visible = false
+layout_mode = 2
+script = ExtResource("5_rtn1r")
+
+[node name="R" type="VSlider" parent="Pickers/RGB"]
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxTexture_cjq6g")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_rtn1r")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_by36x")
+max_value = 255.0
+
+[node name="G" type="VSlider" parent="Pickers/RGB"]
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxTexture_53u0u")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_rtn1r")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_by36x")
+max_value = 255.0
+
+[node name="B" type="VSlider" parent="Pickers/RGB"]
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxTexture_0f68k")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_rtn1r")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_by36x")
+max_value = 255.0
+
+[node name="Hex" type="VBoxContainer" parent="Pickers"]
+visible = false
+layout_mode = 2
+script = ExtResource("6_by36x")
+
+[node name="Edit" type="LineEdit" parent="Pickers/Hex"]
 layout_mode = 2
 
 [node name="Preset" type="Control" parent="Pickers"]
+visible = false
 layout_mode = 2
 
 [node name="Color" type="ColorRect" parent="."]
@@ -79,3 +148,7 @@ layout_mode = 2
 
 [connection signal="value_changed" from="Pickers/HSV/Hue" to="Pickers/HSV" method="_hue_changed"]
 [connection signal="gui_input" from="Pickers/HSV/SVRect" to="Pickers/HSV" method="_sv_gui_input"]
+[connection signal="value_changed" from="Pickers/RGB/R" to="Pickers/RGB" method="_r_changed"]
+[connection signal="value_changed" from="Pickers/RGB/G" to="Pickers/RGB" method="_g_changed"]
+[connection signal="value_changed" from="Pickers/RGB/B" to="Pickers/RGB" method="_b_changed"]
+[connection signal="text_changed" from="Pickers/Hex/Edit" to="Pickers/Hex" method="_on_text_changed"]

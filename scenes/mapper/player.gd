@@ -7,6 +7,13 @@ const SPEED = 5.0
 const SPRINT_MULT = 3.0
 const JUMP_VELOCITY = 4.5
 
+var jump: bool = false
+var jump_new: bool = false
+var forwards: bool = false
+var backwards: bool = false
+var left: bool = false
+var right: bool = false
+
 var was_on_floor_last_frame: bool = false
 
 func setup_velocity(direction: Vector3, delta: float) -> void:
@@ -35,19 +42,36 @@ func setup_velocity(direction: Vector3, delta: float) -> void:
 	if velocity.length_squared() > 0.1:
 		map.update_map_pos() # This prevents moving from breaking your cursor position.
 	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("jump"):
+		jump_new = true
+	elif event.is_action_released("jump"):
+		jump = false
+	if event.is_action("move_forwards"):
+		forwards = event.is_pressed()
+	if event.is_action("move_backwards"):
+		backwards = event.is_pressed()
+	if event.is_action("move_left"):
+		left = event.is_pressed()
+	if event.is_action("move_right"):
+		right = event.is_pressed()
 
 func _physics_process(delta: float) -> void:
+	if jump:
+		jump_new = false
+	if jump_new:
+		jump = true
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if (Input.is_action_just_pressed("jump") and is_on_floor()) or \
-	(Input.is_action_pressed("jump") and is_on_floor() and not was_on_floor_last_frame):
+	if (jump_new and is_on_floor()) or \
+	(jump and is_on_floor() and not was_on_floor_last_frame):
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forwards", "move_backwards")
+	var input_dir := Vector2(right,backwards) - Vector2(left,forwards)
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y))
 	direction = direction.rotated(Vector3.UP, camera_pivot.rotation.y).normalized()
 	

@@ -4,6 +4,7 @@ extends Control
 enum Mode {
 	HSV,
 	RGB,
+	HEX,
 	PRESET
 }
 
@@ -24,6 +25,8 @@ func set_mode(mode: Mode) -> void:
 		active_picker = $Pickers/HSV
 	elif mode == Mode.RGB:
 		active_picker = $Pickers/RGB
+	elif mode == Mode.HEX:
+		active_picker = $Pickers/Hex
 	elif mode == Mode.PRESET:
 		active_picker = $Pickers/Preset
 	else:
