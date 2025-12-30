@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1fcr11flbild"]
+[gd_scene load_steps=12 format=3 uid="uid://c1fcr11flbild"]
 
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="1_bsn4x"]
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="1_o0axu"]
+[ext_resource type="Script" uid="uid://dndpy2towtsbg" path="res://scenes/main_menu/pages/gallery/map_picker.gd" id="2_huwrv"]
 [ext_resource type="Script" uid="uid://j5d5mbyadwj8" path="res://libraries/ui/image_picker_button/image_picker_button.gd" id="2_x1oku"]
-[ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/main_menu/pages/room_list/temporary_mapper_opener.gd" id="3_x1oku"]
+[ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/main_menu/pages/gallery/temporary_mapper_opener.gd" id="3_x1oku"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jd1et"]
 font = ExtResource("1_o0axu")
@@ -38,7 +39,7 @@ grow_vertical = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="Label" type="Label" parent="."]
+[node name="MapName" type="Label" parent="."]
 layout_mode = 2
 text = "Selected map"
 label_settings = SubResource("LabelSettings_jd1et")
@@ -51,39 +52,53 @@ size_flags_horizontal = 4
 texture = SubResource("GradientTexture2D_ue5i1")
 expand_mode = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="MapPicker" type="HBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
+script = ExtResource("2_huwrv")
 
-[node name="Button" type="Button" parent="HBoxContainer"]
+[node name="DefaultMaps" type="OptionButton" parent="MapPicker"]
 layout_mode = 2
-text = "  Check the gallery  "
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "Choose a map"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Blank"
+popup/item_1/id = 1
+popup/item_2/text = "1935 by Tibet Maps"
+popup/item_2/id = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MapPicker"]
 layout_mode = 2
 
-[node name="Panel2" type="Panel" parent="HBoxContainer/VBoxContainer"]
+[node name="Panel2" type="Panel" parent="MapPicker/VBoxContainer"]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxLine_o0axu")
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MapPicker/VBoxContainer"]
 layout_mode = 2
 text = "or"
 label_settings = SubResource("LabelSettings_huwrv")
 
-[node name="Panel" type="Panel" parent="HBoxContainer/VBoxContainer"]
+[node name="Panel" type="Panel" parent="MapPicker/VBoxContainer"]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxLine_o0axu")
 
-[node name="ImagePickerButton" type="Button" parent="HBoxContainer"]
+[node name="ImagePickerButton" type="Button" parent="MapPicker" node_paths=PackedStringArray("image_rect", "name_label")]
 layout_mode = 2
 text = "  Pick a local image  "
 script = ExtResource("2_x1oku")
+image_rect = NodePath("../../TextureRect")
+name_label = NodePath("../../MapName")
+name_format = "Selected map: %s"
 metadata/_custom_type_script = "uid://j5d5mbyadwj8"
 
 [node name="Panel2" type="Panel" parent="."]
@@ -96,3 +111,5 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "            Play demo            "
 script = ExtResource("3_x1oku")
+
+[connection signal="item_selected" from="MapPicker/DefaultMaps" to="MapPicker" method="_on_default_maps_item_selected"]

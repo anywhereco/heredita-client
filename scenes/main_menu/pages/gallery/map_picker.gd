@@ -5,24 +5,23 @@ const MAP_1935 = preload("uid://bb1h8pyo0qcav")
 
 @onready var default_maps: OptionButton = $DefaultMaps
 @onready var image_picker_button: ImagePickerButton = $ImagePickerButton
+@onready var map_name: Label = $"../MapName"
 
 var image: ReactiveImage
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	image = image_picker_button.image
-	var img := MAP_BLANK.duplicate()
-	img.resource_name = "Pick an image or use default (Blank)"
-	image.value = img
+	image.value = MAP_BLANK.duplicate()
+	map_name.text = "Selected map: Blank"
 
 func _on_default_maps_item_selected(index: int) -> void:
 	var img: Image
 	match default_maps.get_item_text(index):
 		"Blank":
 			img = MAP_BLANK.duplicate()
-			img.resource_name = "Default: Blank"
-		"1935":
+		"1935 by Tibet Maps":
 			img = MAP_1935.duplicate()
-			img.resource_name = "Default: 1935"
+	map_name.text = "Selected map: %s" % default_maps.get_item_text(index)
 	image.value = img
 	default_maps.select(0)

@@ -20,13 +20,21 @@ var extra_data: Variant = null
 @onready var web_file_dialog := HTML5FileDialog.new()
 @onready var file_dialog: FileDialog = FileDialog.new()
 @onready var error: Label = content.find_child("Error")
-@onready var filename: Label = content.find_child("Filename")
-@onready var image_rect: TextureRect = content.find_child("Image")
 
 ## If SVGs should be allowed or not.
 @export var allow_svgs := false
 ## If maps [.her] should be allowed or not.
 @export var allow_maps := false
+## If a preview image should be shown. Does nothing if a custom image rect is set.
+@export var show_preview := true
+## The texture rect to draw previews to.
+@export var image_rect: TextureRect
+## If the label should be frozen.
+@export var freeze_label := true
+## The label to draw to.
+@export var name_label: Label
+## The format of the label. %s is the filename.
+@export var name_format: String = "%s"
 
 var is_web := OS.get_name() == 'Web'
 
@@ -42,31 +50,48 @@ enum PickedImageError {
 
 #region Private methods
 func _map_set(map: ReactiveImage) -> void:
-	filename.text = map.value.resource_name
+	if not freeze_label:
+		name_label.text = name_format % map.value.resource_name
 	image_rect.texture = ImageTexture.create_from_image(map.value)
 
 func _new_image(fname: String) -> void:
 	if not content.visible:
 		content.show()
 	image_rect.texture = ImageTexture.create_from_image(image.value)
-	filename.text = fname
+	if not freeze_label:
+		name_label.text = name_format % fname
 
 func _ready() -> void:
+	if image_rect == null:
+		if not show_preview:
+			image_rect = content.find_child("Image") 
+	else:
+		content.find_child("Image").hide()
+	
+	if name_label == null:
+		name_label = content.find_child("Filename") 
+	
 	image.value_changed.connect(_map_set)
 	add_child(content)
 	prev_content_size = content.size
+	
 	web_file_dialog.file_mode = HTML5FileDialog.FileMode.OPEN_FILE
 	web_file_dialog.filters = PackedStringArray(["image/*"])
 	web_file_dialog.file_selected.connect(_on_file_selected_html5)
 	add_child(web_file_dialog, false, INTERNAL_MODE_BACK)
+	
 	file_dialog.use_native_dialog = true
 	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
 	file_dialog.file_selected.connect(_on_file_selected)
 	add_child(file_dialog, false, INTERNAL_MODE_BACK)
+	
 	content.show()
-	filename.text = text
+	content.find_child("Filename").text = text
 	text = ""
+	
+	if not show_preview:
+		image_rect.hide()
 
 func _process(_delta: float) -> void:
 	if not content:
@@ -119,7 +144,7 @@ func _on_file_selected_html5(file: HTML5FileHandle) -> void:
 		_err(res.err_code() as int)
 		return
 	image.value = res.val()
-	_new_image(file.filename as String) # If the filename is not a string i will Literally die
+	_new_image(file.name_label as String) # If the name_label is not a string i will Literally die
 
 func _on_file_selected(path: String) -> void:
 	if path.rsplit(".", false, 1)[1] == "svg":
