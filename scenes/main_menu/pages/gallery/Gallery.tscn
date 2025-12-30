@@ -1,8 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1fcr11flbild"]
+[gd_scene load_steps=11 format=3 uid="uid://c1fcr11flbild"]
 
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="1_bsn4x"]
+[ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="1_o0axu"]
 [ext_resource type="Script" uid="uid://j5d5mbyadwj8" path="res://libraries/ui/image_picker_button/image_picker_button.gd" id="2_x1oku"]
 [ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/main_menu/pages/room_list/temporary_mapper_opener.gd" id="3_x1oku"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jd1et"]
+font = ExtResource("1_o0axu")
+font_size = 21
+
+[sub_resource type="Gradient" id="Gradient_7t0hk"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ue5i1"]
+gradient = SubResource("Gradient_7t0hk")
+height = 32
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_o0axu"]
 color = Color(1, 1, 1, 0.40392157)
@@ -26,6 +37,19 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 16
 alignment = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Selected map"
+label_settings = SubResource("LabelSettings_jd1et")
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("GradientTexture2D_ue5i1")
+expand_mode = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -58,7 +82,7 @@ theme_override_styles/panel = SubResource("StyleBoxLine_o0axu")
 
 [node name="ImagePickerButton" type="Button" parent="HBoxContainer"]
 layout_mode = 2
-text = "  Pick an image or map  "
+text = "  Pick a local image  "
 script = ExtResource("2_x1oku")
 metadata/_custom_type_script = "uid://j5d5mbyadwj8"
 
