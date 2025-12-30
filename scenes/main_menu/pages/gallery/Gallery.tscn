@@ -97,6 +97,7 @@ layout_mode = 2
 text = "  Pick a local image  "
 script = ExtResource("2_x1oku")
 image_rect = NodePath("../../TextureRect")
+freeze_label = false
 name_label = NodePath("../../MapName")
 name_format = "Selected map: %s"
 metadata/_custom_type_script = "uid://j5d5mbyadwj8"
