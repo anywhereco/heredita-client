@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1fcr11flbild"]
+[gd_scene load_steps=8 format=3 uid="uid://c1fcr11flbild"]
 
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="1_bsn4x"]
+[ext_resource type="Script" uid="uid://dndpy2towtsbg" path="res://scenes/main_menu/pages/gallery/map_picker.gd" id="1_o0axu"]
 [ext_resource type="Script" uid="uid://j5d5mbyadwj8" path="res://libraries/ui/image_picker_button/image_picker_button.gd" id="2_x1oku"]
-[ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/main_menu/pages/room_list/temporary_mapper_opener.gd" id="3_x1oku"]
+[ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/main_menu/pages/gallery/temporary_mapper_opener.gd" id="3_x1oku"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_o0axu"]
 color = Color(1, 1, 1, 0.40392157)
@@ -27,36 +28,46 @@ grow_vertical = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="MapPicker" type="HBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
+script = ExtResource("1_o0axu")
 
-[node name="Button" type="Button" parent="HBoxContainer"]
+[node name="DefaultMaps" type="OptionButton" parent="MapPicker"]
 layout_mode = 2
-text = "  Check the gallery  "
+selected = 0
+item_count = 3
+popup/item_0/text = "  Pick a map from defaults"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_1/text = "Blank"
+popup/item_1/id = 1
+popup/item_2/text = "1935"
+popup/item_2/id = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MapPicker"]
 layout_mode = 2
+alignment = 1
 
-[node name="Panel2" type="Panel" parent="HBoxContainer/VBoxContainer"]
+[node name="Panel2" type="Panel" parent="MapPicker/VBoxContainer"]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxLine_o0axu")
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MapPicker/VBoxContainer"]
 layout_mode = 2
 text = "or"
 label_settings = SubResource("LabelSettings_huwrv")
 
-[node name="Panel" type="Panel" parent="HBoxContainer/VBoxContainer"]
+[node name="Panel" type="Panel" parent="MapPicker/VBoxContainer"]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxLine_o0axu")
 
-[node name="ImagePickerButton" type="Button" parent="HBoxContainer"]
+[node name="ImagePickerButton" type="Button" parent="MapPicker"]
 layout_mode = 2
 text = "  Pick an image or map  "
 script = ExtResource("2_x1oku")
@@ -72,3 +83,5 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "            Play demo            "
 script = ExtResource("3_x1oku")
+
+[connection signal="item_selected" from="MapPicker/DefaultMaps" to="MapPicker" method="_on_default_maps_item_selected"]

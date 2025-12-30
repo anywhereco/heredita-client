@@ -71,8 +71,6 @@ func get_pixel_at(pos: Vector2) -> Color:
 	#var chunk: Image = chunks[chunk_coords.x][chunk_coords.y].texture.get_image()
 	#return chunk.get_pixelv(Vector2i(get_chunk_relative_coords(pos)))
 
-## CRITICAL(demoreq): needs to be changed to chunk_images!
-
 func set_pixel_at(pos: Vector2, color: Color) -> bool:
 	if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
 		return false

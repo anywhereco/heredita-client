@@ -8,8 +8,8 @@ var error_tween: Tween
 
 var NO_SVG_NO_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.webp,*.bmp;Image Files;image/png,image/jpeg,image/webp,image/bmp"])
 var SVG_NO_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.svg,*.webp,*.bmp;Image Files;image/png,image/jpeg,image/svg+xml,image/webp,image/bmp"])
-var NO_SVG_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.webp,*.bmp,*.mp;Image and Map Files;image/png,image/jpeg,image/webp,image/bmp,application/heredita-map"])
-var SVG_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.svg,*.webp,*.bmp,*.mp;Image and Map Files;image/png,image/jpeg,image/svg+xml,image/webp,image/bmp,application/heredita-map"])
+var NO_SVG_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.webp,*.bmp,*.her;Image and Map Files;image/png,image/jpeg,image/webp,image/bmp,application/heredita-map"])
+var SVG_MAP_FILTER := PackedStringArray(["*.png,*.jpg,*.jpeg,*.svg,*.webp,*.bmp,*.her;Image and Map Files;image/png,image/jpeg,image/svg+xml,image/webp,image/bmp,application/heredita-map"])
 
 var image := ReactiveImage.new(null)
 
@@ -25,7 +25,7 @@ var extra_data: Variant = null
 
 ## If SVGs should be allowed or not.
 @export var allow_svgs := false
-## If maps [.mp] should be allowed or not.
+## If maps [.her] should be allowed or not.
 @export var allow_maps := false
 
 var is_web := OS.get_name() == 'Web'
@@ -41,6 +41,10 @@ enum PickedImageError {
 }
 
 #region Private methods
+func _map_set(map: ReactiveImage) -> void:
+	filename.text = map.value.resource_name
+	image_rect.texture = ImageTexture.create_from_image(map.value)
+
 func _new_image(fname: String) -> void:
 	if not content.visible:
 		content.show()
@@ -48,6 +52,7 @@ func _new_image(fname: String) -> void:
 	filename.text = fname
 
 func _ready() -> void:
+	image.value_changed.connect(_map_set)
 	add_child(content)
 	prev_content_size = content.size
 	web_file_dialog.file_mode = HTML5FileDialog.FileMode.OPEN_FILE
@@ -182,5 +187,5 @@ func reset() -> void:
 	extra_data = null
 	image.value = null
 	image_rect.texture = DEFAULT_IMAGE
-	
+
 #endregion
