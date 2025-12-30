@@ -58,7 +58,7 @@ func get_chunk_relative_coords(pos: Vector2) -> Vector2:
 
 ## If a position is invalid, returns Color(-1, -1, -1, -1).
 func get_pixel_at(pos: Vector2) -> Color:
-	if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
+	if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size_exclusive):
 		return Color(-1, -1, -1, -1)
 	var chunk_coords := get_chunk_grid_coords(pos)
 	var chunk: Image = chunk_images[chunk_coords.x][chunk_coords.y]
