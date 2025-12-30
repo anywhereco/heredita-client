@@ -26,6 +26,7 @@ var chunk_images: Array[Array] = []
 var original_map: Image = preload("uid://do2qcumlvx0lo")
 var preview_texture: Image = preload("uid://bug42uo2av8i2")
 var original_map_size: Vector2
+var original_map_size_exclusive: Vector2
 
 var map_world_bounds: Rect2
 
@@ -72,7 +73,7 @@ func get_pixel_at(pos: Vector2) -> Color:
 	#return chunk.get_pixelv(Vector2i(get_chunk_relative_coords(pos)))
 
 func set_pixel_at(pos: Vector2, color: Color) -> bool:
-	if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
+	if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size_exclusive):
 		return false
 	var chunk_coords := get_chunk_grid_coords(pos)
 	var chunk: Image = chunk_images[chunk_coords.x][chunk_coords.y]
@@ -82,7 +83,7 @@ func set_pixel_at(pos: Vector2, color: Color) -> bool:
 
 func set_pixels_at(positions: PackedVector2Array, color: Color) -> void:
 	for pos in positions:
-		if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
+		if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size_exclusive):
 			continue
 		var chunk_coords := get_chunk_grid_coords(pos)
 		var chunk: Image = chunk_images[chunk_coords.x][chunk_coords.y]
@@ -91,7 +92,7 @@ func set_pixels_at(positions: PackedVector2Array, color: Color) -> void:
 
 func set_pixels_at_targeted(positions: PackedVector2Array, color: Color, target: Color) -> void:
 	for pos in positions:
-		if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
+		if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size_exclusive):
 			continue
 		var chunk_coords := get_chunk_grid_coords(pos)
 		var chunk: Image = chunk_images[chunk_coords.x][chunk_coords.y]
@@ -103,7 +104,7 @@ func set_pixels_at_targeted(positions: PackedVector2Array, color: Color, target:
 func set_pixels_at_map_pos_targeted(positions: PackedVector2Array, color: Color, target: Color) -> void:
 	for pos in positions:
 		pos += Vector2(Vector2i(map_pos.value))
-		if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size):
+		if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size_exclusive):
 			continue
 		var chunk_coords := get_chunk_grid_coords(pos)
 		var chunk: Image = chunk_images[chunk_coords.x][chunk_coords.y]
@@ -120,6 +121,7 @@ func _ready() -> void:
 	preview_plane.texture.set_image(preview_texture)
 	
 	original_map_size = original_map.get_size()
+	original_map_size_exclusive = original_map_size - Vector2(1, 1)
 	for x: int in range(0, original_map_size.x, CHUNK_SIZE):
 		for y: int in range(0, original_map_size.y, CHUNK_SIZE):
 			@warning_ignore("integer_division")
