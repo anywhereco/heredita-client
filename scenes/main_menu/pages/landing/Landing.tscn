@@ -80,13 +80,13 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Play" type="Button" parent="LeftSide"]
-visible = false
 layout_mode = 2
 theme_type_variation = &"PrimaryButtons"
 text = "Play"
 script = ExtResource("1_ymk45")
 
 [node name="PlaySingleplayer" type="Button" parent="LeftSide"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"PrimaryButtons"

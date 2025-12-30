@@ -6,7 +6,8 @@ static var _instance: MainMenuForeground
 
 enum Page {
 	LANDING,
-	ROOM_LIST
+	ROOM_LIST,
+	GALLERY
 }
 
 var page: Page = Page.LANDING
@@ -14,6 +15,7 @@ var page: Page = Page.LANDING
 # pages
 const LANDING = preload("uid://crasgtic6vnmh")
 const ROOM_LIST = preload("uid://cww8q0kd7eghb")
+const GALLERY = preload("uid://c1fcr11flbild")
 
 func _init() -> void:
 	_instance = self
@@ -28,6 +30,8 @@ func swap_page(new_page: Page) -> void:
 			inst = LANDING.instantiate()
 		Page.ROOM_LIST:
 			inst = ROOM_LIST.instantiate()
+		Page.GALLERY:
+			inst = GALLERY.instantiate()
 	switch_element.add_child(inst)
 	switch_element.get_child(0).queue_free()
 	switch_element.get_child(0).hide()
