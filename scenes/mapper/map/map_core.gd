@@ -113,6 +113,21 @@ func set_pixels_at_map_pos_targeted(positions: PackedVector2Array, color: Color,
 			chunk.set_pixelv(Vector2i(get_chunk_relative_coords(pos)), color)
 			chunks_edited[chunk_coords.x][chunk_coords.y] = true
 
+const PACKAGE_VERSION = 0
+
+func package() -> Dictionary[String, Variant]:
+	var map_image: Image = Image.create_empty(original_map_size.x, original_map_size.y, false, Image.FORMAT_RGBA8)
+	for y in len(chunk_images):
+		var chunk_row: Array = chunk_images[y]
+		for x in len(chunk_row):
+			var chunk: Image = chunk_row[x]
+			map_image.blit_rect(chunk, Rect2i(0, 0, chunk.get_width(), chunk.get_height()), Vector2i(x,y))
+	return {image=map_image.get_data()}
+	
+func serialize() -> PackedByteArray:
+	var serialized_map: PackedByteArray = var_to_bytes(package())
+	serialized_map.insert(0,PACKAGE_VERSION)
+	return serialized_map
 
 func _init() -> void:
 	_instance = self
@@ -197,3 +212,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		update_map_pos()
 	MapperRoot._instance.process_tool_use(event)
 	
+	#DEBUG
+	if event is InputEventKey:
+		if event.keycode == KEY_Q:
+			print(serialize().slice(0,64))

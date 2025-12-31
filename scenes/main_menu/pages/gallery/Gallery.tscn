@@ -2,9 +2,9 @@
 
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="1_bsn4x"]
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="1_o0axu"]
-[ext_resource type="Script" uid="uid://dndpy2towtsbg" path="res://scenes/main_menu/pages/gallery/map_picker.gd" id="2_huwrv"]
+[ext_resource type="Script" path="res://scenes/main_menu/pages/gallery/map_picker.gd" id="2_huwrv"]
 [ext_resource type="Script" uid="uid://j5d5mbyadwj8" path="res://libraries/ui/image_picker_button/image_picker_button.gd" id="2_x1oku"]
-[ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/main_menu/pages/gallery/temporary_mapper_opener.gd" id="3_x1oku"]
+[ext_resource type="Script" path="res://scenes/main_menu/pages/gallery/temporary_mapper_opener.gd" id="3_x1oku"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jd1et"]
 font = ExtResource("1_o0axu")
