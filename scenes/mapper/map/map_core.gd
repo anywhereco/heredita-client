@@ -211,8 +211,3 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
 		update_map_pos()
 	MapperRoot._instance.process_tool_use(event)
-	
-	#DEBUG
-	if event is InputEventKey:
-		if event.keycode == KEY_Q:
-			print(serialize().slice(0,64))

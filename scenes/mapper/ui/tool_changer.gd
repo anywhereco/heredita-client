@@ -2,7 +2,7 @@ extends HFlowContainer
 
 const MAX_Y: int = 316 # we don't need to go bigger than this, since 
 
-@onready var mapper: MapperRoot = $"../../../../.."
+@onready var mapper: MapperRoot = MapperRoot._instance
 @onready var brush: Button = $Brush # this is just a regular button to get a size reference
 @onready var left_items: VBoxContainer = $"../../.."
 

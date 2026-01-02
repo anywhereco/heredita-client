@@ -1,6 +1,6 @@
 extends PanelContainer
 
-@onready var mapper: MapperRoot = $"../../.."
+@onready var mapper: MapperRoot = MapperRoot._instance
 
 @onready var title: Label = %Title
 
