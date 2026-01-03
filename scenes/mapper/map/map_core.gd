@@ -116,9 +116,9 @@ func set_pixels_at_map_pos_targeted(positions: PackedVector2Array, color: Color,
 func get_map_as_image() -> Image:
 	var map_image: Image = Image.create_empty(original_map_size.x, original_map_size.y, false, Image.FORMAT_RGBA8)
 	for x in len(chunk_images):
-		var chunk_row: Array = chunk_images[x]
-		for y in len(chunk_row):
-			var chunk: Image = chunk_row[y]
+		var chunk_column: Array = chunk_images[x]
+		for y in len(chunk_column):
+			var chunk: Image = chunk_column[y]
 			map_image.blit_rect(chunk, Rect2i(0, 0, chunk.get_width(), chunk.get_height()), Vector2i(x*CHUNK_SIZE,y*CHUNK_SIZE))
 	return map_image
 
