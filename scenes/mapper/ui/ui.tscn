@@ -1,24 +1,25 @@
-[gd_scene load_steps=35 format=3 uid="uid://yb2j237qhuec"]
+[gd_scene load_steps=36 format=3 uid="uid://yb2j237qhuec"]
 
 [ext_resource type="Script" uid="uid://8x5gnweq47eb" path="res://scenes/mapper/ui/ui_root.gd" id="1_em4te"]
 [ext_resource type="Script" uid="uid://i3124dmjaoj6" path="res://scenes/mapper/ui/right_items.gd" id="1_itatv"]
 [ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/_shared/glass.tres" id="2_tv71d"]
 [ext_resource type="Texture2D" uid="uid://dl2432kvta2xt" path="res://assets/icons/topbar/exit.svg" id="3_2eddf"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="4_itatv"]
+[ext_resource type="Script" uid="uid://b6wekdyqxe7s" path="res://scenes/mapper/ui/exit_button.gd" id="4_m4x71"]
 [ext_resource type="Texture2D" uid="uid://bvjemq5dgx8om" path="res://assets/icons/topbar/floppy.svg" id="4_n7ck4"]
 [ext_resource type="Texture2D" uid="uid://bf21ocaw21o0l" path="res://assets/icons/send.svg" id="4_rh4gq"]
 [ext_resource type="Texture2D" uid="uid://btb4jabo6nmoe" path="res://assets/icons/topbar/openfolder.svg" id="5_580mp"]
-[ext_resource type="Script" uid="uid://82u1nskr1k2o" path="res://scenes/mapper/ui/exportbutton.gd" id="5_rdvpr"]
+[ext_resource type="Script" uid="uid://82u1nskr1k2o" path="res://scenes/mapper/ui/export_button.gd" id="5_rdvpr"]
 [ext_resource type="Texture2D" uid="uid://dtur4inp5a2k4" path="res://assets/icons/topbar/image.svg" id="6_rdvpr"]
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="6_wbt2f"]
-[ext_resource type="Script" uid="uid://cyue2b6ml14cg" path="res://scenes/mapper/ui/tool_changer.gd" id="7_0sgq1"]
+[ext_resource type="Script" uid="uid://cyue2b6ml14cg" path="res://scenes/mapper/ui/toolui/tool_changer.gd" id="7_0sgq1"]
 [ext_resource type="Texture2D" uid="uid://b75i52xuegece" path="res://assets/icons/tools/brush.svg" id="8_2eddf"]
 [ext_resource type="Texture2D" uid="uid://c1f7wmtt6awxc" path="res://assets/icons/tools/inprogress.png" id="8_tv71d"]
-[ext_resource type="Script" uid="uid://c3107fy0fo6nv" path="res://scenes/mapper/ui/tool_ui.gd" id="9_x7h6p"]
-[ext_resource type="Script" uid="uid://cccfbeboro2t7" path="res://scenes/mapper/ui/tool_ui_container.gd" id="10_tv71d"]
-[ext_resource type="PackedScene" uid="uid://ciprbhp7oi7jo" path="res://scenes/mapper/ui/color_picker.tscn" id="11_mey8b"]
-[ext_resource type="Script" uid="uid://db26k4s8p0vg1" path="res://scenes/mapper/ui/brush_size.gd" id="12_0sgq1"]
-[ext_resource type="Script" uid="uid://boffekhvui4ql" path="res://scenes/mapper/ui/brush.gd" id="12_2eddf"]
+[ext_resource type="Script" uid="uid://c3107fy0fo6nv" path="res://scenes/mapper/ui/toolui/tool_ui.gd" id="9_x7h6p"]
+[ext_resource type="Script" uid="uid://cccfbeboro2t7" path="res://scenes/mapper/ui/toolui/tool_ui_container.gd" id="10_tv71d"]
+[ext_resource type="PackedScene" uid="uid://ciprbhp7oi7jo" path="res://scenes/mapper/ui/toolui/color_picker.tscn" id="11_mey8b"]
+[ext_resource type="Script" uid="uid://db26k4s8p0vg1" path="res://scenes/mapper/ui/toolui/brush_size.gd" id="12_0sgq1"]
+[ext_resource type="Script" uid="uid://boffekhvui4ql" path="res://scenes/mapper/ui/toolui/brush.gd" id="12_2eddf"]
 [ext_resource type="FontVariation" uid="uid://hwc3xdnlf3ke" path="res://assets/font/_variants/pro450.tres" id="12_wbt2f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hddsb"]
@@ -101,7 +102,7 @@ font_size = 18
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_em4te")
 
-[node name="ToolbarContainer" type="VBoxContainer" parent="."]
+[node name="MenubarContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -112,33 +113,33 @@ offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Toolbar" type="PanelContainer" parent="ToolbarContainer"]
+[node name="Menubar" type="PanelContainer" parent="MenubarContainer"]
 material = ExtResource("2_tv71d")
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hddsb")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ToolbarContainer/Toolbar"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenubarContainer/Menubar"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="SideSpacer" type="Control" parent="ToolbarContainer/Toolbar/HBoxContainer"]
+[node name="SideSpacer" type="Control" parent="MenubarContainer/Menubar/HBoxContainer"]
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
-[node name="Exit" type="Button" parent="ToolbarContainer/Toolbar/HBoxContainer"]
+[node name="Exit" type="Button" parent="MenubarContainer/Menubar/HBoxContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 theme_override_font_sizes/font_size = 14
-disabled = true
 text = "  Exit  "
 icon = ExtResource("3_2eddf")
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
+script = ExtResource("4_m4x71")
 
-[node name="Settings" type="Button" parent="ToolbarContainer/Toolbar/HBoxContainer"]
+[node name="Settings" type="Button" parent="MenubarContainer/Menubar/HBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -150,10 +151,11 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
-[node name="VSeparator" type="VSeparator" parent="ToolbarContainer/Toolbar/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="MenubarContainer/Menubar/HBoxContainer"]
 layout_mode = 2
 
-[node name="Save" type="Button" parent="ToolbarContainer/Toolbar/HBoxContainer"]
+[node name="Save" type="Button" parent="MenubarContainer/Menubar/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_type_variation = &"ToolButton"
@@ -165,7 +167,7 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
-[node name="Export" type="Button" parent="ToolbarContainer/Toolbar/HBoxContainer"]
+[node name="Export" type="Button" parent="MenubarContainer/Menubar/HBoxContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_type_variation = &"ToolButton"
@@ -177,7 +179,8 @@ vertical_icon_alignment = 0
 expand_icon = true
 script = ExtResource("5_rdvpr")
 
-[node name="Load" type="Button" parent="ToolbarContainer/Toolbar/HBoxContainer"]
+[node name="Load" type="Button" parent="MenubarContainer/Menubar/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_type_variation = &"ToolButton"
@@ -189,46 +192,46 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
-[node name="Spacer" type="Control" parent="ToolbarContainer/Toolbar/HBoxContainer"]
+[node name="Spacer" type="Control" parent="MenubarContainer/Menubar/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SideSpacer2" type="Control" parent="ToolbarContainer/Toolbar/HBoxContainer"]
+[node name="SideSpacer2" type="Control" parent="MenubarContainer/Menubar/HBoxContainer"]
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ToolbarContainer/Toolbar"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MenubarContainer/Menubar"]
 layout_mode = 2
 mouse_filter = 2
 mouse_behavior_recursive = 2
 theme_override_constants/separation = 8
 
-[node name="Spacer" type="Control" parent="ToolbarContainer/Toolbar/HBoxContainer2"]
+[node name="Spacer" type="Control" parent="MenubarContainer/Menubar/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ToolbarContainer/Toolbar/HBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenubarContainer/Menubar/HBoxContainer2"]
 visible = false
 layout_mode = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="Time" type="Label" parent="ToolbarContainer/Toolbar/HBoxContainer2/VBoxContainer"]
+[node name="Time" type="Label" parent="MenubarContainer/Menubar/HBoxContainer2/VBoxContainer"]
 layout_mode = 2
 text = "December 31st, 9999 BC"
 label_settings = SubResource("LabelSettings_khegr")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ToolbarContainer/Toolbar/HBoxContainer2/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenubarContainer/Menubar/HBoxContainer2/VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="AgeLabel" type="Label" parent="ToolbarContainer/Toolbar/HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="AgeLabel" type="Label" parent="MenubarContainer/Menubar/HBoxContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Age of Something or Another"
 label_settings = SubResource("LabelSettings_hxqh0")
 
-[node name="Lore" type="Button" parent="ToolbarContainer/Toolbar/HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="Lore" type="Button" parent="MenubarContainer/Menubar/HBoxContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 theme_type_variation = &"FlatUnpaddedButton"
@@ -236,12 +239,12 @@ theme_override_font_sizes/font_size = 11
 text = "  Lore"
 flat = true
 
-[node name="LargePadding" type="Control" parent="ToolbarContainer/Toolbar/HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="LargePadding" type="Control" parent="MenubarContainer/Menubar/HBoxContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="Close" type="Button" parent="ToolbarContainer/Toolbar/HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="Close" type="Button" parent="MenubarContainer/Menubar/HBoxContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 theme_type_variation = &"FlatUnpaddedButton"
@@ -249,7 +252,7 @@ theme_override_font_sizes/font_size = 11
 text = "<-    "
 flat = true
 
-[node name="Label" type="Label" parent="ToolbarContainer/Toolbar/HBoxContainer2"]
+[node name="Label" type="Label" parent="MenubarContainer/Menubar/HBoxContainer2"]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -258,17 +261,17 @@ label_settings = SubResource("LabelSettings_m4x71")
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Spacer2" type="Control" parent="ToolbarContainer/Toolbar/HBoxContainer2"]
+[node name="Spacer2" type="Control" parent="MenubarContainer/Menubar/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="Bottom" type="Control" parent="ToolbarContainer"]
+[node name="Bottom" type="Control" parent="MenubarContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
 
-[node name="ChatSplit" type="HSplitContainer" parent="ToolbarContainer/Bottom"]
+[node name="ChatSplit" type="HSplitContainer" parent="MenubarContainer/Bottom"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -278,7 +281,7 @@ grow_vertical = 2
 dragger_visibility = 1
 drag_area_offset = 3
 
-[node name="Empty" type="Control" parent="ToolbarContainer/Bottom/ChatSplit"]
+[node name="Empty" type="Control" parent="MenubarContainer/Bottom/ChatSplit"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -286,29 +289,29 @@ size_flags_stretch_ratio = 2.5
 focus_behavior_recursive = 1
 mouse_filter = 2
 
-[node name="RightItems" type="VBoxContainer" parent="ToolbarContainer/Bottom/ChatSplit"]
+[node name="RightItems" type="VBoxContainer" parent="MenubarContainer/Bottom/ChatSplit"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("1_itatv")
 
-[node name="ChatBox" type="PanelContainer" parent="ToolbarContainer/Bottom/ChatSplit/RightItems"]
+[node name="ChatBox" type="PanelContainer" parent="MenubarContainer/Bottom/ChatSplit/RightItems"]
 material = ExtResource("2_tv71d")
 custom_minimum_size = Vector2(135, 25)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_rficw")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ToolbarContainer/Bottom/ChatSplit/RightItems/ChatBox"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenubarContainer/Bottom/ChatSplit/RightItems/ChatBox"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="ToolbarContainer/Bottom/ChatSplit/RightItems/ChatBox/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MenubarContainer/Bottom/ChatSplit/RightItems/ChatBox/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="ToolbarContainer/Bottom/ChatSplit/RightItems/ChatBox/VBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MenubarContainer/Bottom/ChatSplit/RightItems/ChatBox/VBoxContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="ChatMessages" type="RichTextLabel" parent="ToolbarContainer/Bottom/ChatSplit/RightItems/ChatBox/VBoxContainer/PanelContainer/MarginContainer"]
+[node name="ChatMessages" type="RichTextLabel" parent="MenubarContainer/Bottom/ChatSplit/RightItems/ChatBox/VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[i]Chat is disabled in singleplayer![/i]
@@ -318,41 +321,41 @@ scroll_following = true
 scroll_following_visible_characters = true
 vertical_alignment = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ToolbarContainer/Bottom/ChatSplit/RightItems/ChatBox/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenubarContainer/Bottom/ChatSplit/RightItems/ChatBox/VBoxContainer"]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="ToolbarContainer/Bottom/ChatSplit/RightItems/ChatBox/VBoxContainer/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="MenubarContainer/Bottom/ChatSplit/RightItems/ChatBox/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Message"
 editable = false
 
-[node name="Button" type="Button" parent="ToolbarContainer/Bottom/ChatSplit/RightItems/ChatBox/VBoxContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="MenubarContainer/Bottom/ChatSplit/RightItems/ChatBox/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 disabled = true
 icon = ExtResource("4_rh4gq")
 
-[node name="RoomCount" type="PanelContainer" parent="ToolbarContainer/Bottom/ChatSplit/RightItems"]
+[node name="RoomCount" type="PanelContainer" parent="MenubarContainer/Bottom/ChatSplit/RightItems"]
 material = ExtResource("2_tv71d")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_khegr")
 
-[node name="ChatAnchor" type="Control" parent="ToolbarContainer/Bottom/ChatSplit/RightItems/RoomCount"]
+[node name="ChatAnchor" type="Control" parent="MenubarContainer/Bottom/ChatSplit/RightItems/RoomCount"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="FoldableContainer" type="FoldableContainer" parent="ToolbarContainer/Bottom/ChatSplit/RightItems/RoomCount"]
+[node name="FoldableContainer" type="FoldableContainer" parent="MenubarContainer/Bottom/ChatSplit/RightItems/RoomCount"]
 layout_mode = 2
 theme_type_variation = &"TransparentFoldableContainer"
 folded = true
 title = "1 in room"
 
-[node name="HFlowContainer" type="HFlowContainer" parent="ToolbarContainer/Bottom/ChatSplit/RightItems/RoomCount/FoldableContainer"]
+[node name="HFlowContainer" type="HFlowContainer" parent="MenubarContainer/Bottom/ChatSplit/RightItems/RoomCount/FoldableContainer"]
 visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ToolbarContainer/Bottom/ChatSplit/RightItems/RoomCount/FoldableContainer/HFlowContainer"]
+[node name="Label" type="Label" parent="MenubarContainer/Bottom/ChatSplit/RightItems/RoomCount/FoldableContainer/HFlowContainer"]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -361,32 +364,32 @@ label_settings = SubResource("LabelSettings_mey8b")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LeftItems" type="VBoxContainer" parent="ToolbarContainer/Bottom"]
+[node name="LeftItems" type="VBoxContainer" parent="MenubarContainer/Bottom"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 220.0
 grow_vertical = 2
 
-[node name="Toolkit" type="PanelContainer" parent="ToolbarContainer/Bottom/LeftItems"]
+[node name="Toolkit" type="PanelContainer" parent="MenubarContainer/Bottom/LeftItems"]
 material = ExtResource("2_tv71d")
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_2upvi")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ToolbarContainer/Bottom/LeftItems/Toolkit"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenubarContainer/Bottom/LeftItems/Toolkit"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ToolbarContainer/Bottom/LeftItems/Toolkit/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenubarContainer/Bottom/LeftItems/Toolkit/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ToolbarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="MenubarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Tools"
 horizontal_alignment = 1
 
-[node name="Close" type="Button" parent="ToolbarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/HBoxContainer"]
+[node name="Close" type="Button" parent="MenubarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 theme_type_variation = &"FlatUnpaddedButton"
@@ -394,20 +397,20 @@ theme_override_font_sizes/font_size = 11
 text = "    "
 flat = true
 
-[node name="MenuItems" type="HFlowContainer" parent="ToolbarContainer/Bottom/LeftItems/Toolkit/VBoxContainer"]
+[node name="MenuItems" type="HFlowContainer" parent="MenubarContainer/Bottom/LeftItems/Toolkit/VBoxContainer"]
 custom_minimum_size = Vector2(78, 0)
 layout_mode = 2
 size_flags_vertical = 6
 script = ExtResource("7_0sgq1")
 
-[node name="Brush" type="Button" parent="ToolbarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
+[node name="Brush" type="Button" parent="MenubarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_2eddf")
 
-[node name="Pan" type="Button" parent="ToolbarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
+[node name="Pan" type="Button" parent="MenubarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 disabled = true
@@ -415,7 +418,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_tv71d")
 
-[node name="Fill" type="Button" parent="ToolbarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
+[node name="Fill" type="Button" parent="MenubarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 disabled = true
@@ -423,7 +426,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_tv71d")
 
-[node name="Line" type="Button" parent="ToolbarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
+[node name="Line" type="Button" parent="MenubarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 disabled = true
@@ -431,7 +434,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_tv71d")
 
-[node name="Pick" type="Button" parent="ToolbarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
+[node name="Pick" type="Button" parent="MenubarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 disabled = true
@@ -439,7 +442,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_tv71d")
 
-[node name="Inspect" type="Button" parent="ToolbarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
+[node name="Inspect" type="Button" parent="MenubarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 disabled = true
@@ -447,7 +450,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_tv71d")
 
-[node name="Marking" type="Button" parent="ToolbarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
+[node name="Marking" type="Button" parent="MenubarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 disabled = true
@@ -455,7 +458,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_tv71d")
 
-[node name="Select" type="Button" parent="ToolbarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
+[node name="Select" type="Button" parent="MenubarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems"]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
 disabled = true
@@ -463,73 +466,73 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
 icon = ExtResource("8_tv71d")
 
-[node name="LargePadding" type="Control" parent="ToolbarContainer/Bottom/LeftItems"]
+[node name="LargePadding" type="Control" parent="MenubarContainer/Bottom/LeftItems"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ToolUI" type="PanelContainer" parent="ToolbarContainer/Bottom/LeftItems"]
+[node name="ToolUI" type="PanelContainer" parent="MenubarContainer/Bottom/LeftItems"]
 material = ExtResource("2_tv71d")
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_2upvi")
 script = ExtResource("9_x7h6p")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ToolbarContainer/Bottom/LeftItems/ToolUI"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenubarContainer/Bottom/LeftItems/ToolUI"]
 custom_minimum_size = Vector2(160, 206)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer"]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/HBoxContainer"]
+[node name="Title" type="Label" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Tool UI"
 horizontal_alignment = 1
 
-[node name="Close" type="Button" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/HBoxContainer"]
+[node name="Close" type="Button" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"FlatUnpaddedButton"
 theme_override_font_sizes/font_size = 11
 text = "     "
 flat = true
 
-[node name="ToolUIContainer" type="HBoxContainer" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer"]
+[node name="ToolUIContainer" type="HBoxContainer" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("10_tv71d")
 
-[node name="none" type="CenterContainer" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer"]
+[node name="none" type="CenterContainer" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/none"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/none"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/none/VBoxContainer"]
+[node name="Label" type="Label" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/none/VBoxContainer"]
 layout_mode = 2
 text = "Click a tool to equip it!"
 label_settings = SubResource("LabelSettings_tv71d")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/none/VBoxContainer"]
+[node name="Control" type="Control" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/none/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="brush" type="VBoxContainer" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer"]
+[node name="brush" type="VBoxContainer" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("12_2eddf")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
 layout_mode = 2
 
-[node name="Size" type="Label" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer"]
+[node name="Size" type="Label" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer"]
 custom_minimum_size = Vector2(24, 28)
 layout_mode = 2
 text = "1"
@@ -537,19 +540,19 @@ label_settings = SubResource("LabelSettings_em4te")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BrushSize" type="VBoxContainer" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer"]
+[node name="BrushSize" type="VBoxContainer" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("12_0sgq1")
 
-[node name="Label" type="Label" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/BrushSize"]
+[node name="Label" type="Label" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/BrushSize"]
 layout_mode = 2
 text = "Brush size"
 label_settings = SubResource("LabelSettings_rh4gq")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSlider" type="HSlider" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/BrushSize"]
+[node name="HSlider" type="HSlider" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/BrushSize"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -559,68 +562,68 @@ value = 1.0
 ticks_on_borders = true
 ticks_position = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Paint" type="VBoxContainer" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2"]
+[node name="Paint" type="VBoxContainer" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="Label" type="Label" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Paint"]
+[node name="Label" type="Label" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Paint"]
 layout_mode = 2
 text = "Paint [Q]"
 label_settings = SubResource("LabelSettings_0sgq1")
 horizontal_alignment = 1
 
-[node name="ColorPicker" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Paint" instance=ExtResource("11_mey8b")]
+[node name="ColorPicker" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Paint" instance=ExtResource("11_mey8b")]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Target" type="VBoxContainer" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2"]
+[node name="Target" type="VBoxContainer" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="Label" type="Label" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Target"]
+[node name="Label" type="Label" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Target"]
 layout_mode = 2
 text = "Target [E]"
 label_settings = SubResource("LabelSettings_2eddf")
 horizontal_alignment = 1
 
-[node name="ColorPicker" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Target" instance=ExtResource("11_mey8b")]
+[node name="ColorPicker" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Target" instance=ExtResource("11_mey8b")]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3"]
+[node name="Button" type="Button" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "HSV"
 
-[node name="Button2" type="Button" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3"]
+[node name="Button2" type="Button" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "RGB"
 
-[node name="Button3" type="Button" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3"]
+[node name="Button3" type="Button" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Hex"
 
-[node name="Button4" type="Button" parent="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3"]
+[node name="Button4" type="Button" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3"]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Preset"
 
-[connection signal="value_changed" from="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/BrushSize/HSlider" to="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/BrushSize" method="_on_slider_changed"]
-[connection signal="pressed" from="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3/Button" to="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Paint/ColorPicker" method="set_mode" binds= [0]]
-[connection signal="pressed" from="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3/Button" to="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Target/ColorPicker" method="set_mode" binds= [0]]
-[connection signal="pressed" from="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3/Button2" to="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Paint/ColorPicker" method="set_mode" binds= [1]]
-[connection signal="pressed" from="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3/Button2" to="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Target/ColorPicker" method="set_mode" binds= [1]]
-[connection signal="pressed" from="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3/Button3" to="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Paint/ColorPicker" method="set_mode" binds= [2]]
-[connection signal="pressed" from="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3/Button3" to="ToolbarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Target/ColorPicker" method="set_mode" binds= [2]]
+[connection signal="value_changed" from="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/BrushSize/HSlider" to="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/BrushSize" method="_on_slider_changed"]
+[connection signal="pressed" from="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3/Button" to="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Paint/ColorPicker" method="set_mode" binds= [0]]
+[connection signal="pressed" from="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3/Button" to="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Target/ColorPicker" method="set_mode" binds= [0]]
+[connection signal="pressed" from="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3/Button2" to="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Paint/ColorPicker" method="set_mode" binds= [1]]
+[connection signal="pressed" from="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3/Button2" to="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Target/ColorPicker" method="set_mode" binds= [1]]
+[connection signal="pressed" from="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3/Button3" to="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Paint/ColorPicker" method="set_mode" binds= [2]]
+[connection signal="pressed" from="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3/Button3" to="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Target/ColorPicker" method="set_mode" binds= [2]]
