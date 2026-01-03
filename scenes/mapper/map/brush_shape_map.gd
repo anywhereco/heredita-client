@@ -3,7 +3,7 @@ extends Resource
 
 const DEFAULT = preload("uid://bug42uo2av8i2")
 
-const BRUSH_SIZE_MAX = 16
+const BRUSH_SIZE_MAX = 25
 
 var image_pixel_offset := Vector2(floorf(DEFAULT.get_size().x/2.0), floorf(DEFAULT.get_size().x/2.0))
 
