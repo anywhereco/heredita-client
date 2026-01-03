@@ -11,4 +11,9 @@ func _process(delta: float) -> void:
 	pass
 
 func _pressed() -> void:
-	Map._instance
+	var img: Image = Map._instance.package().image
+	if OS.has_feature("web"):
+		var buffer := img.save_png_to_buffer()
+		JavaScriptBridge.download_buffer(buffer, "saved_map.png", "image/png")
+	else:
+		img.save_png("saved_map.png")
