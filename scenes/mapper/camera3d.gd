@@ -18,7 +18,7 @@ func _process(_delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		if (event.button_mask & MOUSE_BUTTON_MASK_RIGHT) != 0:
+		if (event.button_mask & (MOUSE_BUTTON_MASK_RIGHT | MOUSE_BUTTON_MASK_MIDDLE)) != 0:
 			@warning_ignore("unsafe_call_argument")
 			camera_pan(event)
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
