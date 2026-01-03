@@ -2,7 +2,7 @@
 
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="1_bsn4x"]
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="1_o0axu"]
-[ext_resource type="Script" path="res://scenes/main_menu/pages/gallery/map_picker.gd" id="2_huwrv"]
+[ext_resource type="Script" uid="uid://dndpy2towtsbg" path="res://scenes/main_menu/pages/gallery/map_picker.gd" id="2_huwrv"]
 [ext_resource type="Script" uid="uid://j5d5mbyadwj8" path="res://libraries/ui/image_picker_button/image_picker_button.gd" id="2_x1oku"]
 [ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/main_menu/pages/gallery/temporary_mapper_opener.gd" id="3_x1oku"]
 
@@ -61,7 +61,7 @@ script = ExtResource("2_huwrv")
 [node name="DefaultMaps" type="OptionButton" parent="MapPicker"]
 layout_mode = 2
 alignment = 1
-selected = 0
+selected = 1
 item_count = 3
 popup/item_0/text = "Choose a map"
 popup/item_0/id = 0
@@ -97,7 +97,6 @@ layout_mode = 2
 text = "  Pick a local image  "
 script = ExtResource("2_x1oku")
 image_rect = NodePath("../../TextureRect")
-freeze_label = false
 name_label = NodePath("../../MapName")
 name_format = "Selected map: %s"
 metadata/_custom_type_script = "uid://j5d5mbyadwj8"

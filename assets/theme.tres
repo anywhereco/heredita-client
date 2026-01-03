@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=57 format=3 uid="uid://csm3q8ve108a8"]
+[gd_resource type="Theme" load_steps=59 format=3 uid="uid://csm3q8ve108a8"]
 
 [ext_resource type="FontVariation" uid="uid://hwc3xdnlf3ke" path="res://assets/font/_variants/pro450.tres" id="1_e8htd"]
 [ext_resource type="Texture2D" uid="uid://b5l2iegic583f" path="res://assets/theme_assets/check.png" id="2_f5r8q"]
@@ -200,6 +200,12 @@ expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_e8htd"]
+size = Vector2(0, 0)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wms38"]
+size = Vector2(0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yyr7b"]
 content_margin_left = 8.0
@@ -512,6 +518,10 @@ MarginContainer/constants/margin_right = 5
 MarginContainer/constants/margin_top = 5
 Panel/styles/panel = SubResource("StyleBoxFlat_0dftj")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_h5t51")
+PopupMenuSimplified/base_type = &"PopupMenu"
+PopupMenuSimplified/constants/h_separation = -12
+PopupMenuSimplified/icons/radio_checked = SubResource("PlaceholderTexture2D_e8htd")
+PopupMenuSimplified/icons/radio_unchecked = SubResource("PlaceholderTexture2D_wms38")
 PrimaryButtons/base_type = &"Button"
 PrimaryButtons/font_sizes/font_size = 28
 PrimaryButtons/styles/disabled = SubResource("StyleBoxFlat_yyr7b")

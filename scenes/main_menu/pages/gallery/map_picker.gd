@@ -14,6 +14,7 @@ func _ready() -> void:
 	image = image_picker_button.image
 	image.value = MAP_BLANK.duplicate()
 	map_name.text = "Selected map: Blank"
+	$DefaultMaps.get_popup().theme_type_variation = &"PopupMenuSimplified"
 
 func _on_default_maps_item_selected(index: int) -> void:
 	var img: Image
