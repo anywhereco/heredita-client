@@ -16,9 +16,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			VirtualMouse._instance.set_action(VirtualMouse.Action.DEFAULT)
 	
-	if event is InputEventMouseButton and not event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
-		pass
-		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if event is InputEventMouseButton and not event.pressed and event.button_index in [MOUSE_BUTTON_RIGHT, MOUSE_BUTTON_MIDDLE]:
+		VirtualMouse._instance.set_action(VirtualMouse.Action.DEFAULT)
 	
 	if event.is_action_pressed("zoom_out"):
 		camera_arm.spring_length = minf(50, camera_arm.spring_length * 1.1)
