@@ -6,27 +6,20 @@ extends Camera3D
 @onready var camera_arm: SpringArm3D = $".."
 @onready var camera_pivot: Node3D = $"../.."
 @onready var player: CharacterBody3D = $"../../.."
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+@onready var mouse: Sprite2D = find_parent("Mapper3D").get_node("UI/Mouse")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if (event.button_mask & (MOUSE_BUTTON_MASK_RIGHT | MOUSE_BUTTON_MASK_MIDDLE)) != 0:
 			@warning_ignore("unsafe_call_argument")
 			camera_pan(event)
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			mouse.set_panning(true)
 		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			mouse.set_panning(false)
 	
 	if event is InputEventMouseButton and not event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		pass
+		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	if event.is_action_pressed("zoom_out"):
 		camera_arm.spring_length = minf(50, camera_arm.spring_length * 1.1)

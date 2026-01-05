@@ -1,8 +1,9 @@
-[gd_scene load_steps=36 format=3 uid="uid://yb2j237qhuec"]
+[gd_scene load_steps=37 format=3 uid="uid://yb2j237qhuec"]
 
 [ext_resource type="Script" uid="uid://8x5gnweq47eb" path="res://scenes/mapper/ui/ui_root.gd" id="1_em4te"]
 [ext_resource type="Script" uid="uid://i3124dmjaoj6" path="res://scenes/mapper/ui/right_items.gd" id="1_itatv"]
 [ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/_shared/glass.tres" id="2_tv71d"]
+[ext_resource type="Script" uid="uid://ukk43p4oi5hy" path="res://scenes/mapper/mouse.gd" id="2_vdunj"]
 [ext_resource type="Texture2D" uid="uid://dl2432kvta2xt" path="res://assets/icons/topbar/exit.svg" id="3_2eddf"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="4_itatv"]
 [ext_resource type="Script" uid="uid://b6wekdyqxe7s" path="res://scenes/mapper/ui/exit_button.gd" id="4_m4x71"]
@@ -619,6 +620,11 @@ visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Preset"
+
+[node name="Mouse" type="Sprite2D" parent="."]
+texture = ExtResource("8_2eddf")
+offset = Vector2(-9, 9)
+script = ExtResource("2_vdunj")
 
 [connection signal="value_changed" from="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/BrushSize/HSlider" to="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer/BrushSize" method="_on_slider_changed"]
 [connection signal="pressed" from="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer3/Button" to="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer2/Paint/ColorPicker" method="set_mode" binds= [0]]

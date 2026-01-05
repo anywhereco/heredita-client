@@ -17,7 +17,7 @@ var right: bool = false
 var was_on_floor_last_frame: bool = false
 
 func setup_velocity(direction: Vector3, delta: float) -> void:
-	var target_vel := direction * SPEED * (SPRINT_MULT if Input.is_key_pressed(KEY_SHIFT) else 1.0)
+	var target_vel := direction * SPEED * (SPRINT_MULT if Input.is_action_pressed("sprint") else 1.0)
 	var clock: float
 	if direction:
 		clock = -60 if is_on_floor() else -40
