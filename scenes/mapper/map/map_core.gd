@@ -173,7 +173,7 @@ func _ready() -> void:
 func update_map_pos() -> void:
 	if map_pos_updated_already:
 		return
-	var mouse_position := get_window().get_mouse_position()
+	var mouse_position := VirtualMouse._instance.position
 	# The map is at zero on the Y axis
 	var intersect: Variant = Plane.PLANE_XZ.intersects_ray(
 		player_camera.project_ray_origin(mouse_position),
