@@ -6,16 +6,15 @@ extends Camera3D
 @onready var camera_arm: SpringArm3D = $".."
 @onready var camera_pivot: Node3D = $"../.."
 @onready var player: CharacterBody3D = $"../../.."
-@onready var mouse: Sprite2D = find_parent("Mapper3D").get_node("UI/Mouse")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if (event.button_mask & (MOUSE_BUTTON_MASK_RIGHT | MOUSE_BUTTON_MASK_MIDDLE)) != 0:
 			@warning_ignore("unsafe_call_argument")
 			camera_pan(event)
-			mouse.set_panning(true)
+			VirtualMouse._instance.set_action(VirtualMouse.Action.PANNING)
 		else:
-			mouse.set_panning(false)
+			VirtualMouse._instance.set_action(VirtualMouse.Action.DEFAULT)
 	
 	if event is InputEventMouseButton and not event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
 		pass

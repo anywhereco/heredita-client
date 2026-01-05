@@ -212,6 +212,6 @@ func _process(_delta: float) -> void:
 	map_pos_updated_already = false
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and not VirtualMouse._instance.panning:
+	if event is InputEventMouseMotion and VirtualMouse._instance.action != VirtualMouse.Action.PANNING:
 		update_map_pos()
 	MapperRoot._instance.process_tool_use(event)

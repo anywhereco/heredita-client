@@ -1,18 +1,37 @@
 class_name VirtualMouse
 extends Sprite2D
 
-static var _instance: VirtualMouse 
+enum Action {
+	DEFAULT,
+	PANNING
+}
+
+const ACTION_TEX_MAP: Dictionary[Action, Texture2D] = {
+	Action.DEFAULT: preload("uid://c5cl8n3npd8bn"),
+	Action.PANNING: preload("uid://byfqo6a6v6gvn")
+}
+
+const ACTION_OFFSET_MAP: Dictionary[Action, Vector2] = {
+	Action.DEFAULT: Vector2(12, 12),
+	Action.PANNING: Vector2(0, 0)
+}
 
 const VIRTUAL_MOUSE_DEVICE := 7
 
-var panning: bool = false
+
+static var _instance: VirtualMouse 
+
+
+var action: Action = Action.DEFAULT
+
 
 func _init() -> void:
 	_instance = self
 
-func set_panning(val: bool) -> void:
-	panning = val
-	visible = not val
+func set_action(new_action: Action) -> void:
+	texture = ACTION_TEX_MAP[new_action]
+	offset = ACTION_OFFSET_MAP[new_action]
+	action = new_action
 
 func _ready() -> void:
 	position = get_local_mouse_position()
@@ -21,7 +40,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouse and event.device != VIRTUAL_MOUSE_DEVICE:
-			if event is InputEventMouseMotion and not panning:
+			if event is InputEventMouseMotion and action != Action.PANNING:
 				position = position + event.relative
 				if not get_viewport().get_visible_rect().has_point(global_position):
 					Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
