@@ -40,6 +40,8 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouse and event.device != VIRTUAL_MOUSE_DEVICE:
+			if event is InputEventMouseMotion:
+				print(event.as_text())
 			if event is InputEventMouseMotion and action != Action.PANNING:
 				position = position + event.relative
 				if not get_viewport().get_visible_rect().has_point(global_position):
