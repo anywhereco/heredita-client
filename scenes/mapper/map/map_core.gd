@@ -173,6 +173,7 @@ func _ready() -> void:
 func update_map_pos() -> void:
 	if map_pos_updated_already:
 		return
+	
 	var mouse_position := VirtualMouse._instance.position
 	# The map is at zero on the Y axis
 	var intersect: Variant = Plane.PLANE_XZ.intersects_ray(
@@ -211,6 +212,6 @@ func _process(_delta: float) -> void:
 	map_pos_updated_already = false
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseMotion and not VirtualMouse._instance.panning:
 		update_map_pos()
 	MapperRoot._instance.process_tool_use(event)
