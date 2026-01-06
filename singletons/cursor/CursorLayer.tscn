@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://j85ngmgelshp"]
 
-[ext_resource type="Texture2D" uid="uid://c5cl8n3npd8bn" path="res://assets/cursors/cursor-brush.svg" id="1_tghqs"]
+[ext_resource type="Texture2D" uid="uid://dmqeubohwubs" path="res://assets/cursors/cursor-default.svg" id="1_tghqs"]
 [ext_resource type="Script" uid="uid://ukk43p4oi5hy" path="res://singletons/cursor/mouse.gd" id="2_y5u7a"]
 
 [node name="CursorLayer" type="CanvasLayer"]
@@ -8,5 +8,5 @@ layer = 9001
 
 [node name="Mouse" type="Sprite2D" parent="."]
 texture = ExtResource("1_tghqs")
-offset = Vector2(12, 12)
+offset = Vector2(8, 12)
 script = ExtResource("2_y5u7a")

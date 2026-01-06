@@ -3,16 +3,19 @@ extends Sprite2D
 
 enum Action {
 	DEFAULT,
+	BRUSH,
 	PANNING
 }
 
 const ACTION_TEX_MAP: Dictionary[Action, Texture2D] = {
-	Action.DEFAULT: preload("uid://c5cl8n3npd8bn"),
+	Action.DEFAULT: preload("uid://dmqeubohwubs"),
+	Action.BRUSH: preload("uid://c5cl8n3npd8bn"),
 	Action.PANNING: preload("uid://byfqo6a6v6gvn")
 }
 
 const ACTION_OFFSET_MAP: Dictionary[Action, Vector2] = {
-	Action.DEFAULT: Vector2(12, 12),
+	Action.DEFAULT: Vector2(8, 12),
+	Action.BRUSH: Vector2(12, 12),
 	Action.PANNING: Vector2(0, 0)
 }
 
@@ -23,6 +26,7 @@ static var _instance: VirtualMouse
 
 
 var action: Action = Action.DEFAULT
+var tool_action: Action = Action.DEFAULT
 
 
 func _init() -> void:
@@ -32,6 +36,12 @@ func set_action(new_action: Action) -> void:
 	texture = ACTION_TEX_MAP[new_action]
 	offset = ACTION_OFFSET_MAP[new_action]
 	action = new_action
+	
+func set_action_tool(new_action: Action) -> void:
+	tool_action = new_action
+	texture = ACTION_TEX_MAP[tool_action]
+	offset = ACTION_OFFSET_MAP[tool_action]
+	action = tool_action
 
 func _ready() -> void:
 	position = get_local_mouse_position()

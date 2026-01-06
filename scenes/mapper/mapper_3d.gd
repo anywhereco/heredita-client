@@ -23,11 +23,18 @@ func _brush_size_changed(_reactive: ReactiveInt) -> void:
 	brush.size = UIRoot._instance.brush_ui.size_controller.brush_size.value
 	Map._instance.preview_plane.texture.update(brush.get_image_for_brush())
 
+func _tool_changed(reactive: ReactiveInt) -> void:
+	if reactive.value == Tool.NONE:
+		VirtualMouse._instance.set_action_tool(VirtualMouse.Action.DEFAULT)
+	elif reactive.value == Tool.BRUSH:
+		VirtualMouse._instance.set_action_tool(VirtualMouse.Action.BRUSH)
+
 func _init() -> void:
 	_instance = self
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	tool.value_changed.connect(_tool_changed)
 	brush._map_ready()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
