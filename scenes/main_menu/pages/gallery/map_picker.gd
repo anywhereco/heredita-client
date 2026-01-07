@@ -3,7 +3,7 @@ extends HBoxContainer
 const MAP_BLANK = preload("uid://do2qcumlvx0lo")
 const MAP_1935 = preload("uid://bb1h8pyo0qcav")
 
-@onready var default_maps: OptionButton = $DefaultMaps
+@onready var default_maps: Button = $DefaultMaps
 @onready var image_picker_button: ImagePickerButton = $ImagePickerButton
 @onready var map_name: Label = $"../MapName"
 
@@ -14,7 +14,7 @@ func _ready() -> void:
 	image = image_picker_button.image
 	image.value = MAP_BLANK.duplicate()
 	map_name.text = "Selected map: Blank"
-	$DefaultMaps.get_popup().theme_type_variation = &"PopupMenuSimplified"
+	#$DefaultMaps.get_popup().theme_type_variation = &"PopupMenuSimplified"
 
 func _on_default_maps_item_selected(index: int) -> void:
 	var img: Image

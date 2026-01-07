@@ -58,19 +58,9 @@ theme_override_constants/separation = 10
 alignment = 1
 script = ExtResource("2_huwrv")
 
-[node name="DefaultMaps" type="OptionButton" parent="MapPicker"]
+[node name="DefaultMaps" type="Button" parent="MapPicker"]
 layout_mode = 2
-alignment = 1
-selected = 1
-item_count = 3
-popup/item_0/text = "Choose a map"
-popup/item_0/id = 0
-popup/item_0/disabled = true
-popup/item_0/separator = true
-popup/item_1/text = "Blank"
-popup/item_1/id = 1
-popup/item_2/text = "1935 by Tibet Maps"
-popup/item_2/id = 2
+text = "  Pick from the gallery  "
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MapPicker"]
 layout_mode = 2
@@ -97,6 +87,7 @@ layout_mode = 2
 text = "  Pick a local image  "
 script = ExtResource("2_x1oku")
 image_rect = NodePath("../../TextureRect")
+freeze_label = false
 name_label = NodePath("../../MapName")
 name_format = "Selected map: %s"
 metadata/_custom_type_script = "uid://j5d5mbyadwj8"
@@ -111,5 +102,3 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "            Play demo            "
 script = ExtResource("3_x1oku")
-
-[connection signal="item_selected" from="MapPicker/DefaultMaps" to="MapPicker" method="_on_default_maps_item_selected"]
