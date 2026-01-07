@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=59 format=3 uid="uid://csm3q8ve108a8"]
+[gd_resource type="Theme" load_steps=60 format=3 uid="uid://csm3q8ve108a8"]
 
 [ext_resource type="FontVariation" uid="uid://hwc3xdnlf3ke" path="res://assets/font/_variants/pro450.tres" id="1_e8htd"]
 [ext_resource type="Texture2D" uid="uid://b5l2iegic583f" path="res://assets/theme_assets/check.png" id="2_f5r8q"]
@@ -166,6 +166,21 @@ content_margin_bottom = 4.0
 bg_color = Color(0.1, 0.1, 0.1, 0.3)
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 0.3)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hkoqn"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.87, 0.87, 0.87, 0.2)
+border_width_left = 2
+border_width_top = 2
+border_color = Color(1, 1, 1, 0.3647059)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -516,6 +531,8 @@ MarginContainer/constants/margin_bottom = 5
 MarginContainer/constants/margin_left = 5
 MarginContainer/constants/margin_right = 5
 MarginContainer/constants/margin_top = 5
+NestedPanel/base_type = &"PanelContainer"
+NestedPanel/styles/panel = SubResource("StyleBoxFlat_hkoqn")
 Panel/styles/panel = SubResource("StyleBoxFlat_0dftj")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_h5t51")
 PopupMenuSimplified/base_type = &"PopupMenu"

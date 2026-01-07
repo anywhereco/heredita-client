@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://bj8dbj28fas7r"]
+
+[ext_resource type="Script" uid="uid://bc4ij78xxo0jf" path="res://scenes/main_menu/pages/gallery/gallery_item.gd" id="1_d8guk"]
+[ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="2_6ox7a"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_b1hnv"]
+size = Vector2(2, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hnhop"]
+font = ExtResource("2_6ox7a")
+font_color = Color(1, 1, 1, 0.75686276)
+
+[node name="GalleryItem" type="PanelContainer"]
+custom_minimum_size = Vector2(100, 60)
+theme_type_variation = &"NestedPanel"
+script = ExtResource("1_d8guk")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("PlaceholderTexture2D_b1hnv")
+expand_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "1935"
+
+[node name="Attribution" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "by Tibet Maps"
+label_settings = SubResource("LabelSettings_hnhop")
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Pick"
