@@ -31,12 +31,14 @@ var extra_data: Variant = null
 @export var image_rect: TextureRect
 ## If the label should be frozen.
 @export var freeze_label := true
+## If the label should be overwritten if the image is changed elsewhere. Respects [code]freeze_label[/code].
+@export var override_label := false
 ## The label to draw to.
 @export var name_label: Label
 ## The format of the label. %s is the filename.
 @export var name_format: String = "%s"
 
-var is_web := OS.get_name() == 'Web'
+var is_web := OS.has_feature("web")
 
 var prev_content_size: Vector2
 
@@ -50,7 +52,7 @@ enum PickedImageError {
 
 #region Private methods
 func _map_set(map: ReactiveImage) -> void:
-	if not freeze_label:
+	if not freeze_label and override_label:
 		name_label.text = name_format % map.value.resource_name
 	image_rect.texture = ImageTexture.create_from_image(map.value)
 
@@ -178,7 +180,7 @@ func _file_handle_to_image(file: HTML5FileHandle) -> Result:
 				return Result.err(PickedImageError.SVG_NOT_ACCEPTED)
 		"webp":
 			_image.load_webp_from_buffer(buf)
-		"mp":
+		"her":
 			if allow_maps:
 				# TODO actually implement the file format [maybe elsewhere]
 				push_error("Map attempted to load, but not implemented yet!! D:")
