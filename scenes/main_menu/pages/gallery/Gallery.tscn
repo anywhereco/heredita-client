@@ -65,6 +65,7 @@ script = ExtResource("2_huwrv")
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/MapPicker"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_type_variation = &"InsetPanel"
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MapPicker/PanelContainer"]
 layout_mode = 2
