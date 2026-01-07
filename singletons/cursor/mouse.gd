@@ -14,7 +14,7 @@ const ACTION_TEX_MAP: Dictionary[Action, Texture2D] = {
 }
 
 const ACTION_OFFSET_MAP: Dictionary[Action, Vector2] = {
-	Action.DEFAULT: Vector2(8, 12),
+	Action.DEFAULT: Vector2(7, 9),
 	Action.BRUSH: Vector2(12, 12),
 	Action.PANNING: Vector2(0, 0)
 }
@@ -53,7 +53,8 @@ func _input(event: InputEvent) -> void:
 			if event is InputEventMouseMotion and action != Action.PANNING:
 				position = position + event.relative
 				if not get_viewport().get_visible_rect().has_point(global_position):
-					Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+					var rect: Rect2 = get_viewport().get_visible_rect()
+					position = Vector2(clampf(position.x, rect.position.x, rect.end.x), clampf(position.y, rect.position.y, rect.end.y))
 				var virtual_event: InputEventMouseMotion = InputEventMouseMotion.new()
 				virtual_event.relative = event.relative
 				virtual_event.position = get_viewport().get_screen_transform() * position
@@ -70,9 +71,13 @@ func _input(event: InputEvent) -> void:
 				virtual_event.device = VIRTUAL_MOUSE_DEVICE
 				get_viewport().set_input_as_handled()
 				Input.parse_input_event(virtual_event)
+		elif event.is_action_pressed("escape_cursor_lock"):
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			hide()
+			get_window().warp_mouse(position)
 
 	else:
 		if event is InputEventMouseButton and event.pressed:
 			global_position = get_global_mouse_position()
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			
+			show()

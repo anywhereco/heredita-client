@@ -8,5 +8,5 @@ layer = 9001
 
 [node name="Mouse" type="Sprite2D" parent="."]
 texture = ExtResource("1_tghqs")
-offset = Vector2(8, 12)
+offset = Vector2(7, 9)
 script = ExtResource("2_y5u7a")
