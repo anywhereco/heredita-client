@@ -2,6 +2,7 @@ extends MarginContainer
 
 const GALLERY_ITEM = preload("uid://bj8dbj28fas7r")
 @onready var placeholder: Label = $LoadingPlaceholder
+@onready var elements: HBoxContainer = $Gallery/Elements
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,4 +28,4 @@ func _initial_request_completed(result: int, response_code: int, _headers: Packe
 		var item := GALLERY_ITEM.instantiate()
 		print(item_data)
 		item.setup(self, item_data.name, item_data.attribution, item_data.id)
-		%Gallery/Elements.add_child(item)
+		elements.add_child(item)

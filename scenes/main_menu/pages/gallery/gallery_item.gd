@@ -1,5 +1,10 @@
 extends PanelContainer
 
+@onready var loading_placeholder: Label = $MarginContainer/VBoxContainer/LoadingPlaceholder
+@onready var map: TextureRect = $MarginContainer/VBoxContainer/Map
+@onready var name_lbl: Label = $MarginContainer/VBoxContainer/HBoxContainer/Name
+@onready var attribution_lbl: Label = $MarginContainer/VBoxContainer/HBoxContainer/Attribution
+
 var image: Image 
 
 var map_name: String
@@ -10,8 +15,8 @@ var _picker: Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	%Name.text = map_name
-	%Attribution.text = "by %s" % attribution
+	name_lbl.text = map_name
+	attribution_lbl.text = "by %s" % attribution
 
 	var http_request := HTTPRequest.new()
 	add_child(http_request)
@@ -28,17 +33,17 @@ func setup(_mappicker: Node, _map_name: String, _attribution: Variant, _id: Stri
 @warning_ignore("unused_parameter")
 func _http_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	if result != HTTPRequest.RESULT_SUCCESS:
-		%LoadingPlaceholder.text = "Map not found."
+		loading_placeholder.text = "Map not found."
 		return
 	if response_code != 200:
-		%LoadingPlaceholder.text = "Map not found."
+		loading_placeholder.text = "Map not found."
 		return
-	%LoadingPlaceholder.hide()
+	loading_placeholder.hide()
 	image = Image.create_empty(8192, 4096, false, Image.FORMAT_RGBA8)
 	image.load_png_from_buffer(body) # TODO: support .her soonish [when its actually a thing]
 	var tex: ImageTexture = ImageTexture.create_from_image(image)
-	%Map.texture = tex
-	%Map.show()
+	map.texture = tex
+	map.show()
 
 func _picked() -> void:
 	_picker.get_parent().get_parent().get_parent().find_child("ImagePickerButton").image.value = image
