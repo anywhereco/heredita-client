@@ -1,7 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bj8dbj28fas7r"]
+[gd_scene load_steps=6 format=3 uid="uid://bj8dbj28fas7r"]
 
 [ext_resource type="Script" uid="uid://bc4ij78xxo0jf" path="res://scenes/main_menu/pages/gallery/gallery_item.gd" id="1_d8guk"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="2_6ox7a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_d8guk"]
+font = ExtResource("2_6ox7a")
+font_color = Color(1, 1, 1, 0.6784314)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_b1hnv"]
 size = Vector2(2, 1)
@@ -11,7 +15,7 @@ font = ExtResource("2_6ox7a")
 font_color = Color(1, 1, 1, 0.75686276)
 
 [node name="GalleryItem" type="PanelContainer"]
-custom_minimum_size = Vector2(100, 60)
+custom_minimum_size = Vector2(144, 112)
 theme_type_variation = &"NestedPanel"
 script = ExtResource("1_d8guk")
 
@@ -21,7 +25,18 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+[node name="LoadingPlaceholder" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "Loading image..."
+label_settings = SubResource("LabelSettings_d8guk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Map" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -32,11 +47,13 @@ expand_mode = 3
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "1935"
 
 [node name="Attribution" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "by Tibet Maps"
 label_settings = SubResource("LabelSettings_hnhop")
@@ -48,3 +65,5 @@ size_flags_horizontal = 3
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Pick"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="_picked"]

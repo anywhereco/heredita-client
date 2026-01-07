@@ -114,6 +114,7 @@ func set_pixels_at_map_pos_targeted(positions: PackedVector2Array, color: Color,
 			chunks_edited[chunk_coords.x][chunk_coords.y] = true
 
 func get_map_as_image() -> Image:
+	@warning_ignore("narrowing_conversion")
 	var map_image: Image = Image.create_empty(original_map_size.x, original_map_size.y, false, Image.FORMAT_RGBA8)
 	for x in len(chunk_images):
 		var chunk_column: Array = chunk_images[x]

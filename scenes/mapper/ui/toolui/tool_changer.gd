@@ -7,7 +7,7 @@ const MAX_Y: int = 316 # we don't need to go bigger than this, since
 @onready var left_items: VBoxContainer = $"../../.."
 
 func _ready() -> void:
-	State.display.root_window_resized.connect(try_resize)
+	#State.display.root_window_resized.connect(try_resize)
 	try_resize()
 	connect_buttons_recursively(self)
 

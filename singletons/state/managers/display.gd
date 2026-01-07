@@ -4,9 +4,6 @@ extends Node
 ## If the root window was just moved or resized.
 signal root_window_moved_or_resized()
 
-## If the root window was just moved or resized.
-signal root_window_resized()
-
 ## The default viewport size.
 const DEFAULT_VIEWPORT_SIZE: Vector2 = Vector2(720, 480)
 

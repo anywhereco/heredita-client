@@ -1,10 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://c1fcr11flbild"]
+[gd_scene load_steps=14 format=3 uid="uid://c1fcr11flbild"]
 
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="1_bsn4x"]
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="1_o0axu"]
 [ext_resource type="Script" uid="uid://dndpy2towtsbg" path="res://scenes/main_menu/pages/gallery/map_picker.gd" id="2_huwrv"]
 [ext_resource type="Script" uid="uid://j5d5mbyadwj8" path="res://libraries/ui/image_picker_button/image_picker_button.gd" id="2_x1oku"]
-[ext_resource type="PackedScene" uid="uid://bj8dbj28fas7r" path="res://scenes/main_menu/pages/gallery/GalleryItem.tscn" id="3_jd1et"]
+[ext_resource type="Script" uid="uid://bavplunsm8tjn" path="res://scenes/main_menu/pages/gallery/gallery_loader.gd" id="3_jd1et"]
 [ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/main_menu/pages/gallery/temporary_mapper_opener.gd" id="3_x1oku"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jd1et"]
@@ -16,6 +16,11 @@ font_size = 21
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ue5i1"]
 gradient = SubResource("Gradient_7t0hk")
 height = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_7t0hk"]
+font = ExtResource("1_bsn4x")
+font_size = 20
+font_color = Color(1, 1, 1, 0.6313726)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_o0axu"]
 color = Color(1, 1, 1, 0.40392157)
@@ -69,6 +74,7 @@ theme_type_variation = &"InsetPanel"
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MapPicker/PanelContainer"]
 layout_mode = 2
+script = ExtResource("3_jd1et")
 
 [node name="Gallery" type="ScrollContainer" parent="MarginContainer/MapPicker/PanelContainer/MarginContainer"]
 unique_name_in_owner = true
@@ -76,14 +82,19 @@ layout_mode = 2
 size_flags_horizontal = 3
 vertical_scroll_mode = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MapPicker/PanelContainer/MarginContainer/Gallery"]
+[node name="Elements" type="HBoxContainer" parent="MarginContainer/MapPicker/PanelContainer/MarginContainer/Gallery"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="GalleryItem" parent="MarginContainer/MapPicker/PanelContainer/MarginContainer/Gallery/HBoxContainer" instance=ExtResource("3_jd1et")]
+[node name="LoadingPlaceholder" type="Label" parent="MarginContainer/MapPicker/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 112)
 layout_mode = 2
+text = "Loading gallery..."
+label_settings = SubResource("LabelSettings_7t0hk")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MapPicker"]
 layout_mode = 2

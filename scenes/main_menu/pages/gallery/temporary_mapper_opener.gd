@@ -1,6 +1,6 @@
 extends Button
 
-@onready var map_picker: HBoxContainer = $"../MapPicker"
+@onready var map_picker: HBoxContainer = $"../MarginContainer/MapPicker"
 
 func _pressed() -> void:
 	const MAPPER_3D = preload("uid://bmfinmmve5h47")

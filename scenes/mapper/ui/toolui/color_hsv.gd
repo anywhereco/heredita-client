@@ -10,6 +10,7 @@ func _process(_delta: float) -> void:
 func _value_changed(new_color: ReactiveColor) -> void:
 	if new_color.value.s > 0 and new_color.value.v > 0:
 		$Hue.set_value_no_signal(new_color.value.h*360)
+	@warning_ignore("unsafe_call_argument")
 	var pure_hue: Color = Color.from_hsv($Hue.value/360,1.0,1.0)
 	$SVRect.material.set_shader_parameter("hue",pure_hue)
 	sv_rect_dot = Vector2(new_color.value.s, 1-new_color.value.v)
@@ -27,6 +28,7 @@ func _sv_gui_input(event: InputEvent) -> void:
 	sv_rect_dot = (pos/$SVRect.size).clampf(0.0,1.0)
 	var x_fraction: float = sv_rect_dot.x
 	var y_fraction: float = sv_rect_dot.y
+	@warning_ignore("unsafe_call_argument")
 	var color: Color = Color.from_hsv($Hue.value/360,x_fraction,1-y_fraction)
 	CPicker.color.value = color
 

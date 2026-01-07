@@ -1,0 +1,30 @@
+extends MarginContainer
+
+const GALLERY_ITEM = preload("uid://bj8dbj28fas7r")
+@onready var placeholder: Label = $LoadingPlaceholder
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var http_request := HTTPRequest.new()
+	add_child(http_request)
+	http_request.request_completed.connect(self._initial_request_completed)
+	http_request.request("%s/gallery/" % Statics.HEREDITA_URL)
+
+func _initial_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+	if result != HTTPRequest.RESULT_SUCCESS:
+		placeholder.text = "Failed to load gallery items."
+		return
+	if response_code != 200:
+		placeholder.text = "Failed to load gallery items: HTTP %d" % response_code
+		return
+	var json: Variant = JSON.parse_string(body.get_string_from_utf8())
+	if json == null:
+		placeholder.text = "Failed to load gallery items."
+		return
+	placeholder.hide()
+	var items: Array = json
+	for item_data: Dictionary in items:
+		var item := GALLERY_ITEM.instantiate()
+		print(item_data)
+		item.setup(self, item_data.name, item_data.attribution, item_data.id)
+		%Gallery/Elements.add_child(item)
