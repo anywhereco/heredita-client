@@ -1,3 +1,4 @@
+class_name LocalPlayerMovement
 extends CharacterBody3D
 
 @onready var camera_pivot: Node3D = $CameraPivot
