@@ -28,8 +28,9 @@ func _process(delta: float) -> void:
 	var vertical_stretch_lesser := 1 + ((vertical_stretch - 1)*0.5)
 	scale.z = (1 + (sqrt(vel.length())*0.03))/vertical_stretch_lesser
 	scale.x = 1/vertical_stretch_lesser
-	scale.y = vertical_stretch
-	vertical_target += (player.velocity.y - vertical_target) * (1 - exp(-delta * 11))
+	scale.y = vertical_stretch 
+	# TODO: we probably need an actual jump start/land animation, but this handles air fluidly
+	vertical_target = (vertical_target - player.velocity.y) * .06 
 	#if player.velocity.y - last_vertical_vel > 3:
 		#print("landed", player.velocity.y - last_vertical_vel) 
 	#last_vertical_vel = player.velocity.y
