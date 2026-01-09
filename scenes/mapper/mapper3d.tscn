@@ -165,5 +165,5 @@ mesh = SubResource("PlaneMesh_l0uxc")
 
 [node name="The Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-4.371139e-08, 0.6427876, -0.76604444, 0, 0.76604444, 0.6427876, 1, 2.8097137e-08, -3.3484866e-08, 0, 6.882904, 0)
-light_color = Color(1, 0.9533333, 0.86, 1)
+light_color = Color(1, 0.9666667, 0.9, 1)
 directional_shadow_max_distance = 8192.0
