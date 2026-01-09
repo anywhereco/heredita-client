@@ -1,7 +1,10 @@
 @abstract 
 extends NetworkingProvider
 
-var server: LocalServer = LocalServer.new()
+var client: InfernoSocketClient = InfernoSocketClient.new()
+
+func initialize() -> void:
+	pass
 
 @abstract
 func send_pixels(color: Color, pixels: Array[Vector2i]) -> void

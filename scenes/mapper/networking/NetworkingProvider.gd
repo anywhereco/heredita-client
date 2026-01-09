@@ -26,7 +26,7 @@ func send_message(message: String) -> void
 func move_player(to: Vector3) -> void
 
 @abstract
-func get_locked_colors() -> Array[Color]
+func get_server_settings() -> Variant
 
 @abstract
 func get_networking_type() -> NetworkingType
