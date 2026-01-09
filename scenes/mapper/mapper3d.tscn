@@ -48,6 +48,7 @@ emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 3.28
 rim_tint = 0.0
 backlight = Color(1, 1, 1, 1)
+texture_repeat = false
 grow_amount = 1.255
 stencil_mode = 1
 stencil_flags = 2
@@ -102,7 +103,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_76f00")
 
 [node name="PlayerShape" type="CSGSphere3D" parent="LocalPlayer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.001214683, 0.50000006, -0.0048350096)
 layers = 524288
 material_override = SubResource("StandardMaterial3D_mxy8m")
 radial_segments = 36
