@@ -57,7 +57,10 @@ func brush_events(event: InputEvent) -> void:
 		is_painting = false
 	
 	if is_painting:
-		Map._instance.set_pixels_at_map_pos_targeted(shape.get_vec2s(size), paint_color.value, target_color.value)
+		brush_action(size, paint_color.value, target_color.value)
+
+func brush_action(brush_size: int, paint: Color, target: Color) -> void:
+	Map._instance.set_pixels_at_map_pos_targeted(shape.get_vec2s(brush_size), paint, target)
 
 func _brush_size_changed() -> void:
 	size = UIRoot._instance.brush_ui.size_controller.brush_size.value
