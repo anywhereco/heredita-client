@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d07780ryakfgd"
-path.s3tc="res://.godot/imported/shmile.png-35aa54ab91ff16104d7ef413ad96af71.s3tc.ctex"
+uid="uid://da23s8ssptv20"
+path.s3tc="res://.godot/imported/shmile.png-83dc9ec485575961aeddd9d7dc5ad0de.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/shmile.png"
-dest_files=["res://.godot/imported/shmile.png-35aa54ab91ff16104d7ef413ad96af71.s3tc.ctex"]
+source_file="res://assets/player/shmile.png"
+dest_files=["res://.godot/imported/shmile.png-83dc9ec485575961aeddd9d7dc5ad0de.s3tc.ctex"]
 
 [params]
 

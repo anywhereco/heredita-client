@@ -1,29 +1,55 @@
-[gd_scene load_steps=18 format=3 uid="uid://bmfinmmve5h47"]
+[gd_scene load_steps=21 format=3 uid="uid://bmfinmmve5h47"]
 
 [ext_resource type="Script" uid="uid://casjubdmfl0xa" path="res://scenes/mapper/mapper_3d.gd" id="1_htv7j"]
 [ext_resource type="PackedScene" uid="uid://yb2j237qhuec" path="res://scenes/mapper/ui/ui.tscn" id="2_htv7j"]
 [ext_resource type="Script" uid="uid://ddbnc776wuh7i" path="res://scenes/mapper/player_shape.gd" id="2_mxy8m"]
 [ext_resource type="Script" uid="uid://bnnb4ayaos0ow" path="res://scenes/mapper/camera3d.gd" id="3_c4ga5"]
 [ext_resource type="Script" uid="uid://c1m5ewhnxff8g" path="res://scenes/mapper/player.gd" id="3_sm41v"]
-[ext_resource type="Texture2D" uid="uid://d07780ryakfgd" path="res://assets/shmile.png" id="3_wvm7y"]
+[ext_resource type="Texture2D" uid="uid://d07780ryakfgd" path="res://assets/player/flag.png" id="3_wvm7y"]
+[ext_resource type="Texture2D" uid="uid://da23s8ssptv20" path="res://assets/player/shmile.png" id="4_1goaf"]
 [ext_resource type="Script" uid="uid://b2ln5lyiu705a" path="res://scenes/mapper/camera_pivot.gd" id="5_1goaf"]
 [ext_resource type="Script" uid="uid://clxj0fu6d2g3r" path="res://scenes/mapper/map/map_core.gd" id="6_sm41v"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_76f00"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1goaf"]
+render_priority = 3
+transparency = 1
+shading_mode = 0
+diffuse_mode = 3
+disable_fog = true
+albedo_texture = ExtResource("4_1goaf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_agntw"]
+render_priority = 2
+next_pass = SubResource("StandardMaterial3D_1goaf")
+transparency = 1
+shading_mode = 0
+diffuse_mode = 3
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.04
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxy8m"]
 render_priority = 1
+next_pass = SubResource("StandardMaterial3D_agntw")
 transparency = 1
+diffuse_mode = 3
 disable_fog = true
-albedo_color = Color(1.6867967, 1.6867967, 1.6867967, 1)
+albedo_color = Color(0.907145, 0.907145, 0.907145, 1)
 albedo_texture = ExtResource("3_wvm7y")
 metallic_specular = 0.14
-roughness = 0.58
+roughness = 0.0
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 3.28
 rim_tint = 0.0
 backlight = Color(1, 1, 1, 1)
 grow_amount = 1.255
+stencil_mode = 1
 stencil_flags = 2
 stencil_outline_thickness = 0.04
 
@@ -136,3 +162,8 @@ material_override = SubResource("StandardMaterial3D_l0uxc")
 mesh = SubResource("PlaneMesh_l0uxc")
 
 [node name="UI" parent="." instance=ExtResource("2_htv7j")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.8151278, 0.57928115, 0, -0.57928115, 0.8151278, 0, 6.882904, 0)
+light_color = Color(1, 0.9533333, 0.86, 1)
+directional_shadow_max_distance = 8192.0
