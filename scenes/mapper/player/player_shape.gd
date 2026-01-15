@@ -6,6 +6,7 @@ var last_vel := Vector2.ZERO
 var vertical_target := 0.0
 var last_vertical_vel := 0.0
 var angle_offset := 0.0
+var vertical_stretch := 1.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,7 +25,8 @@ func _process(delta: float) -> void:
 	if vel.length_squared() > 0.05:
 		rotation.y += (((angle * -1) + deg_to_rad(-90)) - rotation.y) * (1 - exp(-20*delta))
 		last_vel = vel
-	var vertical_stretch := 1.0 + absf(player.velocity.y - vertical_target)*.04
+	var vertical_stretch_target := 1.0 + (absf(player.velocity.y - vertical_target)*.04)
+	vertical_stretch += (vertical_stretch_target - vertical_stretch) * (1 - exp(-10 * delta))
 	var vertical_stretch_lesser := 1 + ((vertical_stretch - 1)*0.5)
 	scale.z = (1 + (sqrt(vel.length())*0.03))/vertical_stretch_lesser
 	scale.x = 1/vertical_stretch_lesser
