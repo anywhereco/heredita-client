@@ -55,9 +55,6 @@ func brush_events(event: InputEvent) -> void:
 		is_painting = true
 	if event is InputEventMouseButton and not event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		is_painting = false
-	
-	if is_painting:
-		brush_action(size, paint_color.value, target_color.value)
 
 func brush_action(brush_size: int, paint: Color, target: Color) -> void:
 	Map._instance.set_pixels_at_map_pos_targeted(shape.get_vec2s(brush_size), paint, target)
@@ -71,3 +68,7 @@ func _update_brush() -> void:
 	var mod := paint_color.value
 	mod.a = 0.5
 	Map._instance.preview_plane.modulate = mod
+
+func _process(_delta: float) -> void:
+	if is_painting:
+		brush_action(size, paint_color.value, target_color.value)

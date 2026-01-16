@@ -39,9 +39,7 @@ func setup_velocity(direction: Vector3, delta: float) -> void:
 	else:
 		velocity.x = lerp(velocity.x, target_vel.x, weight)
 		velocity.z = lerp(velocity.z, target_vel.z, weight)
-	
-	if velocity.length_squared() > 0.1:
-		map.update_map_pos() # This prevents moving from breaking your cursor position.
+
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
