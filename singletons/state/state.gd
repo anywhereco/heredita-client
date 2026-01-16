@@ -5,6 +5,8 @@ extends Node
 
 @onready var user_settings := UserSettingsManager.new()
 
+@onready var threading := ThreadingManager.new()
+
 func _ready() -> void:
 	add_child(display)
 	display.name = "DisplayManager"

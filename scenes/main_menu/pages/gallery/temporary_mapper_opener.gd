@@ -1,5 +1,6 @@
 extends Button
 
+@onready var coordinator: ImagePickingCoordinator = %Coordinator
 @onready var map_picker: HBoxContainer = $"../MarginContainer/MapPicker"
 
 func _pressed() -> void:
