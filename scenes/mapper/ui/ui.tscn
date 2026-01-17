@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://yb2j237qhuec"]
+[gd_scene load_steps=37 format=3 uid="uid://yb2j237qhuec"]
 
 [ext_resource type="Script" uid="uid://8x5gnweq47eb" path="res://scenes/mapper/ui/ui_root.gd" id="1_em4te"]
 [ext_resource type="Script" uid="uid://i3124dmjaoj6" path="res://scenes/mapper/ui/right_items.gd" id="1_itatv"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bvjemq5dgx8om" path="res://assets/icons/topbar/floppy.svg" id="4_n7ck4"]
 [ext_resource type="Texture2D" uid="uid://bf21ocaw21o0l" path="res://assets/icons/send.svg" id="4_rh4gq"]
 [ext_resource type="Texture2D" uid="uid://btb4jabo6nmoe" path="res://assets/icons/topbar/openfolder.svg" id="5_580mp"]
-[ext_resource type="Script" path="res://scenes/mapper/ui/export_button.gd" id="5_rdvpr"]
+[ext_resource type="Script" uid="uid://82u1nskr1k2o" path="res://scenes/mapper/ui/export_button.gd" id="5_rdvpr"]
 [ext_resource type="Texture2D" uid="uid://dtur4inp5a2k4" path="res://assets/icons/topbar/image.svg" id="6_rdvpr"]
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="6_wbt2f"]
 [ext_resource type="Script" uid="uid://cyue2b6ml14cg" path="res://scenes/mapper/ui/toolui/tool_changer.gd" id="7_0sgq1"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://ciprbhp7oi7jo" path="res://scenes/mapper/ui/toolui/color_picker.tscn" id="11_mey8b"]
 [ext_resource type="Script" uid="uid://db26k4s8p0vg1" path="res://scenes/mapper/ui/toolui/brush_size.gd" id="12_0sgq1"]
 [ext_resource type="Script" uid="uid://boffekhvui4ql" path="res://scenes/mapper/ui/toolui/brush.gd" id="12_2eddf"]
+[ext_resource type="Script" uid="uid://boj66ccjdmq6n" path="res://libraries/ui/Unfocus.gd" id="12_vdunj"]
 [ext_resource type="FontVariation" uid="uid://hwc3xdnlf3ke" path="res://assets/font/_variants/pro450.tres" id="12_wbt2f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hddsb"]
@@ -329,6 +330,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Message"
 editable = false
+script = ExtResource("12_vdunj")
 
 [node name="Button" type="Button" parent="MenubarContainer/Bottom/ChatSplit/RightItems/ChatBox/VBoxContainer/HBoxContainer"]
 layout_mode = 2
