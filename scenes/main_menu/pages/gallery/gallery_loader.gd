@@ -1,8 +1,12 @@
+class_name ImagePickingCoordinator
 extends MarginContainer
 
 const GALLERY_ITEM = preload("uid://bj8dbj28fas7r")
 @onready var placeholder: Label = $LoadingPlaceholder
 @onready var elements: HBoxContainer = $Gallery/Elements
+
+var loading_mutex := Mutex.new()
+var current_picked := "blank"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

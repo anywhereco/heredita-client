@@ -535,7 +535,7 @@ script = ExtResource("12_2eddf")
 layout_mode = 2
 
 [node name="Size" type="Label" parent="MenubarContainer/Bottom/LeftItems/ToolUI/VBoxContainer/ToolUIContainer/brush/HBoxContainer"]
-custom_minimum_size = Vector2(24, 28)
+custom_minimum_size = Vector2(27, 28)
 layout_mode = 2
 text = "1"
 label_settings = SubResource("LabelSettings_em4te")

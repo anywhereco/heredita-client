@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c1fcr11flbild"]
+[gd_scene load_steps=15 format=3 uid="uid://c1fcr11flbild"]
 
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="1_bsn4x"]
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="1_o0axu"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://j5d5mbyadwj8" path="res://libraries/ui/image_picker_button/image_picker_button.gd" id="2_x1oku"]
 [ext_resource type="Script" uid="uid://bavplunsm8tjn" path="res://scenes/main_menu/pages/gallery/gallery_loader.gd" id="3_jd1et"]
 [ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/main_menu/pages/gallery/temporary_mapper_opener.gd" id="3_x1oku"]
+[ext_resource type="Script" uid="uid://80rk2bwsgwf4" path="res://scenes/main_menu/pages/gallery/back_landing.gd" id="6_7t0hk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jd1et"]
 font = ExtResource("1_o0axu")
@@ -34,6 +35,8 @@ font_color = Color(1, 1, 1, 0.5686275)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_huwrv"]
 color = Color(1, 1, 1, 1)
+grow_begin = -15.0
+grow_end = -15.0
 thickness = 3
 
 [node name="Gallery" type="VBoxContainer"]
@@ -60,6 +63,10 @@ expand_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 0
 
 [node name="MapPicker" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -72,22 +79,23 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"InsetPanel"
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MapPicker/PanelContainer"]
+[node name="Coordinator" type="MarginContainer" parent="MarginContainer/MapPicker/PanelContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("3_jd1et")
 
-[node name="Gallery" type="ScrollContainer" parent="MarginContainer/MapPicker/PanelContainer/MarginContainer"]
+[node name="Gallery" type="ScrollContainer" parent="MarginContainer/MapPicker/PanelContainer/Coordinator"]
 layout_mode = 2
 size_flags_horizontal = 3
 vertical_scroll_mode = 0
 
-[node name="Elements" type="HBoxContainer" parent="MarginContainer/MapPicker/PanelContainer/MarginContainer/Gallery"]
+[node name="Elements" type="HBoxContainer" parent="MarginContainer/MapPicker/PanelContainer/Coordinator/Gallery"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="LoadingPlaceholder" type="Label" parent="MarginContainer/MapPicker/PanelContainer/MarginContainer"]
+[node name="LoadingPlaceholder" type="Label" parent="MarginContainer/MapPicker/PanelContainer/Coordinator"]
 custom_minimum_size = Vector2(0, 112)
 layout_mode = 2
 text = "Loading gallery..."
@@ -132,9 +140,19 @@ metadata/_custom_type_script = "uid://j5d5mbyadwj8"
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxLine_huwrv")
 
-[node name="PlaySingleplayer" type="Button" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "  Back  "
+script = ExtResource("6_7t0hk")
+
+[node name="PlaySingleplayer" type="Button" parent="HBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "            Play demo            "
+text = "            Play demo             "
 script = ExtResource("3_x1oku")

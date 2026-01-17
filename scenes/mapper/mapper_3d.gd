@@ -38,8 +38,8 @@ func _ready() -> void:
 	brush._map_ready()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+func _process(delta: float) -> void:
+	brush._process(delta)
 
 func process_tool_use(event: InputEvent) -> void:
 	match tool.value:

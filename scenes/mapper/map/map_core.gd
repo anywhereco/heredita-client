@@ -31,7 +31,6 @@ var original_map_size_exclusive: Vector2
 var map_world_bounds: Rect2
 
 var map_pos: ReactiveVector2 = ReactiveVector2.new(Vector2.INF)
-var map_pos_updated_already: bool = false
 
 func is_in_bounding_box(test_point: Vector2, min_corner: Vector2, max_corner: Vector2) -> bool:
 	return (test_point.x >= min_corner.x and 
@@ -172,9 +171,6 @@ func _ready() -> void:
 	map_world_bounds = Rect2(map_space_to_world_space(Vector2.ZERO), map_space_to_world_space(Vector2.ZERO).abs() * 2)
 
 func update_map_pos() -> void:
-	if map_pos_updated_already:
-		return
-	
 	var mouse_position := VirtualMouse._instance.position
 	# The map is at zero on the Y axis
 	var intersect: Variant = Plane.PLANE_XZ.intersects_ray(
@@ -187,11 +183,10 @@ func update_map_pos() -> void:
 	var intersect_pos: Vector2 = Vector2(intersect.x, intersect.z)
 	var prev_pos := map_pos.value
 	map_pos.value = world_space_to_map_space(intersect_pos)
-	if not is_in_bounding_box(map_pos.value, Vector2.ZERO, original_map_size):
+	if not is_in_bounding_box(map_pos.value, Vector2(-30, -30), original_map_size + Vector2(30, 30)):
 		return
 	if Vector2i(prev_pos) != Vector2i(map_pos.value) and MapperRoot._instance.tool.value == MapperRoot.Tool.BRUSH:
 		update_brush_preview()
-	map_pos_updated_already = true
 
 func update_brush_preview() -> void:
 	var clipped := map_space_to_world_space(Vector2i(map_pos.value))
@@ -200,6 +195,7 @@ func update_brush_preview() -> void:
 	MapperRoot._instance.brush._update_brush()
 
 func _process(_delta: float) -> void:
+	update_map_pos()
 	if MapperRoot._instance.tool.value == MapperRoot.Tool.BRUSH:
 		preview_plane.visible = true
 	else:
@@ -210,9 +206,6 @@ func _process(_delta: float) -> void:
 				continue
 			chunks[x][y].texture.update(chunk_images[x][y])
 			chunks_edited[x][y] = false
-	map_pos_updated_already = false
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and VirtualMouse._instance.action != VirtualMouse.Action.PANNING:
-		update_map_pos()
 	MapperRoot._instance.process_tool_use(event)
