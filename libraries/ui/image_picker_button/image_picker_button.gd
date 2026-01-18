@@ -119,6 +119,7 @@ func _pressed() -> void:
 			else:
 				file_dialog.filters = NO_SVG_NO_MAP_FILTER
 		file_dialog.popup_centered(file_dialog.min_size)
+		VirtualMouse._instance.hide_mouse()
 
 func _err(code: PickedImageError) -> void:
 	if code == 0: 
@@ -146,6 +147,7 @@ func _on_file_selected_html5(file: HTML5FileHandle) -> void:
 		_err(res.err_code() as int)
 		return
 	image.value = res.val()
+	VirtualMouse._instance.unhide_mouse()
 	_new_image(file.name_label as String) # If the name_label is not a string i will Literally die
 
 func _on_file_selected(path: String) -> void:
@@ -158,6 +160,7 @@ func _on_file_selected(path: String) -> void:
 		_err(PickedImageError.NOT_VALID_FILE_FORMAT)
 		return
 	image.value = img
+	VirtualMouse._instance.unhide_mouse()
 	_new_image(path.get_file())
 
 func _file_handle_to_image(file: HTML5FileHandle) -> Result:

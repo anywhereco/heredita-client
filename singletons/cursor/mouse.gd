@@ -47,6 +47,16 @@ func _ready() -> void:
 	position = get_local_mouse_position()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+func hide_mouse() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	hide()
+	get_window().warp_mouse(position)
+	
+func unhide_mouse() -> void:
+	global_position = get_global_mouse_position()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	show()
+
 func _input(event: InputEvent) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouse and event.device != VIRTUAL_MOUSE_DEVICE:
@@ -78,6 +88,4 @@ func _input(event: InputEvent) -> void:
 
 	else:
 		if event is InputEventMouseButton and event.pressed:
-			global_position = get_global_mouse_position()
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			show()
+			unhide_mouse()
