@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b1070265sjc22"]
 
-[ext_resource type="Texture2D" uid="uid://xo4ohmgui0xg" path="res://assets/icons/file-opt.svg" id="1_wbeyb"]
+[ext_resource type="Texture2D" uid="uid://dtur4inp5a2k4" path="res://assets/icons/image.svg" id="1_wbeyb"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="2_6cjg5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g1ry1"]
