@@ -32,3 +32,6 @@ grow_vertical = 2
 
 [node name="Landing" parent="SwitchElement" instance=ExtResource("3_su6od")]
 layout_mode = 1
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+copy_mode = 2

@@ -51,12 +51,12 @@ func _input(event: InputEvent) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouse and event.device != VIRTUAL_MOUSE_DEVICE:
 			if event is InputEventMouseMotion and action != Action.PANNING:
-				position = position + event.relative
+				position = position + event.relative * Settings.getv("mouse_sensitivity")
 				if not get_viewport().get_visible_rect().has_point(global_position):
 					var rect: Rect2 = get_viewport().get_visible_rect()
 					position = Vector2(clampf(position.x, rect.position.x, rect.end.x), clampf(position.y, rect.position.y, rect.end.y))
 				var virtual_event: InputEventMouseMotion = InputEventMouseMotion.new()
-				virtual_event.relative = event.relative
+				virtual_event.relative = event.relative * Settings.getv("mouse_sensitivity")
 				virtual_event.position = get_viewport().get_screen_transform() * position
 				virtual_event.button_mask = event.button_mask
 				virtual_event.device = VIRTUAL_MOUSE_DEVICE

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ciprbhp7oi7jo"]
+[gd_scene load_steps=24 format=3 uid="uid://ciprbhp7oi7jo"]
 
 [ext_resource type="Script" uid="uid://c43omewlw0mxg" path="res://scenes/mapper/ui/toolui/color_picker.gd" id="1_2kfen"]
 [ext_resource type="Script" uid="uid://c020hb7atwvkj" path="res://scenes/mapper/ui/toolui/color_hsv.gd" id="2_61vie"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bxp786hfaau82" path="res://assets/theme_assets/picker_dot.png" id="4_6v1ti"]
 [ext_resource type="Script" uid="uid://dsd5d5f31kt1" path="res://scenes/mapper/ui/toolui/color_rgb.gd" id="5_rtn1r"]
 [ext_resource type="Script" uid="uid://nmhryjoffl4a" path="res://scenes/mapper/ui/toolui/color_hex.gd" id="6_by36x"]
+[ext_resource type="Script" uid="uid://boj66ccjdmq6n" path="res://libraries/ui/Unfocus.gd" id="7_o3h1b"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_by36x"]
 load_path = "res://.godot/imported/hue_slider.png-e589502fee6207c4f08c873daa1f9177.ctex"
@@ -142,6 +143,7 @@ script = ExtResource("6_by36x")
 
 [node name="Edit" type="LineEdit" parent="Pickers/Hex"]
 layout_mode = 2
+script = ExtResource("7_o3h1b")
 
 [node name="Preset" type="Control" parent="Pickers"]
 visible = false
