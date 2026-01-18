@@ -2,7 +2,7 @@ class_name ImagePickerButton
 extends Button
 
 const _CONTAINER = preload("uid://b1070265sjc22")
-const DEFAULT_IMAGE = preload("uid://xo4ohmgui0xg")
+const DEFAULT_IMAGE = preload("uid://dtur4inp5a2k4")
 
 var error_tween: Tween
 

@@ -1,17 +1,18 @@
-[gd_scene load_steps=38 format=3 uid="uid://yb2j237qhuec"]
+[gd_scene load_steps=39 format=3 uid="uid://yb2j237qhuec"]
 
 [ext_resource type="Script" uid="uid://8x5gnweq47eb" path="res://scenes/mapper/ui/ui_root.gd" id="1_em4te"]
 [ext_resource type="Script" uid="uid://i3124dmjaoj6" path="res://scenes/mapper/ui/right_items.gd" id="1_itatv"]
 [ext_resource type="Material" uid="uid://dayrr5lupf1h2" path="res://scenes/_shared/glass.tres" id="2_tv71d"]
-[ext_resource type="Texture2D" uid="uid://dl2432kvta2xt" path="res://assets/icons/topbar/exit.svg" id="3_2eddf"]
+[ext_resource type="Texture2D" uid="uid://dl2432kvta2xt" path="res://assets/icons/exit.svg" id="3_2eddf"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="4_itatv"]
 [ext_resource type="Script" uid="uid://b6wekdyqxe7s" path="res://scenes/mapper/ui/exit_button.gd" id="4_m4x71"]
-[ext_resource type="Texture2D" uid="uid://bvjemq5dgx8om" path="res://assets/icons/topbar/floppy.svg" id="4_n7ck4"]
-[ext_resource type="Texture2D" uid="uid://bf21ocaw21o0l" path="res://assets/icons/send.svg" id="4_rh4gq"]
-[ext_resource type="Texture2D" uid="uid://btb4jabo6nmoe" path="res://assets/icons/topbar/openfolder.svg" id="5_580mp"]
+[ext_resource type="Texture2D" uid="uid://bvjemq5dgx8om" path="res://assets/icons/floppy.svg" id="4_n7ck4"]
+[ext_resource type="Texture2D" uid="uid://bf21ocaw21o0l" path="res://assets/icons/_REDO_send.svg" id="4_rh4gq"]
+[ext_resource type="Texture2D" uid="uid://5aj3tv2mf361" path="res://assets/icons/gear.svg" id="5_5g7k5"]
+[ext_resource type="Texture2D" uid="uid://btb4jabo6nmoe" path="res://assets/icons/openfolder.svg" id="5_580mp"]
 [ext_resource type="Script" uid="uid://0hayhtf85w6v" path="res://scenes/mapper/ui/settings.gd" id="5_jj21m"]
-[ext_resource type="Script" uid="uid://82u1nskr1k2o" path="res://scenes/mapper/ui/export_button.gd" id="5_rdvpr"]
-[ext_resource type="Texture2D" uid="uid://dtur4inp5a2k4" path="res://assets/icons/topbar/image.svg" id="6_rdvpr"]
+[ext_resource type="Script" path="res://scenes/mapper/ui/export_button.gd" id="5_rdvpr"]
+[ext_resource type="Texture2D" uid="uid://dtur4inp5a2k4" path="res://assets/icons/image.svg" id="6_rdvpr"]
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="6_wbt2f"]
 [ext_resource type="Script" uid="uid://cyue2b6ml14cg" path="res://scenes/mapper/ui/toolui/tool_changer.gd" id="7_0sgq1"]
 [ext_resource type="Texture2D" uid="uid://b75i52xuegece" path="res://assets/icons/tools/brush.svg" id="8_2eddf"]
@@ -147,7 +148,7 @@ layout_mode = 2
 theme_type_variation = &"ToolButton"
 theme_override_font_sizes/font_size = 14
 text = "  Settings  "
-icon = ExtResource("3_2eddf")
+icon = ExtResource("5_5g7k5")
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
