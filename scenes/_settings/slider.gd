@@ -5,15 +5,17 @@ var setting: ReactiveFloat
 var percent := false
 var log10 := false
 
+@onready var slider: HSlider = $Slider
+
 func _ready() -> void:
 	setting.value_changed.connect(_setting_changed)
 	_set_label(setting.value)
 
 func _get_value() -> float:
 	if log:
-		return Math.exp10($Slider.value)
+		return Math.exp10(slider.value)
 	else:
-		return $Slider.value
+		return slider.value
 
 func _set_label(value: float) -> void:
 	if percent:
@@ -21,7 +23,7 @@ func _set_label(value: float) -> void:
 	else:
 		$Value.text = "%.2f" % value
 
-func _slider_changed(value: float) -> void:
+func _slider_changed(_value: float) -> void:
 	_set_label(_get_value())
 
 func _slider_let_go(_value_changed: bool) -> void:

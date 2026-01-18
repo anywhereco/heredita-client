@@ -1,6 +1,6 @@
 extends TabContainer
 
-func make_slider(setting_data: Dictionary, percent := false, log10 := false) -> Control:
+func make_slider(setting_data: SliderSetting, percent := false, log10 := false) -> Control:
 	var node: Control = preload("res://scenes/_settings/slider.tscn").instantiate()
 	var slider: Control = node.find_child("Slider")
 	if log:
@@ -19,13 +19,12 @@ func make_slider(setting_data: Dictionary, percent := false, log10 := false) -> 
 func tab_add_setting(tab: Container, setting: String) -> void:
 	var setting_data := Settings.settings_data[setting]
 	var setting_node: Control
-	match setting_data.type:
-		Settings.STYPE.FLOAT:
-			setting_node = make_slider(setting_data, false, false)
-		Settings.STYPE.PERCENT:
-			setting_node = make_slider(setting_data, true, false)
-		Settings.STYPE.LOGPERCENT:
-			setting_node = make_slider(setting_data, true, true)
+	match (setting_data.get_script() as Script).get_global_name():
+		"SliderSetting":
+			var slider := setting_data as SliderSetting
+			setting_node = make_slider(slider, slider.is_percent(), slider.is_log())
+		_:
+			push_error("Cannot make setting node for type %s" % (setting_data.get_script() as Script).get_global_name())
 	setting_node.setting = Settings.get_reactive(setting)
 	var setting_label: Label = preload("res://scenes/_settings/setting_label.tscn").instantiate()
 	setting_label.text = setting_data.label
