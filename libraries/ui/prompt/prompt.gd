@@ -11,7 +11,7 @@ var blur: ColorRect = self.get_parent().get_parent() as ColorRect
 func _input(event: InputEvent) -> void:
 	var mouseEvent := event as InputEventMouseButton
 	if mouseEvent is InputEventMouseButton and mouseEvent.is_pressed() and mouseEvent.button_index == 1:
-		var evLocal := make_input_local(mouseEvent) as InputEventMouseButton
+		var evLocal := make_input_local(mouseEvent) as InputEventMouseButton 
 		if idx == Prompts.prompts.size() - 1 and not Prompts.prompt_already_closed and not Rect2(Vector2(0,0), size).has_point(evLocal.position):
 			close()
 			
