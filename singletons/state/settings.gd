@@ -1,20 +1,14 @@
 extends Node
 
-enum STYPE {
-	FLOAT,
-	PERCENT,
-	LOGPERCENT
-}
-
-var settings: Dictionary[String, Variant] = {}
-var settings_data: Dictionary[String, Dictionary] = {
-	"mouse_sensitivity": {
-		label = "Mouse sensitivity",
-		type = STYPE.LOGPERCENT,
-		default = 1,
-		min = 0.1,
-		max = 10
-	}
+var settings: Dictionary[String, Reactive] = {}
+var settings_data: Dictionary[String, SettingsResource] = {
+	"mouse_sensitivity": SliderSetting.new(
+		"Mouse sensitivity",
+		SliderSetting.Type.LOG_PERCENT,
+		1.0,
+		0.1,
+		10
+	)
 }
 var settings_tabs: Dictionary[String, Array] = {
 	"Input": [
@@ -30,5 +24,5 @@ func get_reactive(setting: String) -> Variant:
 
 func _ready() -> void:
 	for setting in settings_data:
-		if settings_data[setting].type in [STYPE.FLOAT, STYPE.PERCENT, STYPE.LOGPERCENT]:
-			settings[setting] = ReactiveFloat.new(settings_data[setting].default)
+		if settings_data[setting] is SliderSetting:
+			settings[setting] = ReactiveFloat.new((settings_data[setting] as SliderSetting).default)
