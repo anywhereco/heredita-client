@@ -1,8 +1,12 @@
-[gd_scene format=3 uid="uid://cy6ca0bugcpve"]
+[gd_scene load_steps=2 format=3 uid="uid://cy6ca0bugcpve"]
+
+[ext_resource type="Script" uid="uid://b0vjmrmo5bvlv" path="res://scenes/_settings/settings.gd" id="1_0mqhr"]
 
 [node name="Settings" type="TabContainer"]
+custom_minimum_size = Vector2(400, 200)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_0mqhr")

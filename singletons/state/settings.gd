@@ -25,6 +25,9 @@ var settings_tabs: Dictionary[String, Array] = {
 func getv(setting: String) -> Variant:
 	return settings[setting].value
 
+func get_reactive(setting: String) -> Variant:
+	return settings[setting]
+
 func _ready() -> void:
 	for setting in settings_data:
 		if settings_data[setting].type in [STYPE.FLOAT, STYPE.PERCENT, STYPE.LOGPERCENT]:

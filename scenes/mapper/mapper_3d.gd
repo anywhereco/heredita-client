@@ -34,6 +34,7 @@ func _init() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Prompts.override_ui = $UI
 	tool.value_changed.connect(_tool_changed)
 	brush._map_ready()
 
