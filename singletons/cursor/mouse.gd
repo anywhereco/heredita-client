@@ -46,7 +46,10 @@ func set_action_tool(new_action: Action) -> void:
 func _ready() -> void:
 	position = get_local_mouse_position()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	get_window().move_child.call_deferred(get_parent(),-1)
+
+func _process(_delta: float) -> void:
+	if get_parent().get_index() != get_window().get_child_count() - 1:
+		get_window().move_child.call_deferred(get_parent(),-1)
 
 func hide_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
