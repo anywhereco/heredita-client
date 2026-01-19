@@ -11,3 +11,6 @@ func _set_value(new_value: String) -> String:
 func _init(initial_value: String, initial_owner: Reactive = null) -> void:
 	super._init(initial_owner)
 	value = initial_value
+
+func deep_unconvert() -> String:
+	return value

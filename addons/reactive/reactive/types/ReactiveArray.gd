@@ -81,3 +81,12 @@ func sort() -> void:
 func sort_custom(sort_method: Callable) -> void:
 	value.sort_custom(sort_method)
 	value_changed.emit(self)
+
+func deep_unconvert() -> Array:
+	var array = []
+	for i in value:
+		if i is Reactive:
+			array.append(i.deep_unconvert())
+		else:
+			array.append(i)
+	return array

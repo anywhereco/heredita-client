@@ -12,7 +12,7 @@ func _init(initial_value: Dictionary, initial_owner: Reactive = null) -> void:
 	super._init(initial_owner)
 	value = initial_value
 
-func get(index: Variant) -> Variant:
+func getv(index: Variant) -> Variant:
 	return value[index]
 	
 func get_or_add(index: Variant, fallback: Variant = null) -> Variant:
@@ -20,7 +20,7 @@ func get_or_add(index: Variant, fallback: Variant = null) -> Variant:
 		fallback._set_owner(self)
 	return value.get_or_add(index, fallback)
 
-func set(index: Variant, new_value: Variant) -> void:
+func setv(index: Variant, new_value: Variant) -> void:
 	if new_value is Reactive:
 		new_value._set_owner(self)
 	value[index] = new_value
@@ -50,3 +50,12 @@ func erase(val: Variant) -> void:
 func sort() -> void:
 	value.sort()
 	value_changed.emit(self)
+
+func deep_unconvert() -> Array:
+	var dict = {}
+	for i in value:
+		if value[i] is Reactive:
+			dict[i] = value[i].deep_unconvert()
+		else:
+			dict[i] = value[i]
+	return dict

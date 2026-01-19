@@ -11,3 +11,6 @@ func _set_value(new_value: Color) -> Color:
 func _init(initial_value: Color, initial_owner: Reactive = null) -> void:
 	super._init(initial_owner)
 	value = initial_value
+
+func deep_unconvert() -> Color:
+	return value

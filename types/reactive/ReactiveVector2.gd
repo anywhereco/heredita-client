@@ -11,3 +11,6 @@ func _set_value(new_value: Vector2) -> Vector2:
 func _init(initial_value: Vector2, initial_owner: Reactive = null) -> void:
 	super._init(initial_owner)
 	value = initial_value
+
+func deep_unconvert() -> Vector2:
+	return value
