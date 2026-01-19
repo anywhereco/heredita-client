@@ -50,6 +50,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if get_parent().get_index() != get_window().get_child_count() - 1:
 		get_window().move_child.call_deferred(get_parent(),-1)
+	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+		hide()
 
 func hide_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -86,9 +88,7 @@ func _input(event: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 				Input.parse_input_event(virtual_event)
 		elif event.is_action_pressed("escape_cursor_lock"):
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			hide()
-			get_window().warp_mouse(position)
+			hide_mouse()
 
 	else:
 		if event is InputEventMouseButton and event.pressed:
