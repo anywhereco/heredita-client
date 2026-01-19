@@ -50,8 +50,10 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if get_parent().get_index() != get_window().get_child_count() - 1:
 		get_window().move_child.call_deferred(get_parent(),-1)
-	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED and visible:
 		hide()
+	elif Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not visible:
+		show()
 
 func hide_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
