@@ -147,8 +147,9 @@ func _ready() -> void:
 			@warning_ignore("integer_division")
 			var y_idx := y/CHUNK_SIZE
 			var chunk_coords := Rect2i(Vector2i(x,y), Vector2i(CHUNK_SIZE, CHUNK_SIZE))
-			var img := Image.create_empty(CHUNK_SIZE, CHUNK_SIZE, false, original_map.get_format())
-			img.blit_rect(original_map, chunk_coords, Vector2i.ZERO)
+			var img := original_map.get_region(chunk_coords)
+			#Image.create_empty(CHUNK_SIZE, CHUNK_SIZE, false, original_map.get_format())
+			#img.blit_rect(original_map, chunk_coords, Vector2i.ZERO)
 			var chunk := Sprite3D.new()
 			chunk.texture = ImageTexture.create_from_image(img)
 			chunk.axis = Vector3.Axis.AXIS_Y
