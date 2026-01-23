@@ -12,6 +12,8 @@ var supported_protocols: PackedStringArray
 var tls_options: TLSOptions = null
 var websocket_url: String
 
+var room_id: int
+
 var ping_timer: float = 0
 
 const PING_INTERVAL: float = 60
@@ -44,8 +46,9 @@ signal raw_message_received(string: String)
 
 signal raw_message_sent(string: String)
 
-func _init(url: String = "") -> void:
+func _init(url: String = "", room: int = 0) -> void:
 	websocket_url = url
+	room_id = room
 
 func _ready() -> void:
 	var err := self.connect_to_url(websocket_url)
@@ -166,7 +169,7 @@ func _poll_string(message: Dictionary) -> void:
 			return
 		match message["event"]:
 			"_is2_handshake":
-				send("_is2_room_info")
+				send("_is2_room_info", room_id)
 				return
 			"_is2_room_info":
 				user_id = message.get("details").get("user_id") as int

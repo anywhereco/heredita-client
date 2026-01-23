@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://crasgtic6vnmh"]
+[gd_scene load_steps=9 format=3 uid="uid://crasgtic6vnmh"]
 
 [ext_resource type="Texture2D" uid="uid://c0udqbl4trv2i" path="res://assets/logo_large.png" id="1_e06ia"]
 [ext_resource type="Script" uid="uid://c28ljhbovoicm" path="res://scenes/main_menu/pages/landing/play.gd" id="1_ymk45"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="2_2ejkv"]
 [ext_resource type="Script" path="res://scenes/main_menu/pages/landing/ver.gd" id="3_ecxkw"]
 [ext_resource type="Script" uid="uid://cvudgig5551tm" path="res://scenes/main_menu/pages/landing/settings.gd" id="5_ecxkw"]
+[ext_resource type="Script" uid="uid://bcftydui3h2on" path="res://scenes/main_menu/pages/landing/temporary_mapper_opener_mp.gd" id="5_ikikv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ikikv"]
 font = ExtResource("2_2ejkv")
@@ -75,8 +76,14 @@ size_flags_vertical = 4
 [node name="Play" type="Button" parent="LeftSide"]
 layout_mode = 2
 theme_type_variation = &"PrimaryButtons"
-text = "Play"
+text = "Play Singleplayer"
 script = ExtResource("1_ymk45")
+
+[node name="Multiplayer" type="Button" parent="LeftSide"]
+layout_mode = 2
+theme_type_variation = &"PrimaryButtons"
+text = "Play Multiplayer (test)"
+script = ExtResource("5_ikikv")
 
 [node name="PlaySingleplayer" type="Button" parent="LeftSide"]
 visible = false

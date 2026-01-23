@@ -7,6 +7,10 @@ extends Node
 
 @onready var threading := ThreadingManager.new()
 
+var client: InfernoSocketClient = null
+
+var user: User = null
+
 func _ready() -> void:
 	add_child(display)
 	display.name = "DisplayManager"
