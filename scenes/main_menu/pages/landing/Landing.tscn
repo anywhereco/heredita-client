@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://c0udqbl4trv2i" path="res://assets/logo_large.png" id="1_e06ia"]
 [ext_resource type="Script" uid="uid://c28ljhbovoicm" path="res://scenes/main_menu/pages/landing/play.gd" id="1_ymk45"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="2_2ejkv"]
-[ext_resource type="Script" path="res://scenes/main_menu/pages/landing/ver.gd" id="3_ecxkw"]
+[ext_resource type="Script" uid="uid://dyad1l4xw802a" path="res://scenes/main_menu/pages/landing/ver.gd" id="3_ecxkw"]
 [ext_resource type="Script" uid="uid://cvudgig5551tm" path="res://scenes/main_menu/pages/landing/settings.gd" id="5_ecxkw"]
-[ext_resource type="Script" uid="uid://bcftydui3h2on" path="res://scenes/main_menu/pages/landing/temporary_mapper_opener_mp.gd" id="5_ikikv"]
+[ext_resource type="PackedScene" uid="uid://cef5r0v705n3w" path="res://scenes/main_menu/pages/landing/Friend.tscn" id="6_ikikv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ikikv"]
 font = ExtResource("2_2ejkv")
@@ -13,95 +13,162 @@ font_size = 20
 font_color = Color(1, 1, 1, 0.6431373)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_8pexo"]
-color = Color(1, 1, 1, 1)
+color = Color(1, 1, 1, 0.52156866)
+grow_end = -40.0
 thickness = 3
 
-[node name="Landing" type="Control"]
-layout_mode = 3
-anchors_preset = 15
+[node name="Landing" type="HBoxContainer"]
+anchors_preset = -1
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_right = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="LeftSide" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 20.0
-offset_right = -20.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(330, 0)
+layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="Control" type="VBoxContainer" parent="LeftSide"]
-custom_minimum_size = Vector2(400, 180)
+[node name="TopPadding" type="Control" parent="LeftSide"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="LeftSide"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LeftSide/MarginContainer"]
+layout_mode = 2
+
+[node name="Control" type="VBoxContainer" parent="LeftSide/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 150)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextureRect" type="TextureRect" parent="LeftSide/Control"]
+[node name="TextureRect" type="TextureRect" parent="LeftSide/MarginContainer/VBoxContainer/Control"]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("1_e06ia")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="LeftSide/Control"]
+[node name="Label" type="Label" parent="LeftSide/MarginContainer/VBoxContainer/Control"]
 layout_mode = 2
 text = "beta %s"
 label_settings = SubResource("LabelSettings_ikikv")
 horizontal_alignment = 1
 script = ExtResource("3_ecxkw")
 
-[node name="Control2" type="Control" parent="LeftSide"]
+[node name="Control2" type="Control" parent="LeftSide/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 13)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Panel" type="Panel" parent="LeftSide"]
+[node name="Panel" type="Panel" parent="LeftSide/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxLine_8pexo")
 
-[node name="Control3" type="Control" parent="LeftSide"]
+[node name="Control3" type="Control" parent="LeftSide/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 13)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Play" type="Button" parent="LeftSide"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LeftSide"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="Play" type="Button" parent="LeftSide/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"PrimaryButtons"
-text = "Play Singleplayer"
+text = "Play  "
+alignment = 2
 script = ExtResource("1_ymk45")
 
-[node name="Multiplayer" type="Button" parent="LeftSide"]
+[node name="MarginContainer2" type="MarginContainer" parent="LeftSide/VBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"PrimaryButtons"
-text = "Play Multiplayer (test)"
-script = ExtResource("5_ikikv")
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 0
 
-[node name="PlaySingleplayer" type="Button" parent="LeftSide"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"PrimaryButtons"
-text = "            Play demo            "
-
-[node name="Settings" type="Button" parent="LeftSide"]
+[node name="Settings" type="Button" parent="LeftSide/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"PrimaryButtons"
-text = "Settings"
+text = "     Settings  "
+alignment = 2
 script = ExtResource("5_ecxkw")
 
-[node name="Settings2" type="Button" parent="LeftSide"]
-visible = false
+[node name="MarginContainer" type="MarginContainer" parent="LeftSide/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 0
+
+[node name="Account" type="Button" parent="LeftSide/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"PrimaryButtons"
-text = "Account"
+text = "Account  "
+alignment = 2
+
+[node name="BottomPadding" type="Control" parent="LeftSide"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="CentralPadding" type="Control" parent="."]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="RightSide" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="TopPadding" type="Control" parent="RightSide"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="RightSide"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="RightSide/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="RightSide/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 44.735)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RightSide/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Friend" parent="RightSide/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("6_ikikv")]
+layout_mode = 2
+
+[node name="BottomPadding" type="Control" parent="RightSide"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
