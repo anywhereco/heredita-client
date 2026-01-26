@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbk37om0owvf1"
-path.s3tc="res://.godot/imported/waterheight_specular(1).png-ed3466aded0901826b52b35d0ff62dc9.s3tc.ctex"
+uid="uid://bv3ci7lpwsojy"
+path.s3tc="res://.godot/imported/earth-normal.png-dc8feb361237b4ea0d06bf49d159a681.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/map/waterheight_specular(1).png"
-dest_files=["res://.godot/imported/waterheight_specular(1).png-ed3466aded0901826b52b35d0ff62dc9.s3tc.ctex"]
+source_file="res://assets/map/earth-normal.png"
+dest_files=["res://.godot/imported/earth-normal.png-dc8feb361237b4ea0d06bf49d159a681.s3tc.ctex"]
 
 [params]
 
@@ -27,7 +27,7 @@ compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=1
-roughness/src_normal="res://assets/map/waterheight_specular(1).png"
+roughness/src_normal="res://assets/map/earth-normal.png"
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2

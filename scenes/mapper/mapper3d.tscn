@@ -37,7 +37,6 @@ metadata/_stencil_owned = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxy8m"]
 render_priority = 1
 next_pass = SubResource("StandardMaterial3D_agntw")
-transparency = 1
 diffuse_mode = 3
 disable_fog = true
 albedo_color = Color(0.907145, 0.907145, 0.907145, 1)
