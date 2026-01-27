@@ -42,6 +42,7 @@ window/stretch/aspect="ignore"
 [editor]
 
 movie_writer/movie_file="/home/infernity/Godot/MPMap-Redrawn/vidya.avi"
+run/main_run_args="-- --heredita-url=http://localhost:9000"
 
 [editor_plugins]
 

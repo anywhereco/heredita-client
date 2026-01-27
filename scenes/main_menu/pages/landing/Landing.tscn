@@ -152,7 +152,7 @@ theme_override_constants/separation = 12
 alignment = 1
 
 [node name="TopPadding" type="Control" parent="RightSide"]
-custom_minimum_size = Vector2(0, 20)
+visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="RightSide"]

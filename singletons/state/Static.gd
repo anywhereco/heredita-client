@@ -7,10 +7,11 @@ static var HEREDITA_URL := "https://demo.heredita.net"
 
 const SERVER_URL := "http://localhost:443"
 
-const LOGIN_URL := "login.infernity.dev"
+# const LOGIN_URL := "login.infernity.dev"
 
-func _init() -> void:
-	if OS.has_feature("beta-d"):
-		HEREDITA_URL = "https://beta-drc.heredita.net"
-	if OS.has_feature("beta-w"):
-		HEREDITA_URL = "https://beta-wrc.heredita.net"
+static func initialize() -> void:
+	print(OS.get_data_dir())
+	var user_args := OS.get_cmdline_user_args()
+	for i in range(user_args.size()):
+		if user_args[i].contains("--heredita-url="):
+			HEREDITA_URL = user_args[i].split("=")[1]
