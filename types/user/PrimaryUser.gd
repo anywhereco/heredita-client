@@ -21,8 +21,8 @@ static func of_username_and_password(_username: String, _password: String, _http
 	var user := PrimaryUser.new()
 	_http.request_completed.connect(user._set_token)
 	_http.request(
-		Statics.HEREDITA_URL + "/auth/token?grant_type=password&username=%s&password=%s" % [_username, _password]
-		, PackedStringArray(), 
+		Statics.HEREDITA_URL + "/auth/token?grant_type=password&username=%s&password=%s" % [_username, _password],
+		[], 
 		HTTPClient.METHOD_POST
 	)
 
@@ -40,7 +40,7 @@ func _set_token(result: int, response_code: int, headers: PackedStringArray, bod
 
 func initialize() -> void:
 	http.request_completed.connect(_set_details)
-	http.request(Statics.HEREDITA_URL + "/users/me", PackedStringArray(["Authorization: Bearer %s" % token]))
+	http.request(Statics.HEREDITA_URL + "/users/me", ["Authorization: Bearer " + token])
 
 @warning_ignore("unused_parameter")
 func _set_details(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
