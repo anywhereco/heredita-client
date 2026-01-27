@@ -28,8 +28,10 @@ theme_override_constants/separation = -1
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "LongUsername12341234Aa"
+text = "MmmmMmmmMmmmMmmmMmmm"
 label_settings = SubResource("LabelSettings_3f2jg")
+clip_text = true
+text_overrun_behavior = 5
 
 [node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2

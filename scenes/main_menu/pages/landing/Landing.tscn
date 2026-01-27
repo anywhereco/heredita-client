@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://crasgtic6vnmh"]
+[gd_scene load_steps=12 format=3 uid="uid://crasgtic6vnmh"]
 
 [ext_resource type="Texture2D" uid="uid://c0udqbl4trv2i" path="res://assets/logo_large.png" id="1_e06ia"]
 [ext_resource type="Script" uid="uid://c28ljhbovoicm" path="res://scenes/main_menu/pages/landing/play.gd" id="1_ymk45"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dyad1l4xw802a" path="res://scenes/main_menu/pages/landing/ver.gd" id="3_ecxkw"]
 [ext_resource type="Script" uid="uid://cvudgig5551tm" path="res://scenes/main_menu/pages/landing/settings.gd" id="5_ecxkw"]
 [ext_resource type="PackedScene" uid="uid://cef5r0v705n3w" path="res://scenes/main_menu/pages/landing/Friend.tscn" id="6_ikikv"]
+[ext_resource type="FontVariation" uid="uid://cyxhummrwgoly" path="res://assets/font/_variants/proitalics650.tres" id="6_v3lsn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ikikv"]
 font = ExtResource("2_2ejkv")
@@ -16,6 +17,14 @@ font_color = Color(1, 1, 1, 0.6431373)
 color = Color(1, 1, 1, 0.52156866)
 grow_end = -40.0
 thickness = 3
+
+[sub_resource type="LabelSettings" id="LabelSettings_5jq1k"]
+font = ExtResource("2_2ejkv")
+font_color = Color(1, 1, 1, 0.8156863)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dvdc6"]
+font = ExtResource("6_v3lsn")
+font_size = 20
 
 [node name="Landing" type="HBoxContainer"]
 anchors_preset = 14
@@ -130,7 +139,7 @@ custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="CentralPadding" type="Control" parent="."]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
@@ -146,6 +155,28 @@ alignment = 1
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
+[node name="MarginContainer" type="MarginContainer" parent="RightSide"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RightSide/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="RightSide/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Hello,"
+label_settings = SubResource("LabelSettings_5jq1k")
+
+[node name="Name" type="Label" parent="RightSide/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "MmmmMmmmMmmmMmm"
+label_settings = SubResource("LabelSettings_dvdc6")
+
 [node name="PanelContainer" type="PanelContainer" parent="RightSide"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -157,17 +188,35 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 35
 theme_override_constants/margin_bottom = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="RightSide/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="RightSide/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="RightSide/PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 44.735)
 layout_mode = 2
+size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="RightSide/PanelContainer/MarginContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="RightSide/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Friend" parent="RightSide/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("6_ikikv")]
+[node name="Friend" parent="RightSide/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("6_ikikv")]
 layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RightSide/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="RightSide/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Search or add a friend"
+max_length = 20
+
+[node name="Button" type="Button" parent="RightSide/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "  Add  "
 
 [node name="BottomPadding" type="Control" parent="RightSide"]
 custom_minimum_size = Vector2(0, 20)

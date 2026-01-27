@@ -32,8 +32,8 @@ grow_vertical = 2
 
 [node name="Landing" parent="SwitchElement" instance=ExtResource("3_su6od")]
 layout_mode = 1
-offset_left = 0.0
-offset_right = 0.0
+offset_top = -222.0
+offset_bottom = 222.0
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]
 copy_mode = 2
