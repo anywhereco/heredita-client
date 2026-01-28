@@ -51,6 +51,7 @@ func reactive_unconvert(data: Dictionary) -> Dictionary:
 func _load_settings() -> bool:
 	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
 	if file:
+		@warning_ignore("unsafe_call_argument")
 		settings = ReactiveDictionary.new(reactive_convert(JSON.to_native(JSON.parse_string(file.get_as_text()))))
 	return file != null
 	
