@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://faj2phk4p8di"]
+[gd_scene format=3 uid="uid://faj2phk4p8di"]
 
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="1_5vjh0"]
 [ext_resource type="Script" uid="uid://j5d5mbyadwj8" path="res://libraries/ui/image_picker_button/image_picker_button.gd" id="2_fgy55"]
@@ -13,7 +13,7 @@ font = ExtResource("2_fquqx")
 font_size = 21
 font_color = Color(1, 1, 1, 0.5686275)
 
-[node name="NewRoomPrompt" type="VBoxContainer"]
+[node name="NewRoomPrompt" type="VBoxContainer" unique_id=1920594828]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -26,25 +26,25 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Title" type="Label" parent="."]
+[node name="Title" type="Label" parent="." unique_id=2053284206]
 layout_mode = 2
 text = "Create a Room"
 label_settings = SubResource("LabelSettings_fgy55")
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=64583945]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="HBoxContainer"]
+[node name="Button" type="Button" parent="HBoxContainer" unique_id=999155388]
 layout_mode = 2
 text = "Check the gallery"
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=54990387]
 layout_mode = 2
 text = "or"
 label_settings = SubResource("LabelSettings_n8y21")
 
-[node name="ImagePickerButton" type="Button" parent="HBoxContainer"]
+[node name="ImagePickerButton" type="Button" parent="HBoxContainer" unique_id=2079654197]
 layout_mode = 2
 text = "Pick an image or map"
 script = ExtResource("2_fgy55")

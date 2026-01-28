@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cef5r0v705n3w"]
+[gd_scene format=3 uid="uid://cef5r0v705n3w"]
 
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="1_x287h"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="2_joi8d"]
@@ -11,38 +11,38 @@ font_size = 20
 font = ExtResource("2_joi8d")
 font_color = Color(1, 1, 1, 0.65882355)
 
-[node name="Panel" type="PanelContainer"]
+[node name="Panel" type="PanelContainer" unique_id=1513318034]
 custom_minimum_size = Vector2(200, 40)
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1241144476]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=524286762]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1660533495]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = -1
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=301756437]
 layout_mode = 2
 text = "MmmmMmmmMmmmMmmmMmmm"
 label_settings = SubResource("LabelSettings_3f2jg")
 clip_text = true
 text_overrun_behavior = 5
 
-[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=193680472]
 layout_mode = 2
 text = "In \"Loooooooooooooooong era name\" - 1902"
 label_settings = SubResource("LabelSettings_33uqb")
 clip_text = true
 text_overrun_behavior = 5
 
-[node name="Control" type="Control" parent="MarginContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer" unique_id=1596575259]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="MarginContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="MarginContainer/HBoxContainer" unique_id=671681191]
 layout_mode = 2
 text = "  Join  "

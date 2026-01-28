@@ -1,14 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2a2syuqfdlh7"]
+[gd_scene format=3 uid="uid://d2a2syuqfdlh7"]
 
 [ext_resource type="Script" uid="uid://dqqewyeqhmscd" path="res://singletons/debug/DebugLayer.gd" id="1_8p4q4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ovp2x"]
 shadow_color = Color(0, 0, 0, 1)
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1651802410]
 layer = 1023
 
-[node name="DebugLayer" type="Control" parent="."]
+[node name="DebugLayer" type="Control" parent="." unique_id=912703483]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -20,7 +20,7 @@ mouse_filter = 2
 mouse_behavior_recursive = 1
 script = ExtResource("1_8p4q4")
 
-[node name="Label" type="Label" parent="DebugLayer"]
+[node name="Label" type="Label" parent="DebugLayer" unique_id=863968407]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0

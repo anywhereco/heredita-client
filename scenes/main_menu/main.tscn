@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxwiva1eghxgy"]
+[gd_scene format=3 uid="uid://bxwiva1eghxgy"]
 
 [ext_resource type="PackedScene" uid="uid://beoi88qrdnbyd" path="res://scenes/main_menu/background/background.tscn" id="1_1ig7j"]
 [ext_resource type="PackedScene" uid="uid://co8osnbupcqjm" path="res://scenes/main_menu/foreground.tscn" id="2_ukx7c"]
 
-[node name="Lobby" type="Node2D"]
+[node name="Lobby" type="Node2D" unique_id=345179672]
 
-[node name="Background" parent="." instance=ExtResource("1_1ig7j")]
+[node name="Background" parent="." unique_id=2129689050 instance=ExtResource("1_1ig7j")]
 
-[node name="Foreground" parent="." instance=ExtResource("2_ukx7c")]
+[node name="Foreground" parent="." unique_id=564541190 instance=ExtResource("2_ukx7c")]
 unique_name_in_owner = true

@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dayrr5lupf1h2"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dayrr5lupf1h2"]
 
 [ext_resource type="Shader" uid="uid://ds1kxrif2lqy" path="res://scenes/_shared/glass.gdshader" id="1_o7r8c"]
 

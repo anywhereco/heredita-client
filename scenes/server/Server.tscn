@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://btgbjxwalnvhy"]
+[gd_scene format=3 uid="uid://btgbjxwalnvhy"]
 
 [ext_resource type="Script" uid="uid://dai60gxu0allx" path="res://scenes/server/ServerController.gd" id="1_tov25"]
 
@@ -15,11 +15,11 @@ corner_detail = 1
 anti_aliasing = false
 anti_aliasing_size = 0.01
 
-[node name="Server" type="Node"]
+[node name="Server" type="Node" unique_id=627931563]
 
-[node name="LocalServerOverlay" type="CanvasLayer" parent="."]
+[node name="LocalServerOverlay" type="CanvasLayer" parent="." unique_id=262584767]
 
-[node name="PulldownPanel" type="PanelContainer" parent="LocalServerOverlay"]
+[node name="PulldownPanel" type="PanelContainer" parent="LocalServerOverlay" unique_id=1977410502]
 custom_minimum_size = Vector2(185, 0)
 anchors_preset = 5
 anchor_left = 0.5
@@ -30,10 +30,10 @@ offset_bottom = 40.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_oxt17")
 
-[node name="OptionsButton" type="Button" parent="LocalServerOverlay/PulldownPanel"]
+[node name="OptionsButton" type="Button" parent="LocalServerOverlay/PulldownPanel" unique_id=1095306010]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Local server options"
 
-[node name="Node" type="Node" parent="."]
+[node name="Node" type="Node" parent="." unique_id=1978784216]
 script = ExtResource("1_tov25")

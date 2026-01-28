@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cyjaddj8l5k6p"]
 
-[node name="Label" type="Label"]
+[node name="Label" type="Label" unique_id=2068854254]
 offset_top = 229.0
 offset_right = 52.0
 offset_bottom = 250.0

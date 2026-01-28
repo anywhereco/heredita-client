@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://co8osnbupcqjm"]
+[gd_scene format=3 uid="uid://co8osnbupcqjm"]
 
 [ext_resource type="Script" uid="uid://cqvgxydjyce6p" path="res://scenes/main_menu/foreground.gd" id="1_hbrfk"]
 [ext_resource type="Shader" uid="uid://h6ps2oq513j8" path="res://scenes/main_menu/background/background_blur.gdshader" id="1_t71vb"]
@@ -9,10 +9,10 @@ shader = ExtResource("1_t71vb")
 shader_parameter/strength = 3.3
 shader_parameter/mix_percentage = 0.3
 
-[node name="Foreground" type="CanvasLayer"]
+[node name="Foreground" type="CanvasLayer" unique_id=986715501]
 script = ExtResource("1_hbrfk")
 
-[node name="BackgroundBlur" type="ColorRect" parent="."]
+[node name="BackgroundBlur" type="ColorRect" parent="." unique_id=531905984]
 top_level = true
 z_index = -4096
 material = SubResource("ShaderMaterial_crsvy")
@@ -22,7 +22,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SwitchElement" type="Control" parent="."]
+[node name="SwitchElement" type="Control" parent="." unique_id=58322533]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,10 +30,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Landing" parent="SwitchElement" instance=ExtResource("3_su6od")]
+[node name="Landing" parent="SwitchElement" unique_id=2121750188 instance=ExtResource("3_su6od")]
 layout_mode = 1
 offset_top = -222.0
 offset_bottom = 222.0
 
-[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+[node name="BackBufferCopy" type="BackBufferCopy" parent="." unique_id=2055926102]
 copy_mode = 2
