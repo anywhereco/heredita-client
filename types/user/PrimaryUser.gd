@@ -13,7 +13,7 @@ var username: String
 var email: String
 var friends: Array[UserPartial]
 var friend_requests_sent: Array[UserPartial]
-var friend_requests_recieved: Array[UserPartial]
+var friend_requests_received: Array[UserPartial]
 
 var http: HTTPRequest
 
@@ -40,29 +40,33 @@ func _set_token(result: int, response_code: int, headers: PackedStringArray, bod
 
 func initialize() -> void:
 	http.request_completed.connect(_set_details)
-	http.request(Statics.HEREDITA_URL + "/users/me", ["Authorization: Bearer " + token])
+	http.request(Statics.HEREDITA_URL + "/users/me", ["Authorization: Bearer " + token.strip_edges()])
 
 @warning_ignore("unused_parameter")
 func _set_details(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+	if result == ERR_CANT_CONNECT:
+		push_error("Cannot connect to server (is your testing server set up?)")
+		return
+		
 	var json := JSON.new()
 	json.parse(body.get_string_from_utf8())
-	var response: Dictionary[String, Variant] = json.get_data()
+	var response: Dictionary = json.get_data()
 	
 	id = response.id
 	username = response.username
 	email = response.email if response.email != null else ""
 	
-	for friend: Dictionary[String, Variant] in response.friends:
+	for friend: Dictionary in response.friends:
 		@warning_ignore("unsafe_call_argument")
 		friends.append(UserPartial.new(friend.id, friend.username))
 		
-	for friend: Dictionary[String, Variant] in response.sent_friend_requests:
+	for friend: Dictionary in response.sent_friend_requests:
 		@warning_ignore("unsafe_call_argument")
 		friend_requests_sent.append(UserPartial.new(friend.id, friend.username))
 		
-	for friend: Dictionary[String, Variant] in response.recieved_friend_requests:
+	for friend: Dictionary in response.received_friend_requests:
 		@warning_ignore("unsafe_call_argument")
-		friend_requests_recieved.append(UserPartial.new(friend.id, friend.username))
+		friend_requests_received.append(UserPartial.new(friend.id, friend.username))
 	
 	initialized = true
 	user_initialized.emit()
