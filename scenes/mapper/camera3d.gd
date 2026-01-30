@@ -25,7 +25,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera_arm.spring_length = maxf(2.5, camera_arm.spring_length * (1/1.1))
 
 func camera_pan(event: InputEventMouseMotion) -> void:
-	camera_pivot.rotation.x -= event.relative.y * mouse_sensitivity
+	camera_pivot.rotation.x -= event.relative.y * mouse_sensitivity * Settings.getv("camera_sensitivity") 
 	# Prevent the camera from rotating too far up or down.
 	camera_pivot.rotation.x = clampf(camera_pivot.rotation.x, -tilt_limit, tilt_limit)
-	camera_pivot.rotation.y += -event.relative.x * mouse_sensitivity
+	camera_pivot.rotation.y += -event.relative.x * mouse_sensitivity * Settings.getv("camera_sensitivity") 

@@ -10,11 +10,21 @@ var settings_data: Dictionary[String, SettingsResource] = {
 		1.0,
 		0.1,
 		10
+	),
+	"camera_sensitivity": SliderSetting.new(
+		"Camera sensitivity",
+		SliderSetting.Type.LOG_PERCENT,
+		1.0,
+		0.1,
+		10
 	)
 }
 var settings_tabs: Dictionary[String, Array] = {
 	"Input": [
 		"mouse_sensitivity"
+	],
+	"Game": [
+		"camera_sensitivity"
 	]
 }
 
