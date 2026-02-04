@@ -1,18 +1,14 @@
 class_name User
 
+var peer_id: int
 var username: String
 var logged_in: bool
-var settings: Dictionary
+var profile := {}
 var flags: int
 var status: int
 
-enum Format {
-	NONE = 0,
-	BOLD = 1,
-	AUTHOR = 2
-}
-
-func _init(dict: Dictionary) -> void:
+func _init(peer: int, dict: Dictionary) -> void:
+	peer_id = peer
 	username = dict.username
 	logged_in = dict.logged_in
 	flags = dict.get("flags", 0)

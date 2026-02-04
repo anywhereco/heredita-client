@@ -33,6 +33,18 @@ func send_text(peer_id: int, message: String) -> Error:
 	var error := peer.send_text(message)
 	return error
 	
+func send_targeted_event(peer_id: int, event: String, details: Variant = {}, origin_id := -1) -> Error:
+	if details:
+		return send_text(peer_id, JSON.stringify({"event": event, "user_id": origin_id, "details": details}))
+	return send_text(peer_id, JSON.stringify({"event": event, "user_id": origin_id}))
+	
+func send_global_event(event: String, details: Dictionary, origin_id := -1) -> Error:
+	for peer_id: int in _peers:
+		var error := send_text(peer_id, JSON.stringify({"event": event, "user_id": origin_id, "details": details}))
+		if error:
+			return error
+	return OK
+
 func close(peer_id: int, code := 1000, reason := "") -> void:
 	var peer := _peers[peer_id]
 	peer.close(code, reason)

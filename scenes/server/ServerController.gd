@@ -1,4 +1,5 @@
 extends Node
+class_name ServerController
 
 var rooms: Dictionary[int, RoomServer]
 var peer_rooms: Dictionary[int, int]
@@ -18,7 +19,15 @@ func new_room_id() -> int:
 func create_room() -> int:
 	var id := new_room_id()
 	rooms[id] = RoomServer.new()
+	add_child(rooms[id])
 	return id
+	
+func close_room(id: int) -> void:
+	rooms[id].close_room()
+	rooms.erase(id)
+
+func _room_find_id(room: RoomServer) -> int:
+	return rooms.find_key(room)
 
 func get_text_data(peer_id: int) -> String:
 	var peer := 0x7fffffffffffffff
@@ -39,15 +48,13 @@ func get_json_data(peer_id: int) -> Result:
 func _connected(peer_id: int) -> void:
 	ws_server.send_text(peer_id, "_is2_handshake")
 	var json := await get_json_data(peer_id)
-	if json.is_err() or not json.val()["_is2_room_info"]:
-		ws_server.close(peer_id, 4096, "Client protocol failure")
-	peer_rooms[peer_id] = json.val()["_is2_room_info"]
-	var r := rooms[json.val()["_is2_room_info"]]
-	if len(r.room.users) >= r.room.user_limit:
-		ws_server.close(peer_id, 6144, "The room is at maximum capacity.")
-	if ws_server.peer_ip(peer_id) in r.room.banned_ips:
-		ws_server.close(peer_id, 6145, "You are banned from this room.")
-	#...
+	if json.is_err() or not ISUtil.json_event(json.val()) or json.val()["details"] != "_is2_room_info":
+		ws_server.close(peer_id, 4096, "Protocol failure")
+		return
+	var rid: int = int(json.val()["details"])
+	peer_rooms[peer_id] = rid
+	var r := rooms[rid]
+	r._connected(peer_id)
 
 func _text_data(peer_id: int, data: String) -> void:
 	if peer_id in peer_rooms:
