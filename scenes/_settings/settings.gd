@@ -3,15 +3,17 @@ extends TabContainer
 func make_slider(setting_data: SliderSetting, percent := false, log10 := false) -> Control:
 	var node: Control = preload("res://scenes/_settings/slider.tscn").instantiate()
 	var slider: Control = node.find_child("Slider")
-	if log:
-		slider.min_value = Math.log10(setting_data.min)
-		slider.max_value = Math.log10(setting_data.max)
+	if log10:
+		slider.min_value = Math.log10(setting_data.min_value)
+		slider.max_value = Math.log10(setting_data.max_value)
 		slider.value = Math.log10(setting_data.default)
 	else:
-		slider.min_value = setting_data.min
-		slider.max_value = setting_data.max
+		slider.min_value = setting_data.min_value
+		slider.max_value = setting_data.max_value
 		slider.value = setting_data.default
 	slider.step = (slider.max_value - slider.min_value)/50.0
+	if setting_data.snap != -1:
+		slider.step = setting_data.snap
 	node.percent = percent
 	node.log10 = log10
 	return node

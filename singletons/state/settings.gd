@@ -17,6 +17,14 @@ var settings_data: Dictionary[String, SettingsResource] = {
 		1.0,
 		0.1,
 		10
+	),
+	"ui_scale": SliderSetting.new(
+		"UI Scale",
+		SliderSetting.Type.PERCENT,
+		1.0,
+		1.0,
+		3.0, # TODO: we should probably cap this based on current screen size?
+		0.25
 	)
 }
 var settings_tabs: Dictionary[String, Array] = {
@@ -25,16 +33,28 @@ var settings_tabs: Dictionary[String, Array] = {
 	],
 	"Game": [
 		"camera_sensitivity"
+	],
+	"UI": [
+		"ui_scale"
 	]
 }
 
-func getv(setting: String) -> Variant:
+
+
+func getv(setting: String, fallback: Variant = null) -> Variant:
+	if settings.has(setting):
+		return settings.getv(setting).value
+	if fallback == null:
+		return settings_data[setting].default
+	return fallback
+
+func getv_strict(setting: String) -> Variant:
 	return settings.getv(setting).value
 
-func get_reactive(setting: String) -> Variant:
+func get_reactive(setting: String) -> Reactive:
 	return settings.getv(setting)
 
-func _ready() -> void:
+func _init() -> void:
 	_load_settings()
 	for setting in settings_data:
 		if settings.has(setting):
@@ -42,6 +62,9 @@ func _ready() -> void:
 		if settings_data.get(setting) is SliderSetting:
 			settings.setv(setting, ReactiveFloat.new((settings_data[setting] as SliderSetting).default))
 	settings.value_changed.connect(_save_settings.unbind(1))
+
+func _ready() -> void:
+	pass
 
 func reactive_convert(data: Dictionary) -> Dictionary:
 	var new := {}

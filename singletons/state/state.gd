@@ -3,8 +3,6 @@ extends Node
 
 @onready var display := DisplayManager.new()
 
-@onready var user_settings := UserSettingsManager.new()
-
 @onready var threading := ThreadingManager.new()
 
 var client: InfernoSocketClient = null
@@ -20,8 +18,6 @@ func _ready() -> void:
 	
 	add_child(display)
 	display.name = "DisplayManager"
-	add_child(user_settings)
-	user_settings.name = "UserSettingsManager"
 	_http_requesting_node_for_user = HTTPRequest.new()
 	add_child(_http_requesting_node_for_user)
 	

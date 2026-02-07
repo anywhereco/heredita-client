@@ -12,7 +12,7 @@ func _ready() -> void:
 	_set_label(setting.value)
 
 func _get_value() -> float:
-	if log:
+	if log10:
 		return Math.exp10(slider.value)
 	else:
 		return slider.value

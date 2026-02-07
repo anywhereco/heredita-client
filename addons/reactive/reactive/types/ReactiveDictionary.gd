@@ -12,8 +12,10 @@ func _init(initial_value: Dictionary, initial_owner: Reactive = null) -> void:
 	super._init(initial_owner)
 	value = initial_value
 
-func getv(index: Variant) -> Variant:
-	return value[index]
+func getv(index: Variant, fallback: Variant = null) -> Variant:
+	if value.has(index) or fallback == null: # We want to error out if no fallback is provided
+		return value[index]
+	return fallback
 	
 func get_or_add(index: Variant, fallback: Variant = null) -> Variant:
 	if fallback is Reactive:

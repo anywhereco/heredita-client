@@ -44,7 +44,7 @@ func initialize() -> void:
 
 @warning_ignore("unused_parameter")
 func _set_details(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
-	if result == ERR_CANT_CONNECT:
+	if result == HTTPRequest.RESULT_CANT_CONNECT:
 		push_error("Cannot connect to server (is your testing server set up?)")
 		return
 		
