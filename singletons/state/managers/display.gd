@@ -43,8 +43,9 @@ func _root_window_notifications(notif: int) -> void:
 
 func _root_window_rescaled_or_moved() -> void:
 	var prev_scale := scale.value
-	scale.value = _calculate_true_scale()
 	display_server_recommended_scale.value = DisplayServer.screen_get_scale(DisplayServer.SCREEN_OF_MAIN_WINDOW) * Settings.getv("ui_scale")
+	scale.value = _calculate_true_scale()
+	print("prev: %f, new: %f, recsca: %f | res: %dx%d" % [prev_scale, scale.value, display_server_recommended_scale.value, root_window.size.x, root_window.size.y])
 	if prev_scale != scale.value:
 		root_window.content_scale_factor = scale.value
 	root_window_moved_or_resized.emit()
