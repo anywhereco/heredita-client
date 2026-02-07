@@ -9,6 +9,7 @@ var log10 := false
 
 func _ready() -> void:
 	setting.value_changed.connect(_setting_changed)
+	_setting_changed(setting) #initial update
 	_set_label(setting.value)
 
 func _get_value() -> float:
@@ -30,4 +31,7 @@ func _slider_let_go(_value_changed: bool) -> void:
 	setting.value = _get_value()
 
 func _setting_changed(_setting: ReactiveFloat) -> void:
-	$Slider.value = Math.log10(setting.value)
+	if log10:
+		$Slider.value = Math.log10(setting.value)
+	else:
+		$Slider.value = setting.value
