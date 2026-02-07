@@ -24,6 +24,7 @@
 [ext_resource type="Script" uid="uid://boffekhvui4ql" path="res://scenes/mapper/ui/toolui/brush.gd" id="12_2eddf"]
 [ext_resource type="Script" uid="uid://boj66ccjdmq6n" path="res://libraries/ui/Unfocus.gd" id="12_vdunj"]
 [ext_resource type="FontVariation" uid="uid://hwc3xdnlf3ke" path="res://assets/font/_variants/pro450.tres" id="12_wbt2f"]
+[ext_resource type="Script" uid="uid://b7ubdvwh8kpkq" path="res://scenes/mapper/ui/player_list.gd" id="16_i44o3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hddsb"]
 content_margin_left = 5.0
@@ -352,14 +353,13 @@ size_flags_horizontal = 0
 [node name="FoldableContainer" type="FoldableContainer" parent="MenubarContainer/Bottom/ChatSplit/RightItems/RoomCount" unique_id=160364546]
 layout_mode = 2
 theme_type_variation = &"TransparentFoldableContainer"
-folded = true
 title = "1 in room"
 
-[node name="HFlowContainer" type="HFlowContainer" parent="MenubarContainer/Bottom/ChatSplit/RightItems/RoomCount/FoldableContainer" unique_id=2023269157]
-visible = false
+[node name="PlayerList" type="HFlowContainer" parent="MenubarContainer/Bottom/ChatSplit/RightItems/RoomCount/FoldableContainer" unique_id=2023269157]
 layout_mode = 2
+script = ExtResource("16_i44o3")
 
-[node name="Label" type="Label" parent="MenubarContainer/Bottom/ChatSplit/RightItems/RoomCount/FoldableContainer/HFlowContainer" unique_id=245858285]
+[node name="Label" type="Label" parent="MenubarContainer/Bottom/ChatSplit/RightItems/RoomCount/FoldableContainer/PlayerList" unique_id=245858285]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3

@@ -23,7 +23,7 @@ func _init() -> void:
 func _ready() -> void:
 	Prompts.override_ui = self
 	if "--server" in OS.get_cmdline_user_args():
-		get_tree().change_scene_to_file("res://scenes/server/Server.tscn")
+		get_tree().change_scene_to_file.call_deferred("res://scenes/server/Server.tscn")
 
 func swap_page(new_page: Page) -> void:
 	var inst: Node

@@ -27,10 +27,7 @@ var _prompt: PromptInstance
 var _prompt_instance: Node
 var _attempts := 5
 
-var room_name: String
-var description: String
-var room_state: int
-var users: Dictionary
+var room: Room
 
 signal connected_to_server()
 signal connection_closed()
@@ -209,18 +206,19 @@ func _poll_string(message: Dictionary) -> void:
 				#send("_is2_token", token_res.val())
 				return
 			"_is2_handshake_complete":
-				room_name = message.get("details").get("name")
-				description = message.get("details").get("description")
-				room_state = message.get("details").get("state")
-				users = int_keys(message.get("details").get("users") as Dictionary)
+				room = Room.new()
+				State.room = room
+				room.name = message.get("details").get("name")
+				room.description = message.get("details").get("description")
+				room.users = ReactiveDictionary.new(message.get("details").get("users") as Dictionary)
 				handshake_complete.emit()
 				return
 			"_is2_user_join":
-				users[message.get("details").get("user_id") as int] = message.get("details").get("details")
+				room.users.setv(message.get("details").get("user_id") as int, message.get("details").get("details"))
 				message_received.emit("is2_user_join", -1, message.get("details"))
 				return
 			"_is2_user_exit":
-				users.erase(message.get("details"))
+				room.users.erase(message.get("details"))
 				message_received.emit("is2_user_exit", -1, message.get("details"))
 				return
 			"_is2_new_host":

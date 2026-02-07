@@ -6,6 +6,7 @@ var peer_rooms: Dictionary[int, int]
 var ws_server := WSServer.new()
 
 func _ready() -> void:
+	add_child(ws_server)
 	ws_server.text_data.connect(_text_data)
 	ws_server.binary_data.connect(_binary_data)
 	ws_server.closed.connect(_closed)

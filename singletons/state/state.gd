@@ -8,6 +8,7 @@ extends Node
 @onready var threading := ThreadingManager.new()
 
 var client: InfernoSocketClient = null
+var room: Room = null
 
 ## Can be null. In this case, we don't have a user account.
 var user: PrimaryUser = null

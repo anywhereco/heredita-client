@@ -29,7 +29,7 @@ func peer_close(peer_id: int, code := 1000, reason := "") -> void:
 
 func send_event(event: String, details: Dictionary, origin_id := -1) -> Error:
 	for user_id: int in room.users:
-		var peer_id := room.users[user_id].peer_id
+		var peer_id: int = room.users.getv(user_id).peer_id
 		var error := ws_server.send_text(peer_id, JSON.stringify({"event": event, "user_id": origin_id, "details": details}))
 		if error:
 			return error
@@ -89,7 +89,7 @@ func _connected(peer_id: int) -> void:
 	#token stuff
 	
 	send_event("_is2_user_join", {"user_id": user_id, "details": {"username": user.username, "logged_in": user.logged_in, "profile": user.profile}})
-	room.users[user_id] = user
+	room.users.setv(user_id, user)
 	ws_server.send_targeted_event(peer_id, "_is2_handshake_complete", {"name": room.name, "description": room.description, "users": room.user_info()})
 	room.user_ids_chronological.append(user_id)
 

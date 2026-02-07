@@ -1,7 +1,7 @@
 extends Node
 class_name WSServer
 
-const PORT = 443
+var PORT := 443
 
 var _tcp_server: TCPServer = TCPServer.new()
 
@@ -10,6 +10,9 @@ var _peers: Dictionary[int, WebSocketPeer] = {}
 var last_peer_id := 1
 
 func _ready() -> void:
+	if "--test" in OS.get_cmdline_user_args():
+		PORT = 9000
+	print(PORT)
 	var err := _tcp_server.listen(PORT)
 	if err == OK:
 		print("Server started.")
@@ -72,6 +75,7 @@ func _process(_delta: float) -> void:
 				if peer.was_string_packet():
 					var packet_text := packet.get_string_from_utf8()
 					text_data.emit(peer_id, packet_text)
+					print(packet_text)
 				else:
 					binary_data.emit(peer_id, packet)
 		elif peer_state == WebSocketPeer.STATE_CLOSED:
