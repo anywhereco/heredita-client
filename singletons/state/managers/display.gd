@@ -27,14 +27,10 @@ func _ready() -> void:
 	Settings.get_reactive("ui_scale").value_changed.connect(_root_window_rescaled_or_moved.unbind(1))
 
 func _calculate_true_scale() -> float:
-	var adjusted_resolution := root_window.size / display_server_recommended_scale.value
-	
-	var scale_x := adjusted_resolution.x / DEFAULT_VIEWPORT_SIZE.x 
-	var scale_y := adjusted_resolution.y / DEFAULT_VIEWPORT_SIZE.y
-	var temp_scale := minf(scale_x, scale_y)
-	if temp_scale < (display_server_recommended_scale.value):
-		return temp_scale
-	return display_server_recommended_scale.value
+	var max_fit_scale_x := root_window.size.x / DEFAULT_VIEWPORT_SIZE.x
+	var max_fit_scale_y := root_window.size.y / DEFAULT_VIEWPORT_SIZE.y
+	var max_fit_scale := minf(max_fit_scale_x, max_fit_scale_y)
+	return minf(display_server_recommended_scale.value, max_fit_scale)
 
 func _root_window_notifications(notif: int) -> void:
 	match notif:
