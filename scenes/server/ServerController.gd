@@ -62,12 +62,14 @@ func _text_data(peer_id: int, data: String) -> void:
 		rooms[peer_rooms[peer_id]]._text_data(peer_id, data)
 	else:
 		push_error("stop. you are violating the law (peer %d d=%s)" % [peer_id, data])
+		breakpoint
 
 func _binary_data(peer_id: int, data: PackedByteArray) -> void:
 	if peer_id in peer_rooms:
 		rooms[peer_rooms[peer_id]]._binary_data(peer_id, data)
 	else:
 		push_error("stop. you are violating the law (peer %d)" % peer_id)
+		breakpoint
 
 func _closed(peer_id: int, code: int, reason: String) -> void:
 	if peer_id in peer_rooms:
@@ -75,3 +77,4 @@ func _closed(peer_id: int, code: int, reason: String) -> void:
 		peer_rooms.erase(peer_id)
 	else:
 		push_error("stop. you are violating the law (peer %d c=%d r=%s)" % [peer_id, code, reason])
+		breakpoint
