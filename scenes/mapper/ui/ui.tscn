@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://boj66ccjdmq6n" path="res://libraries/ui/Unfocus.gd" id="12_vdunj"]
 [ext_resource type="FontVariation" uid="uid://hwc3xdnlf3ke" path="res://assets/font/_variants/pro450.tres" id="12_wbt2f"]
 [ext_resource type="Script" uid="uid://b7ubdvwh8kpkq" path="res://scenes/mapper/ui/player_list.gd" id="16_i44o3"]
+[ext_resource type="Texture2D" uid="uid://0fs4gs4hvf7w" path="res://assets/icons/tools/markings.svg" id="20_koqyc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hddsb"]
 content_margin_left = 5.0
@@ -457,10 +458,9 @@ icon = ExtResource("8_tv71d")
 [node name="Marking" type="Button" parent="MenubarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems" unique_id=1921768236]
 layout_mode = 2
 theme_type_variation = &"ToolButton"
-disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grkin")
-icon = ExtResource("8_tv71d")
+icon = ExtResource("20_koqyc")
 
 [node name="Select" type="Button" parent="MenubarContainer/Bottom/LeftItems/Toolkit/VBoxContainer/MenuItems" unique_id=593451830]
 layout_mode = 2
