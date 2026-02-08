@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://da23s8ssptv20" path="res://assets/player/shmile.png" id="4_1goaf"]
 [ext_resource type="Script" uid="uid://b2ln5lyiu705a" path="res://scenes/mapper/camera_pivot.gd" id="5_1goaf"]
 [ext_resource type="Script" uid="uid://clxj0fu6d2g3r" path="res://scenes/mapper/map/map_core.gd" id="6_sm41v"]
+[ext_resource type="Script" uid="uid://bsiv8ukmfm4wg" path="res://scenes/mapper/map_markings.gd" id="9_l0uxc"]
+[ext_resource type="ArrayMesh" uid="uid://bc25bnwd711e8" path="res://assets/map/markings/city_mesh.tres" id="10_0kc0x"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_76f00"]
 
@@ -74,6 +76,12 @@ reflected_light_source = 2
 plane = Plane(0, 1, 0, -0.5)
 
 [sub_resource type="ImageTexture" id="ImageTexture_wvm7y"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_kx3ff"]
+transform_format = 1
+use_colors = true
+visible_instance_count = 0
+mesh = ExtResource("10_0kc0x")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l0uxc"]
 render_priority = -1
@@ -155,6 +163,15 @@ double_sided = false
 texture_filter = 0
 render_priority = 1
 texture = SubResource("ImageTexture_wvm7y")
+
+[node name="MapMarkings" type="Node3D" parent="Map" unique_id=1797148079]
+script = ExtResource("9_l0uxc")
+
+[node name="Cities" type="MultiMeshInstance3D" parent="Map/MapMarkings" unique_id=1754519806]
+transform = Transform3D(0.063, 0, 0, 0, 0.063, 0, 0, 0, 0.063, 0, 0, 0)
+multimesh = SubResource("MultiMesh_kx3ff")
+
+[node name="TextMeshes" type="Node3D" parent="Map/MapMarkings" unique_id=1661006275]
 
 [node name="Water" type="MeshInstance3D" parent="." unique_id=855186101]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
