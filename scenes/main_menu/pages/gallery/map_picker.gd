@@ -1,7 +1,6 @@
 extends HBoxContainer
 
 const MAP_BLANK = preload("uid://do2qcumlvx0lo")
-const MAP_1935 = preload("uid://bb1h8pyo0qcav")
 
 @onready var image_picker_button: ImagePickerButton = $ImagePickerButton
 @onready var map_name: Label = $"../../MapName"
