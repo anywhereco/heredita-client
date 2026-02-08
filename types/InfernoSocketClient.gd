@@ -43,9 +43,9 @@ signal raw_message_received(string: String)
 
 signal raw_message_sent(string: String)
 
-func _init(url: String = "", room: int = 0) -> void:
+func _init(url: String = "", _room: int = 0) -> void:
 	websocket_url = url
-	room_id = room
+	room_id = _room
 
 func _ready() -> void:
 	var err := self.connect_to_url(websocket_url)
