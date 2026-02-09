@@ -9,6 +9,7 @@ func _ready() -> void:
 	add_child(ws_server)
 	ws_server.text_data.connect(_text_data)
 	ws_server.binary_data.connect(_binary_data)
+	ws_server.connected.connect(_connected)
 	ws_server.closed.connect(_closed)
 
 func new_room_id() -> int:
@@ -17,10 +18,16 @@ func new_room_id() -> int:
 		id = randi()
 	return id
 
-func create_room() -> int:
+func create_room(data: Dictionary = {}) -> int:
 	var id := new_room_id()
-	rooms[id] = RoomServer.new()
-	add_child(rooms[id])
+	var room := Room.new()
+	for key: String in data:
+		if key == "name":
+			room.name = data[key]
+	var room_server := RoomServer.new()
+	room_server.room = room
+	rooms[id] = room_server
+	add_child(room_server)
 	return id
 	
 func close_room(id: int) -> void:
@@ -37,44 +44,50 @@ func get_text_data(peer_id: int) -> String:
 		ret = await ws_server.text_data
 		peer = ret[0]
 	return ret[1]
-
-func get_json_data(peer_id: int) -> Result:
-	var data := await get_text_data(peer_id)
+	
+func parse_json(text: String) -> Result:
 	var json := JSON.new()
-	var error := json.parse(data)
+	var error := json.parse(text)
 	if error != OK:
 		return Result.err(error)
 	return Result.ok(json.data)
 
+func get_json_data(peer_id: int) -> Result:
+	var data := await get_text_data(peer_id)
+	return parse_json(data)
+
 func _connected(peer_id: int) -> void:
-	ws_server.send_text(peer_id, "_is2_handshake")
+	ws_server.send_targeted_event(peer_id, "_is2_handshake")
 	var json := await get_json_data(peer_id)
-	if json.is_err() or not ISUtil.json_event(json.val()) or json.val()["details"] != "_is2_room_info":
-		ws_server.close(peer_id, 4096, "Protocol failure")
+	if ISUtil.valid_event(json, "_is2_room_info"):
+		var rid := int(json.val()["details"])
+		peer_rooms[peer_id] = rid
+		var r := rooms[rid]
+		r._connected(peer_id)
 		return
-	var rid: int = int(json.val()["details"])
-	peer_rooms[peer_id] = rid
-	var r := rooms[rid]
-	r._connected(peer_id)
+	elif ISUtil.valid_event(json, "_is2_create_room"):
+		var rid := create_room(json.val()["details"])
+		peer_rooms[peer_id] = rid
+		var r := rooms[rid]
+		r._connected(peer_id)
+		return
+	ws_server.close(peer_id, 4096, "Protocol failure")
 
 func _text_data(peer_id: int, data: String) -> void:
 	if peer_id in peer_rooms:
 		rooms[peer_rooms[peer_id]]._text_data(peer_id, data)
 	else:
-		push_error("stop. you are violating the law (peer %d d=%s)" % [peer_id, data])
-		breakpoint
+		var data_json := await parse_json(data)
+		if not (ISUtil.valid_event(data_json, "_is2_room_info") or ISUtil.valid_event(data_json, "_is2_create_room")):
+			ws_server.close(peer_id, 4096, "Protocol failure")
 
 func _binary_data(peer_id: int, data: PackedByteArray) -> void:
 	if peer_id in peer_rooms:
 		rooms[peer_rooms[peer_id]]._binary_data(peer_id, data)
 	else:
-		push_error("stop. you are violating the law (peer %d)" % peer_id)
-		breakpoint
+		ws_server.close(peer_id, 4096, "Protocol failure")
 
 func _closed(peer_id: int, code: int, reason: String) -> void:
 	if peer_id in peer_rooms:
 		rooms[peer_rooms[peer_id]]._closed(peer_id, code, reason)
 		peer_rooms.erase(peer_id)
-	else:
-		push_error("stop. you are violating the law (peer %d c=%d r=%s)" % [peer_id, code, reason])
-		breakpoint

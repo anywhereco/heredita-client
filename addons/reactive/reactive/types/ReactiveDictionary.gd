@@ -28,8 +28,14 @@ func setv(index: Variant, new_value: Variant) -> void:
 	value[index] = new_value
 	value_changed.emit(self)
 
+func keys() -> Array:
+	return value.keys()
+
 func hash() -> int:
 	return value.hash()
+	
+func size() -> int:
+	return value.size()
 
 func has(index: Variant) -> bool:
 	return value.has(index)

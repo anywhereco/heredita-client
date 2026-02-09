@@ -21,13 +21,14 @@ const PING_INTERVAL: float = 60
 var socket := WebSocketPeer.new()
 var last_state := WebSocketPeer.STATE_CLOSED
 var user_id: int = -2 # -1 is reserved for the server, so we default to -2
-var host := -2
+var hosts := []
 
 var _prompt: PromptInstance
 var _prompt_instance: Node
 var _attempts := 5
 
 var room: Room
+var creating_room := {}
 
 signal connected_to_server()
 signal connection_closed()
@@ -43,9 +44,10 @@ signal raw_message_received(string: String)
 
 signal raw_message_sent(string: String)
 
-func _init(url: String = "", _room: int = 0) -> void:
+func _init(url: String = "", _room: int = 0, creating: Dictionary = {}) -> void:
 	websocket_url = url
 	room_id = _room
+	creating_room = creating
 
 func _ready() -> void:
 	var err := self.connect_to_url(websocket_url)
@@ -166,11 +168,14 @@ func _poll_string(message: Dictionary) -> void:
 			return
 		match message["event"]:
 			"_is2_handshake":
+				if creating_room:
+					send("_is2_create_room", creating_room)
+					return
 				send("_is2_room_info", room_id)
 				return
 			"_is2_room_info":
 				user_id = message.get("details").get("user_id") as int
-				host = message.get("details").get("host")
+				hosts = message.get("details").get("hosts")
 				return
 			"_is2_login":
 				_prompt_instance = load("res://types/ui/PasswordPrompt.tscn").instantiate()
@@ -197,7 +202,8 @@ func _poll_string(message: Dictionary) -> void:
 				attempts_label.text = "%d attempts remaining" % _attempts
 				return
 			"_is2_username":
-				send("_is2_username", State.user.name)
+				#send("_is2_username", State.user.name)
+				send("_is2_username", "User%d" % user_id)
 				return
 			"_is2_token":
 				#var token_res: Variant = LocalStorage.get_item("token")
@@ -210,7 +216,7 @@ func _poll_string(message: Dictionary) -> void:
 				State.room = room
 				room.name = message.get("details").get("name")
 				room.description = message.get("details").get("description")
-				room.users = ReactiveDictionary.new(message.get("details").get("users") as Dictionary)
+				room.users = ReactiveDictionary.new(int_keys(message.get("details").get("users") as Dictionary))
 				handshake_complete.emit()
 				return
 			"_is2_user_join":
@@ -220,10 +226,6 @@ func _poll_string(message: Dictionary) -> void:
 			"_is2_user_exit":
 				room.users.erase(message.get("details"))
 				message_received.emit("is2_user_exit", -1, message.get("details"))
-				return
-			"_is2_new_host":
-				host = message.get("details")
-				message_received.emit("is2_new_host", -1, message.get("details"))
 				return
 			"_is2_pong":
 				return

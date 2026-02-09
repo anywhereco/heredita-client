@@ -3,7 +3,6 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wfgj1"]
 resource_name = "Material.002"
 cull_mode = 2
-vertex_color_use_as_albedo = true
 albedo_color = Color(0.9063318, 0.9063318, 0.9063318, 1)
 roughness = 0.5
 

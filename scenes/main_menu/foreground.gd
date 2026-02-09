@@ -24,6 +24,8 @@ func _ready() -> void:
 	Prompts.override_ui = self
 	if "--server" in OS.get_cmdline_user_args():
 		get_tree().change_scene_to_file.call_deferred("res://scenes/server/Server.tscn")
+		CursorLayer.queue_free()
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func swap_page(new_page: Page) -> void:
 	var inst: Node

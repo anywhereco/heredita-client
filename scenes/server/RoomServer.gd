@@ -28,7 +28,7 @@ func peer_close(peer_id: int, code := 1000, reason := "") -> void:
 		server_controller.close_room(server_controller._room_find_id(self))
 
 func send_event(event: String, details: Dictionary, origin_id := -1) -> Error:
-	for user_id: int in room.users:
+	for user_id: int in room.users.keys():
 		var peer_id: int = room.users.getv(user_id).peer_id
 		var error := ws_server.send_text(peer_id, JSON.stringify({"event": event, "user_id": origin_id, "details": details}))
 		if error:
@@ -40,7 +40,7 @@ func close_room() -> void:
 		ws_server.close(room.users[user_id].peer_id)
 
 func _connected(peer_id: int) -> void:
-	if len(room.users) >= room.user_limit:
+	if room.users.size() >= room.user_limit:
 		ws_server.close(peer_id, 6144, "The room is at maximum capacity.")
 		return
 	if ws_server.peer_ip(peer_id) in room.banned_ips:
@@ -51,7 +51,7 @@ func _connected(peer_id: int) -> void:
 	while room.id_iterator in room.users.keys():
 		room.id_iterator += 1
 
-	ws_server.send_targeted_event(peer_id, "_is2_room_info", {"user_id": user_id})
+	ws_server.send_targeted_event(peer_id, "_is2_room_info", {"user_id": user_id, "hosts": room.hosts})
 	if room.password:
 		ws_server.send_targeted_event(peer_id, "_is2_login")
 		var attempts := 1
@@ -76,7 +76,7 @@ func _connected(peer_id: int) -> void:
 		ws_server.close(peer_id, 4096, "Protocol failure")
 		return
 	else:
-		user = User.new(peer_id, {username=username_json["details"], logged_in=false})
+		user = User.new(peer_id, {username = username_json.val()["details"], logged_in = false})
 	
 	if len(user.username) < 3 or len(user.username) > 20:
 		ws_server.close(peer_id, 4099, "Invalid username")

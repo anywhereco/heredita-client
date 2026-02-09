@@ -6,6 +6,7 @@ var PORT := 443
 var _tcp_server: TCPServer = TCPServer.new()
 
 var _peers: Dictionary[int, WebSocketPeer] = {}
+var _peer_status: Dictionary[int, WebSocketPeer.State] = {}
 
 var last_peer_id := 1
 
@@ -34,6 +35,8 @@ func peer_ip(peer_id: int) -> String:
 func send_text(peer_id: int, message: String) -> Error:
 	var peer := _peers[peer_id]
 	var error := peer.send_text(message)
+	if not error:
+		print("outgoing: %s" % message)
 	return error
 	
 func send_targeted_event(peer_id: int, event: String, details: Variant = {}, origin_id := -1) -> Error:
@@ -51,7 +54,6 @@ func send_global_event(event: String, details: Dictionary, origin_id := -1) -> E
 func close(peer_id: int, code := 1000, reason := "") -> void:
 	var peer := _peers[peer_id]
 	peer.close(code, reason)
-	_peers.erase(peer_id)
 
 func _process(_delta: float) -> void:
 	while _tcp_server.is_connection_available():
@@ -60,7 +62,7 @@ func _process(_delta: float) -> void:
 		var ws := WebSocketPeer.new()
 		ws.accept_stream(_tcp_server.take_connection())
 		_peers[last_peer_id] = ws
-		connected.emit(last_peer_id)
+		_peer_status[last_peer_id] = WebSocketPeer.STATE_CONNECTING
 
 	# Iterate over all connected peers using "keys()" so we can erase in the loop
 	for peer_id: int in _peers.keys():
@@ -69,18 +71,22 @@ func _process(_delta: float) -> void:
 		peer.poll()
 
 		var peer_state := peer.get_ready_state()
+		if _peer_status[peer_id] != WebSocketPeer.STATE_OPEN and peer_state == WebSocketPeer.STATE_OPEN:
+			connected.emit(peer_id)
+		_peer_status[peer_id] = peer_state
 		if peer_state == WebSocketPeer.STATE_OPEN:
 			while peer.get_available_packet_count():
 				var packet := peer.get_packet()
 				if peer.was_string_packet():
 					var packet_text := packet.get_string_from_utf8()
 					text_data.emit(peer_id, packet_text)
-					print(packet_text)
+					print("incoming: %s" % packet_text)
 				else:
 					binary_data.emit(peer_id, packet)
 		elif peer_state == WebSocketPeer.STATE_CLOSED:
 			# Remove the disconnected peer.
 			_peers.erase(peer_id)
+			_peer_status.erase(peer_id)
 			var code := peer.get_close_code()
 			var reason := peer.get_close_reason()
 			closed.emit(peer_id, code, reason)

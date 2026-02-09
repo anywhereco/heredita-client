@@ -8,6 +8,6 @@ func enter_mapper() -> void:
 	get_tree().current_scene = mapper
 
 func _pressed() -> void:
-	State.client = InfernoSocketClient.new(Statics.SERVER_URL, 0)
+	State.client = InfernoSocketClient.new(Statics.SERVER_URL, 0, {"name": "Testers' Room"})
 	get_tree().root.add_child(State.client)
 	State.client.handshake_complete.connect(enter_mapper)
