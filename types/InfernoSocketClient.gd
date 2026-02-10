@@ -20,7 +20,7 @@ const PING_INTERVAL: float = 60
 
 var socket := WebSocketPeer.new()
 var last_state := WebSocketPeer.STATE_CLOSED
-var user_id: int = -2 # -1 is reserved for the server, so we default to -2
+var player_id: int = -2 # -1 is reserved for the server, so we default to -2
 var hosts := []
 
 var _prompt: PromptInstance
@@ -35,9 +35,9 @@ signal connection_closed()
 
 signal handshake_complete()
 
-signal message_received(event: String, user_id: int, details: Variant)
+signal message_received(event: String, player_id: int, details: Variant)
 
-signal binary_message_received(event: int, user_id: int, details: PackedByteArray)
+signal binary_message_received(event: int, player_id: int, details: PackedByteArray)
 
 ## Same as [code]message_recieved[/code], but shows handshake events and is not parsed.
 signal raw_message_received(string: String)
@@ -161,10 +161,10 @@ func _poll_loop() -> void:
 func _poll_string(message: Dictionary) -> void:
 	if message == null:
 		return
-	if message.has("event") and message.has("user_id"):
-		message["user_id"] = message["user_id"] as int
-		if message["user_id"] != -1:
-			message_received.emit(message["event"], message["user_id"], message.get("details", null))
+	if message.has("event") and message.has("player_id"):
+		message["player_id"] = message["player_id"] as int
+		if message["player_id"] != -1:
+			message_received.emit(message["event"], message["player_id"], message.get("details", null))
 			return
 		match message["event"]:
 			"_is2_handshake":
@@ -174,7 +174,9 @@ func _poll_string(message: Dictionary) -> void:
 				send("_is2_room_info", room_id)
 				return
 			"_is2_room_info":
-				user_id = message.get("details").get("user_id") as int
+				if message.get("details").has("room_id"): #creating room
+					room_id = message.get("details").get("room_id")
+				player_id = message.get("details").get("player_id") as int
 				hosts = message.get("details").get("hosts")
 				return
 			"_is2_login":
@@ -202,8 +204,8 @@ func _poll_string(message: Dictionary) -> void:
 				attempts_label.text = "%d attempts remaining" % _attempts
 				return
 			"_is2_username":
-				#send("_is2_username", State.user.name)
-				send("_is2_username", "User%d" % user_id)
+				#send("_is2_username", State.player.name)
+				send("_is2_username", "User%d" % player_id)
 				return
 			"_is2_token":
 				#var token_res: Variant = LocalStorage.get_item("token")
@@ -216,28 +218,28 @@ func _poll_string(message: Dictionary) -> void:
 				State.room = room
 				room.name = message.get("details").get("name")
 				room.description = message.get("details").get("description")
-				room.users = ReactiveDictionary.new(int_keys(message.get("details").get("users") as Dictionary))
+				room.players = ReactiveDictionary.new(int_keys(message.get("details").get("players") as Dictionary))
 				handshake_complete.emit()
 				return
-			"_is2_user_join":
-				room.users.setv(message.get("details").get("user_id") as int, message.get("details").get("details"))
-				message_received.emit("is2_user_join", -1, message.get("details"))
+			"_is2_player_join":
+				room.players.setv(message.get("details").get("player_id") as int, message.get("details").get("details"))
+				message_received.emit("is2_player_join", -1, message.get("details"))
 				return
-			"_is2_user_exit":
-				room.users.erase(message.get("details"))
-				message_received.emit("is2_user_exit", -1, message.get("details"))
+			"_is2_player_exit":
+				room.players.erase(message.get("details"))
+				message_received.emit("is2_player_exit", -1, message.get("details"))
 				return
 			"_is2_pong":
 				return
 			_:
-				message_received.emit(message["event"], message["user_id"], message.get("details", null))
+				message_received.emit(message["event"], message["player_id"], message.get("details", null))
 
 func _poll_binary(message: PackedByteArray) -> void:
 	var event := message.decode_u16(0)
 	var uid := message.decode_s16(2)
 	var size := message.decode_u16(4)
 	var data := message.slice(6)
-	raw_message_received.emit("<Binary event %d, \"userid\"=%d>" % [event, uid])
+	raw_message_received.emit("<Binary event %d, \"playerid\"=%d>" % [event, uid])
 	if size != 0xFFFF:
 		data = data.decompress(size, FileAccess.COMPRESSION_FASTLZ)
 	binary_message_received.emit(event, uid, data)

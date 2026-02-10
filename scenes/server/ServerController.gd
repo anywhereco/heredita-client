@@ -16,7 +16,8 @@ func new_room_id() -> int:
 	var id := randi()
 	while id in rooms:
 		id = randi()
-	return id
+	#return id
+	return 0
 
 func create_room(data: Dictionary = {}) -> int:
 	var id := new_room_id()
@@ -59,17 +60,20 @@ func get_json_data(peer_id: int) -> Result:
 func _connected(peer_id: int) -> void:
 	ws_server.send_targeted_event(peer_id, "_is2_handshake")
 	var json := await get_json_data(peer_id)
-	if ISUtil.valid_event(json, "_is2_room_info"):
+	if ISUtil.valid_event_is(json, "_is2_room_info"):
 		var rid := int(json.val()["details"])
+		if not rooms.has(rid):
+			ws_server.close(peer_id, 6146, "Room does not exist")
+			return
 		peer_rooms[peer_id] = rid
 		var r := rooms[rid]
 		r._connected(peer_id)
 		return
-	elif ISUtil.valid_event(json, "_is2_create_room"):
+	elif ISUtil.valid_event_is(json, "_is2_create_room"):
 		var rid := create_room(json.val()["details"])
 		peer_rooms[peer_id] = rid
 		var r := rooms[rid]
-		r._connected(peer_id)
+		r._connected(peer_id, true)
 		return
 	ws_server.close(peer_id, 4096, "Protocol failure")
 
@@ -78,7 +82,7 @@ func _text_data(peer_id: int, data: String) -> void:
 		rooms[peer_rooms[peer_id]]._text_data(peer_id, data)
 	else:
 		var data_json := await parse_json(data)
-		if not (ISUtil.valid_event(data_json, "_is2_room_info") or ISUtil.valid_event(data_json, "_is2_create_room")):
+		if not (ISUtil.valid_event_is(data_json, "_is2_room_info") or ISUtil.valid_event_is(data_json, "_is2_create_room")):
 			ws_server.close(peer_id, 4096, "Protocol failure")
 
 func _binary_data(peer_id: int, data: PackedByteArray) -> void:

@@ -41,12 +41,12 @@ func send_text(peer_id: int, message: String) -> Error:
 	
 func send_targeted_event(peer_id: int, event: String, details: Variant = {}, origin_id := -1) -> Error:
 	if details:
-		return send_text(peer_id, JSON.stringify({"event": event, "user_id": origin_id, "details": details}))
-	return send_text(peer_id, JSON.stringify({"event": event, "user_id": origin_id}))
+		return send_text(peer_id, JSON.stringify({"event": event, "player_id": origin_id, "details": details}))
+	return send_text(peer_id, JSON.stringify({"event": event, "player_id": origin_id}))
 	
 func send_global_event(event: String, details: Dictionary, origin_id := -1) -> Error:
 	for peer_id: int in _peers:
-		var error := send_text(peer_id, JSON.stringify({"event": event, "user_id": origin_id, "details": details}))
+		var error := send_text(peer_id, JSON.stringify({"event": event, "player_id": origin_id, "details": details}))
 		if error:
 			return error
 	return OK
@@ -58,7 +58,7 @@ func close(peer_id: int, code := 1000, reason := "") -> void:
 func _process(_delta: float) -> void:
 	while _tcp_server.is_connection_available():
 		last_peer_id += 1
-		print("+ Peer %d connected." % last_peer_id)
+		print("peer %d connected" % last_peer_id)
 		var ws := WebSocketPeer.new()
 		ws.accept_stream(_tcp_server.take_connection())
 		_peers[last_peer_id] = ws

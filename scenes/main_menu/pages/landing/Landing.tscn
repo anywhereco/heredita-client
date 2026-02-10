@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://scenes/main_menu/pages/landing/ver.gd" id="3_ecxkw"]
 [ext_resource type="Script" uid="uid://cvudgig5551tm" path="res://scenes/main_menu/pages/landing/settings.gd" id="5_ecxkw"]
 [ext_resource type="Script" uid="uid://cmvjksu4axhu4" path="res://scenes/main_menu/pages/landing/right_side_handler.gd" id="6_5jq1k"]
-[ext_resource type="Script" uid="uid://bcftydui3h2on" path="res://scenes/main_menu/pages/landing/temporary_mapper_opener_mp.gd" id="6_dvdc6"]
+[ext_resource type="Script" uid="uid://buw4ayurbvngk" path="res://scenes/main_menu/pages/landing/temporary_mptest_opener.gd" id="6_dvdc6"]
 [ext_resource type="FontVariation" uid="uid://cyxhummrwgoly" path="res://assets/font/_variants/proitalics650.tres" id="6_v3lsn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ikikv"]

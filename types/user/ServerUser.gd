@@ -1,4 +1,4 @@
-class_name User
+class_name Player
 
 var peer_id: int
 var username: String

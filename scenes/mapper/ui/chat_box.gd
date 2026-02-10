@@ -1,0 +1,38 @@
+extends VBoxContainer
+
+@onready var text_box: LineEdit = find_child("ChatTextBox")
+@onready var send_button: Button = find_child("ChatSendButton")
+@onready var scroll: ScrollContainer = find_child("ChatScroll")
+@onready var messages: RichTextLabel = find_child("ChatMessages")
+var players_listed := []
+
+func _ready() -> void:
+	if State.room:
+		$PanelContainer/MarginContainer/ChatSP.hide()
+		text_box.editable = true
+		text_box.text_submitted.connect(send_typed_message.unbind(1))
+		send_button.disabled = false
+		send_button.pressed.connect(send_typed_message)
+		State.client.message_received.connect(receive_message)
+		
+func _process(_delta: float) -> void:
+	messages.custom_minimum_size.x = scroll.size.x - scroll.get_v_scroll_bar().size.x
+		
+func send_typed_message() -> void:
+	if text_box.text:
+		send_message(text_box.text)
+		text_box.text = ""
+		
+func send_message(message: String) -> void:
+	State.client.send("chat_message", message)
+
+func receive_message(event: String, user_id: int, message: Variant) -> void:
+	print(event)
+	if event == "chat_message" and message is String:
+		add_message(user_id, message as String)
+
+func add_message(sender_id: int, message: String) -> void:
+	var newline := "\n" if messages.text else ""
+	var player: Dictionary = State.room.players.getv(sender_id)
+	messages.text += newline + "[b]%s[/b]: %s" % [Markdown.bb_escape(player["username"]),
+												  Markdown.bb_escape(message)]
