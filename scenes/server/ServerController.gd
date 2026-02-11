@@ -1,6 +1,8 @@
 extends Node
 class_name ServerController
 
+const TIMEOUT: int = 10000 #ms
+
 var rooms: Dictionary[int, RoomServer]
 var peer_rooms: Dictionary[int, int]
 var ws_server := WSServer.new()
@@ -22,9 +24,12 @@ func new_room_id() -> int:
 func create_room(data: Dictionary = {}) -> int:
 	var id := new_room_id()
 	var room := Room.new()
+	room.map = Map.new()
 	for key: String in data:
 		if key == "name":
 			room.name = data[key]
+		if key == "map":
+			pass
 	var room_server := RoomServer.new()
 	room_server.room = room
 	rooms[id] = room_server
@@ -42,10 +47,33 @@ func get_text_data(peer_id: int) -> String:
 	var peer := 0x7fffffffffffffff
 	var ret: Array
 	while peer != peer_id:
-		ret = await ws_server.text_data
+		var timer := get_tree().create_timer(TIMEOUT)
+		ret = await TimedPromise.new(timer, ws_server.text_data).done
+		if not ret: #timed out
+			return ""
 		peer = ret[0]
 	return ret[1]
 	
+func get_binary_data(peer_id: int) -> PackedByteArray:
+	var peer := 0x7fffffffffffffff
+	var ret: Array
+	while peer != peer_id:
+		var timer := get_tree().create_timer(TIMEOUT)
+		ret = await TimedPromise.new(timer, ws_server.binary_data).done
+		if not ret: #timed out
+			return PackedByteArray([])
+	return ret[1]
+	
+func get_chunked_binary_data(peer_id: int) -> PackedByteArray:
+	var data := []
+	while true:
+		var chunk := await get_binary_data(peer_id)
+		if not chunk:
+			return PackedByteArray([])
+		#parse chunk and add to data
+		#if chunk is final, break
+	return data
+
 func parse_json(text: String) -> Result:
 	var json := JSON.new()
 	var error := json.parse(text)
@@ -70,6 +98,9 @@ func _connected(peer_id: int) -> void:
 		r._connected(peer_id)
 		return
 	elif ISUtil.valid_event_is(json, "_is2_create_room"):
+		var map_data: PackedByteArray = PackedByteArray([])
+		if "map" in json.val()["details"]:
+			map_data = await get_binary_data(peer_id)
 		var rid := create_room(json.val()["details"])
 		peer_rooms[peer_id] = rid
 		var r := rooms[rid]

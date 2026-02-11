@@ -2,6 +2,7 @@ extends Node
 class_name RoomServer
 
 var room: Room = null
+var map_controller: RoomMap = RoomMap.new()
 @onready var server_controller: ServerController = get_parent()
 @onready var ws_server: WSServer = get_parent().ws_server
 var connected_peers := [] #peers that have finished making a connection
