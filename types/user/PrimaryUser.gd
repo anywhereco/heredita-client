@@ -47,7 +47,10 @@ func _set_details(result: int, response_code: int, headers: PackedStringArray, b
 	if result == HTTPRequest.RESULT_CANT_CONNECT:
 		push_warning("Cannot connect to server (is your testing server set up?)")
 		return
-		
+	
+	if response_code == HTTPClient.RESPONSE_UNAUTHORIZED:
+		return # TODO: say we arent logged in
+	
 	var json := JSON.new()
 	json.parse(body.get_string_from_utf8())
 	var response: Dictionary = json.get_data()
