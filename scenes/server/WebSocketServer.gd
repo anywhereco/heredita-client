@@ -35,8 +35,6 @@ func peer_ip(peer_id: int) -> String:
 func send_text(peer_id: int, message: String) -> Error:
 	var peer := _peers[peer_id]
 	var error := peer.send_text(message)
-	if not error:
-		print("outgoing: %s" % message)
 	return error
 	
 func send_targeted_event(peer_id: int, event: String, details: Variant = {}, origin_id := -1) -> Error:
@@ -80,7 +78,6 @@ func _process(_delta: float) -> void:
 				if peer.was_string_packet():
 					var packet_text := packet.get_string_from_utf8()
 					text_data.emit(peer_id, packet_text)
-					print("incoming: %s" % packet_text)
 				else:
 					binary_data.emit(peer_id, packet)
 		elif peer_state == WebSocketPeer.STATE_CLOSED:

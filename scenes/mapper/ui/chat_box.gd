@@ -27,7 +27,6 @@ func send_message(message: String) -> void:
 	State.client.send("chat_message", message)
 
 func receive_message(event: String, user_id: int, message: Variant) -> void:
-	print(event)
 	if event == "chat_message" and message is String:
 		add_message(user_id, message as String)
 

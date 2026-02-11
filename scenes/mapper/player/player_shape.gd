@@ -1,6 +1,6 @@
 extends CSGSphere3D
 
-@onready var player: LocalPlayerMovement = $".."
+@onready var player: PlayerMovement = $".."
 
 var last_vel := Vector2.ZERO
 var vertical_target := 0.0
@@ -11,6 +11,11 @@ var vertical_stretch := 1.0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
+
+func ghost(enable: bool) -> void:
+	var tween := create_tween()
+	tween.tween_property(material_override, "albedo_color:a", 0.2 if enable else 1.0, 0.5)
+	tween.parallel().tween_property(material_override.next_pass, "albedo_color:a", 0.2 if enable else 1.0, 0.5)
 
 func _process(delta: float) -> void:
 	var vel := Vector2(player.velocity.x, player.velocity.z)

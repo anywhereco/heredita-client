@@ -31,12 +31,17 @@ func peer_player_id(peer_id: int) -> int:
 			return player_id
 	return -1
 
-func peer_close(peer_id: int, code := 1000, reason := "") -> void:
-	ws_server.close(peer_id, code, reason)
-	room.players.erase(peer_player_id(peer_id))
-	server_controller.peer_rooms.erase(peer_id)
+func _on_peer_close(peer_id: int) -> void:
+	var player_id := peer_player_id(peer_id)
+	room.players.erase(player_id)
+	send_event("_is2_player_exit", player_id)
 	if room.close_on_empty and not room.players:
 		server_controller.close_room(server_controller._room_find_id(self))
+
+func peer_close(peer_id: int, code := 1000, reason := "") -> void:
+	ws_server.close(peer_id, code, reason)
+	server_controller.peer_rooms.erase(peer_id)
+	_on_peer_close(peer_id)
 
 func send_event(event: String, details: Variant, origin_id := -1) -> Error:
 	for player_id: int in room.players.keys():
@@ -109,7 +114,7 @@ func _connected(peer_id: int, created: bool = false) -> void:
 	connected_peers.append(peer_id)
 
 func _closed(peer_id: int, code: int, reason: String) -> void:
-	pass
+	_on_peer_close(peer_id)
 
 func _text_data(peer_id: int, data: String) -> void:
 	if peer_id in connected_peers:

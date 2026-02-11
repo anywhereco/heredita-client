@@ -1,8 +1,12 @@
-class_name LocalPlayerMovement
+class_name PlayerMovement
 extends CharacterBody3D
 
+var local: bool = true
+
+var frame_data: Dictionary = {} #outgoing if local, incoming if non-local
+
 @onready var camera_pivot: Node3D = $CameraPivot
-@onready var map: Map = $"../Map"
+@onready var map: Map = $/root/Mapper3D/Map
 
 const SPEED = 5.0
 const SPRINT_MULT = 3.0
@@ -15,7 +19,13 @@ var backwards: bool = false
 var left: bool = false
 var right: bool = false
 
+var camera_rotation: float = 0.0
 var was_on_floor_last_frame: bool = false
+
+func _ready() -> void:
+	if not local:
+		$CameraPivot.queue_free()
+		#$Name.show()
 
 func setup_velocity(direction: Vector3, delta: float) -> void:
 	var target_vel := direction * SPEED * (SPRINT_MULT if Input.is_action_pressed("sprint") else 1.0)
@@ -40,49 +50,74 @@ func setup_velocity(direction: Vector3, delta: float) -> void:
 		velocity.x = lerp(velocity.x, target_vel.x, weight)
 		velocity.z = lerp(velocity.z, target_vel.z, weight)
 
-	
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("jump"):
-		jump_new = true
-	elif event.is_action_released("jump"):
-		jump = false
-	if event.is_action("move_forwards"):
-		forwards = event.is_pressed()
-	if event.is_action("move_backwards"):
-		backwards = event.is_pressed()
-	if event.is_action("move_left"):
-		left = event.is_pressed()
-	if event.is_action("move_right"):
-		right = event.is_pressed()
+	if local:
+		if event.is_action_pressed("jump"):
+			jump_new = true
+		elif event.is_action_released("jump"):
+			jump = false
+		if event.is_action("move_forwards"):
+			forwards = event.is_pressed()
+		if event.is_action("move_backwards"):
+			backwards = event.is_pressed()
+		if event.is_action("move_left"):
+			left = event.is_pressed()
+		if event.is_action("move_right"):
+			right = event.is_pressed()
 
 func _physics_process(delta: float) -> void:
-	if jump:
-		jump_new = false
-	if jump_new:
-		jump = true
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	if not local and frame_data:
+		position = Vector3(frame_data["position"][0],frame_data["position"][1],frame_data["position"][2])
+		rotation = Vector3(frame_data["rotation"][0],frame_data["rotation"][1],frame_data["rotation"][2])
+		velocity = Vector3(frame_data["velocity"][0],frame_data["velocity"][1],frame_data["velocity"][2])
+		camera_rotation = frame_data["camera_rotation"]
+		jump = frame_data["jump"]
+		frame_data = {}
+	else:
+		if jump:
+			jump_new = false
+		if jump_new:
+			jump = true
+		# Add the gravity.
+		if not is_on_floor():
+			velocity += get_gravity() * delta
 
-	# Handle jump.
-	if (jump_new and is_on_floor()) or \
-	(jump and is_on_floor() and not was_on_floor_last_frame):
-		velocity.y = JUMP_VELOCITY
+		# Handle jump.
+		if (jump_new and is_on_floor()) or \
+		(jump and is_on_floor() and not was_on_floor_last_frame):
+			velocity.y = JUMP_VELOCITY
 
-	# Get the input direction and handle the movement/deceleration.
-	var input_dir := Vector2(right,backwards) - Vector2(left,forwards)
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y))
-	direction = direction.rotated(Vector3.UP, camera_pivot.rotation.y).normalized()
-	
-	setup_velocity(direction, delta)
-	
-	var pos2: Vector2 = Vector2(position.x, position.z)
-	
-	if not map.map_world_bounds.has_point(pos2):
-		if not map.map_world_bounds.has_point(Vector2(position.x, 0)):
-			position.x = -position.x * 0.99
-			camera_pivot.position = position
-		#if not map.map_world_bounds.has_point(Vector2(0, position.z)):
-		#	position.z = -position.z
+		# Get the input direction and handle the movement/deceleration.
+		var input_dir := Vector2(right,backwards) - Vector2(left,forwards)
+		var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y))
+		if local:
+			camera_rotation = camera_pivot.rotation.y
+		direction = direction.rotated(Vector3.UP, camera_rotation).normalized()
 		
-	move_and_slide()
+		setup_velocity(direction, delta)
+		
+		var pos2: Vector2 = Vector2(position.x, position.z)
+		
+		if not map.map_world_bounds.has_point(pos2):
+			if not map.map_world_bounds.has_point(Vector2(position.x, 0)):
+				position.x = -position.x * 0.99
+				camera_pivot.position = position
+			#if not map.map_world_bounds.has_point(Vector2(0, position.z)):
+			#	position.z = -position.z
+			
+		move_and_slide()
+		if local:
+			frame_data = {"position":[position.x,position.y,position.z],
+						  "rotation":[rotation.x,rotation.y,rotation.z],
+						  "velocity":[velocity.x,velocity.y,velocity.z],
+						  "camera_rotation":camera_rotation,
+						  "jump": jump}
+			if State.client:
+				State.client.send("avatar_update",frame_data)
+
+func _process(_delta: float) -> void:
+	if not local:
+		if position.distance_to($/root/Mapper3D/LocalPlayer.position) < 0.9: #slightly less than full diameter
+			$PlayerShape.ghost(true)
+		else:
+			$PlayerShape.ghost(false)

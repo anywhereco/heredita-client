@@ -1,16 +1,22 @@
-extends HFlowContainer
+extends Node3D
 
 var players_listed := []
 
 func _ready() -> void:
 	if State.room:
 		State.room.players.value_changed.connect(refresh_players)
+		State.client.message_received.connect(receive_update)
 	refresh_players(State.room.players)
 
+func receive_update(event: String, user_id: int, message: Variant) -> void:
+	if State.room:
+		if event == "avatar_update" and user_id != State.client.player_id and message is Dictionary:
+			find_child(str(user_id), false, false).frame_data = message
+
 func add_player(player_id: int) -> void:
-	var player_node := preload("res://scenes/mapper/ui/player.tscn").instantiate()
+	var player_node: PlayerMovement = preload("res://scenes/mapper/player/player.tscn").instantiate()
+	player_node.local = false
 	player_node.name = str(player_id)
-	player_node.text = State.room.players.getv(player_id)['username']
 	add_child(player_node)
 	
 func remove_player(player_id: int) -> void:
@@ -18,10 +24,8 @@ func remove_player(player_id: int) -> void:
 	player_node.queue_free()
 		
 func refresh_players(players: ReactiveDictionary) -> void:
-	if get_child(0).visible:
-		get_child(0).hide()
 	for player: int in players.keys():
-		if player not in players_listed:
+		if player not in players_listed and player != State.client.player_id:
 			add_player(player)
 			players_listed.append(player)
 	var to_erase := []
