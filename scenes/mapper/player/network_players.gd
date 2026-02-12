@@ -11,16 +11,17 @@ func _ready() -> void:
 func receive_update(event: String, user_id: int, message: Variant) -> void:
 	if State.room:
 		if event == "avatar_update" and user_id != State.client.player_id and message is Dictionary:
-			find_child(str(user_id), false, false).frame_data = message
+			get_node(str(user_id)).frame_data = message
 
 func add_player(player_id: int) -> void:
 	var player_node: PlayerMovement = preload("res://scenes/mapper/player/player.tscn").instantiate()
 	player_node.local = false
 	player_node.name = str(player_id)
+	player_node.get_node("Name").text = State.room.players.getv(player_id).username
 	add_child(player_node)
 	
 func remove_player(player_id: int) -> void:
-	var player_node := find_child(str(player_id), false, false)
+	var player_node := get_node(str(player_id))
 	player_node.queue_free()
 		
 func refresh_players(players: ReactiveDictionary) -> void:

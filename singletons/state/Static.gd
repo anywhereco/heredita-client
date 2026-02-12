@@ -2,9 +2,8 @@
 class_name Statics
 extends Object
 
-#const HEREDITA_URL := "http://localhost:9000"
 static var HEREDITA_URL := "https://demo.heredita.net"
-static var SERVER_URL := "wss://demo.heredita.net:443"
+static var SERVER_URL := "wss://demo.heredita.net/ws"
 
 # const LOGIN_URL := "login.infernity.dev"
 

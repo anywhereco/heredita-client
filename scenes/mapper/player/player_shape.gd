@@ -14,6 +14,10 @@ func _ready() -> void:
 
 func ghost(enable: bool) -> void:
 	var tween := create_tween()
+	if enable:
+		material_override.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	else:
+		material_override.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
 	tween.tween_property(material_override, "albedo_color:a", 0.2 if enable else 1.0, 0.5)
 	tween.parallel().tween_property(material_override.next_pass, "albedo_color:a", 0.2 if enable else 1.0, 0.5)
 

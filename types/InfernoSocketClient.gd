@@ -87,21 +87,40 @@ func send(event: String, message: Variant = null) -> int:
 	raw_message_sent.emit(data)
 	return socket.send_text(data)
 
-func send_binary(event: int, target: int, message: PackedByteArray = PackedByteArray(), compress: bool = true) -> int:
+enum BinaryFlags {
+	NONE = 0,
+	COMPRESSED = 1,
+	LAST_CHUNK = 2
+}
+
+func send_binary(event: int, target: int, flags: int, message: PackedByteArray = PackedByteArray(), compress: bool = true) -> int:
 	assert(event >= 0 and event <= 65535, "The event value should fit within a 16-bit int")
 	assert(target >= -32768 and target <= 32767, "The target value should fit within a 16-bit signed int")
 	raw_message_sent.emit("<Binary event %d>" % event)
-	var compression_size := 0xFFFF # Compression disabled
+	var compression_size: int
 	if compress:
+		flags &= BinaryFlags.COMPRESSED
 		compression_size = len(message)
 		message = message.compress(FileAccess.COMPRESSION_FASTLZ)
 	var bytes := PackedByteArray()
 	bytes.resize(6)
 	bytes.encode_u16(0, event)
 	bytes.encode_s16(2, target)
-	bytes.encode_u16(4, compression_size)
+	bytes.encode_u8(4, flags)
+	if compress:
+		bytes.encode_u32(5, compression_size)
 	bytes.append_array(message)
 	return socket.send(bytes)
+
+func send_chunked_binary(event: int, target: int, data: PackedByteArray) -> void:
+	#Compression is built into this method. If it's this big we're compressing it
+	var compression_size := len(data)
+	assert(compression_size < 0xFFFFFFFF, "Why are you sending a 4 GB file")
+		
+	data = data.compress(FileAccess.COMPRESSION_FASTLZ)
+	var chunk_count := compression_size / 0x10000
+	for i in data:
+		pass
 	
 func get_message_raw() -> Variant:
 	if socket.get_available_packet_count() < 1:
