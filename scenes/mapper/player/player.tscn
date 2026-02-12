@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c1m5ewhnxff8g" path="res://scenes/mapper/player/player.gd" id="1_xt5g5"]
 [ext_resource type="Texture2D" uid="uid://da23s8ssptv20" path="res://assets/player/shmile.png" id="3_43hv6"]
 [ext_resource type="Script" uid="uid://ddbnc776wuh7i" path="res://scenes/mapper/player/player_shape.gd" id="4_plyky"]
+[ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="4_xt5g5"]
 [ext_resource type="Script" uid="uid://b2ln5lyiu705a" path="res://scenes/mapper/camera_pivot.gd" id="5_vv4ox"]
 [ext_resource type="Script" uid="uid://bnnb4ayaos0ow" path="res://scenes/mapper/camera3d.gd" id="6_4te7a"]
 
@@ -38,7 +39,6 @@ metadata/_stencil_owned = true
 resource_local_to_scene = true
 render_priority = 1
 next_pass = SubResource("StandardMaterial3D_agntw")
-transparency = 1
 diffuse_mode = 3
 disable_fog = true
 albedo_color = Color(0.907145, 0.907145, 0.907145, 1)
@@ -100,6 +100,7 @@ double_sided = false
 render_priority = 32
 outline_render_priority = 31
 text = "Whirp"
+font = ExtResource("4_xt5g5")
 font_size = 40
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=1741123171]

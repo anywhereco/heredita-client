@@ -12,6 +12,8 @@ const SPEED = 5.0
 const SPRINT_MULT = 3.0
 const JUMP_VELOCITY = 4.5
 
+const MAX_NAME_VIEW_DISTANCE = 15
+
 var jump: bool = false
 var jump_new: bool = false
 var forwards: bool = false
@@ -121,3 +123,6 @@ func _process(_delta: float) -> void:
 			$PlayerShape.ghost(true)
 		else:
 			$PlayerShape.ghost(false)
+		var name_distance: float = get_tree().root.get_camera_3d().global_position.distance_to($Name.global_position)
+		$Name.pixel_size = 0.0025 * sqrt(name_distance)
+		$Name.visible = name_distance < MAX_NAME_VIEW_DISTANCE
