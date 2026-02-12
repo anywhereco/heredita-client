@@ -31,3 +31,4 @@ func refresh_players(players: ReactiveDictionary) -> void:
 			to_erase.append(player)
 	for removed_player: int in to_erase:
 		players_listed.erase(removed_player)
+	get_parent().title = "%d in room" % len(players_listed)
