@@ -118,9 +118,17 @@ func send_chunked_binary(event: int, target: int, data: PackedByteArray) -> void
 	assert(compression_size < 0xFFFFFFFF, "Why are you sending a 4 GB file")
 		
 	data = data.compress(FileAccess.COMPRESSION_FASTLZ)
-	var chunk_count := compression_size / 0x10000
-	for i in data:
-		pass
+	var chunk_count := ceili(compression_size / float(0x10000))
+	var flags := BinaryFlags.NONE
+	for i in chunk_count:
+		var chunk := data.slice(i*0x10000,(i+1)*0x10000)
+		var bytes := PackedByteArray()
+		bytes.resize(1)
+		bytes.encode_u8(0, chunk_count)
+		bytes.append_array(chunk)
+		if i == chunk_count-1:
+			flags &= BinaryFlags.LAST_CHUNK
+		send_binary(event, target, flags, bytes, false)
 	
 func get_message_raw() -> Variant:
 	if socket.get_available_packet_count() < 1:

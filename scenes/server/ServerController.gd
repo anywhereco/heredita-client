@@ -66,12 +66,31 @@ func get_binary_data(peer_id: int) -> PackedByteArray:
 	
 func get_chunked_binary_data(peer_id: int) -> PackedByteArray:
 	var data := []
+	var data_length := 0
+	var chunks_recieved := 0
+	var event := -1
+	var target := -2
 	while true:
 		var chunk := await get_binary_data(peer_id)
 		if not chunk:
 			return PackedByteArray([])
-		#parse chunk and add to data
-		#if chunk is final, break
+		if event > -1 and chunk.decode_u16(0) != event:
+			continue
+		elif event == -1:
+			event = chunk.decode_u16(0)
+		if target > -2 and chunk.decode_s16(2) != target:
+			continue
+		elif event == -2:
+			target = chunk.decode_s16(2)
+		var last_flag := chunk.decode_u8(4) & InfernoSocketClient.BinaryFlags.LAST_CHUNK
+		data_length = chunk.decode_u8(5)
+		data.append(chunk.slice(1))
+		chunks_recieved += 1
+		var end_hint := int(chunks_recieved >= data_length) + int(last_flag != 0)
+		if end_hint == 1: #end signal mismatch
+			return PackedByteArray([])
+		elif end_hint == 2:
+			break
 	return data
 
 func parse_json(text: String) -> Result:
