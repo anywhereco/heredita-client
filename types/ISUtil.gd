@@ -9,3 +9,15 @@ static func valid_event(result: Result) -> bool:
 
 static func valid_event_is(result: Result, event: String) -> bool:
 	return result.is_ok() and ISUtil.json_event(result.val() as Dictionary) == event
+
+static func from_color(color: Color) -> Array:
+	return [color.r, color.g, color.b]
+	
+static func to_color(color: Array) -> Color:
+	return Color(color[0], color[1], color[2])
+
+static func from_vec2(vec: Vector2) -> Array:
+	return [vec.x, vec.y]
+	
+static func to_vec2(vec: Array) -> Vector2:
+	return Vector2(vec[0], vec[1])

@@ -56,8 +56,11 @@ func brush_events(event: InputEvent) -> void:
 	if event is InputEventMouseButton and not event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		is_painting = false
 
-func brush_action(brush_size: int, paint: Color, target: Color) -> void:
-	Map._instance.set_pixels_at_map_pos_targeted(shape.get_vec2s(brush_size), paint, target)
+func brush_action(brush_size: int, paint: Color, target: Color, offset: Vector2 = Vector2.ZERO) -> void:
+	if offset:
+		Map._instance.set_pixels_at_targeted(shape.get_vec2s(brush_size), paint, target, offset)
+	else:
+		Map._instance.set_pixels_at_map_pos_targeted(shape.get_vec2s(brush_size), paint, target)
 
 func _brush_size_changed() -> void:
 	size = UIRoot._instance.brush_ui.size_controller.brush_size.value
@@ -71,4 +74,11 @@ func _update_brush() -> void:
 
 func _process(_delta: float) -> void:
 	if is_painting:
+		
 		brush_action(size, paint_color.value, target_color.value)
+		if State.client:
+			State.client.send("map_update", {"type": "brush",
+											 "pos": ISUtil.from_vec2(Map._instance.map_pos.value),
+											 "size": size,
+											 "paint_color": ISUtil.from_color(paint_color.value),
+											 "target_color": ISUtil.from_color(target_color.value)})

@@ -37,6 +37,8 @@ func _ready() -> void:
 	Prompts.override_ui = $UI
 	tool.value_changed.connect(_tool_changed)
 	brush._map_ready()
+	if State.client:
+		State.client.message_received.connect(get_map_update)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -51,3 +53,9 @@ func process_tool_use(event: InputEvent) -> void:
 		_:
 			push_error("Tool \"%s\" doesn't have code to handle events!" % MapperRoot.Tool.keys()[tool.value].to_lower())
 			return
+
+func get_map_update(event: String, player_id: int, details: Variant) -> void:
+	if event == "map_update":
+		var type: String = details["type"]
+		if type == "brush":
+			brush.brush_action(details["size"], ISUtil.to_color(details["paint_color"]), ISUtil.to_color(details["target_color"]), ISUtil.to_vec2(details["pos"]))

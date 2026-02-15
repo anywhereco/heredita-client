@@ -89,8 +89,9 @@ func set_pixels_at(positions: PackedVector2Array, color: Color) -> void:
 		chunk.set_pixelv(Vector2i(get_chunk_relative_coords(pos)), color)
 		chunks_edited[chunk_coords.x][chunk_coords.y] = true
 
-func set_pixels_at_targeted(positions: PackedVector2Array, color: Color, target: Color) -> void:
+func set_pixels_at_targeted(positions: PackedVector2Array, color: Color, target: Color, offset: Vector2 = Vector2.ZERO) -> void:
 	for pos in positions:
+		pos += offset
 		if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size_exclusive):
 			continue
 		var chunk_coords := get_chunk_grid_coords(pos)
@@ -101,16 +102,7 @@ func set_pixels_at_targeted(positions: PackedVector2Array, color: Color, target:
 			chunks_edited[chunk_coords.x][chunk_coords.y] = true
 			
 func set_pixels_at_map_pos_targeted(positions: PackedVector2Array, color: Color, target: Color) -> void:
-	for pos in positions:
-		pos += Vector2(Vector2i(map_pos.value))
-		if not is_in_bounding_box(pos, Vector2.ZERO, original_map_size_exclusive):
-			continue
-		var chunk_coords := get_chunk_grid_coords(pos)
-		var chunk: Image = chunk_images[chunk_coords.x][chunk_coords.y]
-		var relative_coords := get_chunk_relative_coords(pos)
-		if chunk.get_pixelv(relative_coords).is_equal_approx(target):
-			chunk.set_pixelv(Vector2i(get_chunk_relative_coords(pos)), color)
-			chunks_edited[chunk_coords.x][chunk_coords.y] = true
+	set_pixels_at_targeted(positions, color, target, Vector2(Vector2i(map_pos.value)))
 
 func get_map_as_image() -> Image:
 	@warning_ignore("narrowing_conversion")
