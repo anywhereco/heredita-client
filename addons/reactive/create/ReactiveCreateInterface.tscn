@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://be4wb3jw46n8j"]
 
-[node name="ReactiveCreateInterface" type="Window"]
+[node name="ReactiveCreateInterface" type="Window" unique_id=546105981]
 oversampling_override = 1.0
 size = Vector2i(200, 100)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=323866234]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,37 +14,37 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1433897147]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1007485776]
 layout_mode = 2
 text = "File name:"
 
-[node name="ClassName" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+[node name="ClassName" type="LineEdit" parent="VBoxContainer/HBoxContainer" unique_id=406662797]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=137546520]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=1711944265]
 layout_mode = 2
 text = "Wraps:"
 
-[node name="Wrapping" type="LineEdit" parent="VBoxContainer/HBoxContainer2"]
+[node name="Wrapping" type="LineEdit" parent="VBoxContainer/HBoxContainer2" unique_id=301212377]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Create" type="Button" parent="VBoxContainer"]
+[node name="Create" type="Button" parent="VBoxContainer" unique_id=702182550]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Create"
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1482068451]
 offset_right = 40.0
 offset_bottom = 40.0

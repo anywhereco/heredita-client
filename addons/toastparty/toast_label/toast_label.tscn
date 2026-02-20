@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dugii0837nslt"]
+[gd_scene format=3 uid="uid://dugii0837nslt"]
 
 [ext_resource type="StyleBox" uid="uid://blt5gbhfsd0p5" path="res://addons/toastparty/toast_label/toast_label_style.tres" id="1_0l35p"]
 [ext_resource type="FontVariation" uid="uid://hwc3xdnlf3ke" path="res://assets/font/_variants/pro450.tres" id="2_7awoi"]
@@ -8,7 +8,7 @@
 font = ExtResource("2_7awoi")
 font_size = 14
 
-[node name="Label" type="Label"]
+[node name="Label" type="Label" unique_id=2087130180]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://crasgtic6vnmh"]
+[gd_scene format=3 uid="uid://crasgtic6vnmh"]
 
 [ext_resource type="Texture2D" uid="uid://c0udqbl4trv2i" path="res://assets/logo_large.png" id="1_e06ia"]
 [ext_resource type="Script" uid="uid://c28ljhbovoicm" path="res://scenes/main_menu/pages/landing/play.gd" id="1_ymk45"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="2_2ejkv"]
-[ext_resource type="Script" path="res://scenes/main_menu/pages/landing/ver.gd" id="3_ecxkw"]
+[ext_resource type="Script" uid="uid://dyad1l4xw802a" path="res://scenes/main_menu/pages/landing/ver.gd" id="3_ecxkw"]
 [ext_resource type="Script" uid="uid://cvudgig5551tm" path="res://scenes/main_menu/pages/landing/settings.gd" id="5_ecxkw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ikikv"]
@@ -15,7 +15,7 @@ font_color = Color(1, 1, 1, 0.6431373)
 color = Color(1, 1, 1, 1)
 thickness = 3
 
-[node name="Landing" type="Control"]
+[node name="Landing" type="Control" unique_id=1190452955]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,7 +23,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LeftSide" type="VBoxContainer" parent="."]
+[node name="LeftSide" type="VBoxContainer" parent="." unique_id=1314413860]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,63 +36,63 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="Control" type="VBoxContainer" parent="LeftSide"]
+[node name="Control" type="VBoxContainer" parent="LeftSide" unique_id=1295653172]
 custom_minimum_size = Vector2(400, 180)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextureRect" type="TextureRect" parent="LeftSide/Control"]
+[node name="TextureRect" type="TextureRect" parent="LeftSide/Control" unique_id=1464979969]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("1_e06ia")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="LeftSide/Control"]
+[node name="Label" type="Label" parent="LeftSide/Control" unique_id=1329420688]
 layout_mode = 2
 text = "beta %s"
 label_settings = SubResource("LabelSettings_ikikv")
 horizontal_alignment = 1
 script = ExtResource("3_ecxkw")
 
-[node name="Control2" type="Control" parent="LeftSide"]
+[node name="Control2" type="Control" parent="LeftSide" unique_id=434113287]
 custom_minimum_size = Vector2(0, 13)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Panel" type="Panel" parent="LeftSide"]
+[node name="Panel" type="Panel" parent="LeftSide" unique_id=907201529]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxLine_8pexo")
 
-[node name="Control3" type="Control" parent="LeftSide"]
+[node name="Control3" type="Control" parent="LeftSide" unique_id=1835715830]
 custom_minimum_size = Vector2(0, 13)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Play" type="Button" parent="LeftSide"]
+[node name="Play" type="Button" parent="LeftSide" unique_id=1696355606]
 layout_mode = 2
 theme_type_variation = &"PrimaryButtons"
 text = "Play"
 script = ExtResource("1_ymk45")
 
-[node name="PlaySingleplayer" type="Button" parent="LeftSide"]
+[node name="PlaySingleplayer" type="Button" parent="LeftSide" unique_id=1794075755]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"PrimaryButtons"
 text = "            Play demo            "
 
-[node name="Settings" type="Button" parent="LeftSide"]
+[node name="Settings" type="Button" parent="LeftSide" unique_id=1423697517]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"PrimaryButtons"
 text = "Settings"
 script = ExtResource("5_ecxkw")
 
-[node name="Settings2" type="Button" parent="LeftSide"]
+[node name="Settings2" type="Button" parent="LeftSide" unique_id=1031322522]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3

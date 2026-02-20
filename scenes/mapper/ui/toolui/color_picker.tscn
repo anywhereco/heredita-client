@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ciprbhp7oi7jo"]
+[gd_scene format=3 uid="uid://ciprbhp7oi7jo"]
 
 [ext_resource type="Script" uid="uid://c43omewlw0mxg" path="res://scenes/mapper/ui/toolui/color_picker.gd" id="1_2kfen"]
 [ext_resource type="Script" uid="uid://c020hb7atwvkj" path="res://scenes/mapper/ui/toolui/color_hsv.gd" id="2_61vie"]
@@ -64,7 +64,7 @@ fill_to = Vector2(0, 1)
 texture = SubResource("GradientTexture2D_macmq")
 texture_margin_left = 10.0
 
-[node name="ColorPicker" type="VBoxContainer"]
+[node name="ColorPicker" type="VBoxContainer" unique_id=1852762588]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -73,30 +73,30 @@ grow_vertical = 2
 size_flags_vertical = 3
 script = ExtResource("1_2kfen")
 
-[node name="Pickers" type="HBoxContainer" parent="."]
+[node name="Pickers" type="HBoxContainer" parent="." unique_id=696983040]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HSV" type="HBoxContainer" parent="Pickers"]
+[node name="HSV" type="HBoxContainer" parent="Pickers" unique_id=616214190]
 custom_minimum_size = Vector2(92, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("2_61vie")
 
-[node name="Hue" type="VSlider" parent="Pickers/HSV"]
+[node name="Hue" type="VSlider" parent="Pickers/HSV" unique_id=126548084]
 layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxTexture_by36x")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_rtn1r")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_by36x")
 max_value = 359.0
 
-[node name="SVRect" type="TextureRect" parent="Pickers/HSV"]
+[node name="SVRect" type="TextureRect" parent="Pickers/HSV" unique_id=193335950]
 material = SubResource("ShaderMaterial_61vie")
 layout_mode = 2
 texture = SubResource("GradientTexture2D_aub21")
 expand_mode = 3
 
-[node name="Dot" type="TextureRect" parent="Pickers/HSV/SVRect"]
+[node name="Dot" type="TextureRect" parent="Pickers/HSV/SVRect" unique_id=1445438246]
 layout_mode = 1
 offset_left = -3.0
 offset_top = -3.0
@@ -106,50 +106,50 @@ mouse_filter = 2
 texture = ExtResource("4_6v1ti")
 stretch_mode = 2
 
-[node name="RGB" type="HBoxContainer" parent="Pickers"]
+[node name="RGB" type="HBoxContainer" parent="Pickers" unique_id=1912994570]
 visible = false
 custom_minimum_size = Vector2(92, 0)
 layout_mode = 2
 alignment = 1
 script = ExtResource("5_rtn1r")
 
-[node name="R" type="VSlider" parent="Pickers/RGB"]
+[node name="R" type="VSlider" parent="Pickers/RGB" unique_id=1115122601]
 layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxTexture_cjq6g")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_rtn1r")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_by36x")
 max_value = 255.0
 
-[node name="G" type="VSlider" parent="Pickers/RGB"]
+[node name="G" type="VSlider" parent="Pickers/RGB" unique_id=1970296515]
 layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxTexture_53u0u")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_rtn1r")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_by36x")
 max_value = 255.0
 
-[node name="B" type="VSlider" parent="Pickers/RGB"]
+[node name="B" type="VSlider" parent="Pickers/RGB" unique_id=501538197]
 layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxTexture_0f68k")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_rtn1r")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_by36x")
 max_value = 255.0
 
-[node name="Hex" type="VBoxContainer" parent="Pickers"]
+[node name="Hex" type="VBoxContainer" parent="Pickers" unique_id=1175586077]
 visible = false
 custom_minimum_size = Vector2(92, 0)
 layout_mode = 2
 alignment = 1
 script = ExtResource("6_by36x")
 
-[node name="Edit" type="LineEdit" parent="Pickers/Hex"]
+[node name="Edit" type="LineEdit" parent="Pickers/Hex" unique_id=1865880897]
 layout_mode = 2
 script = ExtResource("7_o3h1b")
 
-[node name="Preset" type="Control" parent="Pickers"]
+[node name="Preset" type="Control" parent="Pickers" unique_id=1660686930]
 visible = false
 layout_mode = 2
 
-[node name="Color" type="ColorRect" parent="."]
+[node name="Color" type="ColorRect" parent="." unique_id=1182773199]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://btgbjxwalnvhy"]
+[gd_scene format=3 uid="uid://btgbjxwalnvhy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oxt17"]
 content_margin_left = 5.0
@@ -13,11 +13,11 @@ corner_detail = 1
 anti_aliasing = false
 anti_aliasing_size = 0.01
 
-[node name="Server" type="Node"]
+[node name="Server" type="Node" unique_id=120455359]
 
-[node name="LocalServerOverlay" type="CanvasLayer" parent="."]
+[node name="LocalServerOverlay" type="CanvasLayer" parent="." unique_id=165147014]
 
-[node name="PulldownPanel" type="PanelContainer" parent="LocalServerOverlay"]
+[node name="PulldownPanel" type="PanelContainer" parent="LocalServerOverlay" unique_id=548121749]
 custom_minimum_size = Vector2(185, 0)
 anchors_preset = 5
 anchor_left = 0.5
@@ -28,7 +28,7 @@ offset_bottom = 40.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_oxt17")
 
-[node name="OptionsButton" type="Button" parent="LocalServerOverlay/PulldownPanel"]
+[node name="OptionsButton" type="Button" parent="LocalServerOverlay/PulldownPanel" unique_id=907998594]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Local server options"

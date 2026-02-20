@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c1fcr11flbild"]
+[gd_scene format=3 uid="uid://c1fcr11flbild"]
 
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="1_bsn4x"]
 [ext_resource type="FontVariation" uid="uid://dci33svbxkhv6" path="res://assets/font/_variants/pro650.tres" id="1_o0axu"]
@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://j5d5mbyadwj8" path="res://libraries/ui/image_picker_button/image_picker_button.gd" id="2_x1oku"]
 [ext_resource type="Script" uid="uid://bavplunsm8tjn" path="res://scenes/main_menu/pages/gallery/gallery_loader.gd" id="3_jd1et"]
 [ext_resource type="Script" uid="uid://iwdjjxhxn5pa" path="res://scenes/main_menu/pages/gallery/temporary_mapper_opener.gd" id="3_x1oku"]
-[ext_resource type="Script" path="res://scenes/main_menu/pages/gallery/back_landing.gd" id="6_7t0hk"]
+[ext_resource type="Script" uid="uid://80rk2bwsgwf4" path="res://scenes/main_menu/pages/gallery/back_landing.gd" id="6_7t0hk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jd1et"]
 font = ExtResource("1_o0axu")
@@ -39,7 +39,7 @@ grow_begin = -15.0
 grow_end = -15.0
 thickness = 3
 
-[node name="Gallery" type="VBoxContainer"]
+[node name="Gallery" type="VBoxContainer" unique_id=1557004252]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -48,54 +48,54 @@ grow_vertical = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="MapName" type="Label" parent="."]
+[node name="MapName" type="Label" parent="." unique_id=628788803]
 layout_mode = 2
 text = "Selected map"
 label_settings = SubResource("LabelSettings_jd1et")
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=645235344]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = SubResource("GradientTexture2D_ue5i1")
 expand_mode = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=258285230]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 0
 
-[node name="MapPicker" type="HBoxContainer" parent="MarginContainer"]
+[node name="MapPicker" type="HBoxContainer" parent="MarginContainer" unique_id=317152847]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 script = ExtResource("2_huwrv")
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/MapPicker"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/MapPicker" unique_id=1587568692]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"InsetPanel"
 
-[node name="Coordinator" type="MarginContainer" parent="MarginContainer/MapPicker/PanelContainer"]
+[node name="Coordinator" type="MarginContainer" parent="MarginContainer/MapPicker/PanelContainer" unique_id=166115648]
 unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("3_jd1et")
 
-[node name="Gallery" type="ScrollContainer" parent="MarginContainer/MapPicker/PanelContainer/Coordinator"]
+[node name="Gallery" type="ScrollContainer" parent="MarginContainer/MapPicker/PanelContainer/Coordinator" unique_id=1359909134]
 layout_mode = 2
 size_flags_horizontal = 3
 vertical_scroll_mode = 0
 
-[node name="Elements" type="HBoxContainer" parent="MarginContainer/MapPicker/PanelContainer/Coordinator/Gallery"]
+[node name="Elements" type="HBoxContainer" parent="MarginContainer/MapPicker/PanelContainer/Coordinator/Gallery" unique_id=1165461666]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="LoadingPlaceholder" type="Label" parent="MarginContainer/MapPicker/PanelContainer/Coordinator"]
+[node name="LoadingPlaceholder" type="Label" parent="MarginContainer/MapPicker/PanelContainer/Coordinator" unique_id=891060702]
 custom_minimum_size = Vector2(0, 112)
 layout_mode = 2
 text = "Loading gallery..."
@@ -103,30 +103,30 @@ label_settings = SubResource("LabelSettings_7t0hk")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MapPicker"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MapPicker" unique_id=872819037]
 layout_mode = 2
 alignment = 1
 
-[node name="Panel2" type="Panel" parent="MarginContainer/MapPicker/VBoxContainer"]
+[node name="Panel2" type="Panel" parent="MarginContainer/MapPicker/VBoxContainer" unique_id=1629215857]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxLine_o0axu")
 
-[node name="Label" type="Label" parent="MarginContainer/MapPicker/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/MapPicker/VBoxContainer" unique_id=92230580]
 layout_mode = 2
 text = "or"
 label_settings = SubResource("LabelSettings_huwrv")
 
-[node name="Panel" type="Panel" parent="MarginContainer/MapPicker/VBoxContainer"]
+[node name="Panel" type="Panel" parent="MarginContainer/MapPicker/VBoxContainer" unique_id=643893197]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxLine_o0axu")
 
-[node name="ImagePickerButton" type="Button" parent="MarginContainer/MapPicker" node_paths=PackedStringArray("image_rect", "name_label")]
+[node name="ImagePickerButton" type="Button" parent="MarginContainer/MapPicker" unique_id=1963245526 node_paths=PackedStringArray("image_rect", "name_label")]
 layout_mode = 2
 text = "  Pick a local image  "
 script = ExtResource("2_x1oku")
@@ -136,21 +136,21 @@ name_label = NodePath("../../../MapName")
 name_format = "Selected map: %s"
 metadata/_custom_type_script = "uid://j5d5mbyadwj8"
 
-[node name="Panel2" type="Panel" parent="."]
+[node name="Panel2" type="Panel" parent="." unique_id=1969641102]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxLine_huwrv")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1631373937]
 layout_mode = 2
 theme_override_constants/separation = 9
 alignment = 1
 
-[node name="Button" type="Button" parent="HBoxContainer"]
+[node name="Button" type="Button" parent="HBoxContainer" unique_id=223136166]
 layout_mode = 2
 text = "  Back  "
 script = ExtResource("6_7t0hk")
 
-[node name="PlaySingleplayer" type="Button" parent="HBoxContainer"]
+[node name="PlaySingleplayer" type="Button" parent="HBoxContainer" unique_id=74584228]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 4

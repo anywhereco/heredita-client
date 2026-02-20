@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cfjumnaqf88s3"]
+[gd_scene format=3 uid="uid://cfjumnaqf88s3"]
 
 [ext_resource type="Script" uid="uid://pbhpujwitt4d" path="res://scenes/main_menu/pages/room_list/room/room_template.gd" id="1_e4a6s"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="1_iyd2h"]
@@ -18,7 +18,7 @@ font = ExtResource("1_iyd2h")
 font_size = 15
 font_color = Color(1, 1, 1, 0.68235296)
 
-[node name="RoomTemplate" type="PanelContainer"]
+[node name="RoomTemplate" type="PanelContainer" unique_id=1709001766]
 custom_minimum_size = Vector2(480, 44)
 anchors_preset = 8
 anchor_left = 0.5
@@ -30,17 +30,17 @@ grow_vertical = 2
 size_flags_horizontal = 3
 script = ExtResource("1_e4a6s")
 
-[node name="Elements" type="HBoxContainer" parent="."]
+[node name="Elements" type="HBoxContainer" parent="." unique_id=668864200]
 layout_mode = 2
 
-[node name="Leftpad" type="Control" parent="Elements"]
+[node name="Leftpad" type="Control" parent="Elements" unique_id=1869310987]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Elements"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Elements" unique_id=105673636]
 layout_mode = 2
 alignment = 1
 
-[node name="Title" type="Label" parent="Elements/VBoxContainer"]
+[node name="Title" type="Label" parent="Elements/VBoxContainer" unique_id=1007933315]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
@@ -49,10 +49,10 @@ text = "Long title... abc def ghijkl"
 clip_text = true
 text_overrun_behavior = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Elements/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Elements/VBoxContainer" unique_id=1719014875]
 layout_mode = 2
 
-[node name="PlayerCount" type="Label" parent="Elements/VBoxContainer/HBoxContainer"]
+[node name="PlayerCount" type="Label" parent="Elements/VBoxContainer/HBoxContainer" unique_id=83257701]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -60,12 +60,12 @@ size_flags_stretch_ratio = 0.0
 text = "64/64"
 label_settings = SubResource("LabelSettings_iyd2h")
 
-[node name="Divider" type="Panel" parent="Elements"]
+[node name="Divider" type="Panel" parent="Elements" unique_id=2137658849]
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxLine_iyd2h")
 
-[node name="Description" type="Label" parent="Elements"]
+[node name="Description" type="Label" parent="Elements" unique_id=729420298]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 44)
 layout_mode = 2
@@ -76,10 +76,10 @@ vertical_alignment = 1
 autowrap_mode = 3
 text_overrun_behavior = 3
 
-[node name="Join" type="Button" parent="Elements"]
+[node name="Join" type="Button" parent="Elements" unique_id=303634139]
 unique_name_in_owner = true
 layout_mode = 2
 text = " Join "
 
-[node name="Rightpad" type="Control" parent="Elements"]
+[node name="Rightpad" type="Control" parent="Elements" unique_id=925442506]
 layout_mode = 2

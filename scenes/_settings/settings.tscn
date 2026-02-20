@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cy6ca0bugcpve"]
+[gd_scene format=3 uid="uid://cy6ca0bugcpve"]
 
 [ext_resource type="Script" uid="uid://b0vjmrmo5bvlv" path="res://scenes/_settings/settings.gd" id="1_0mqhr"]
 
-[node name="Settings" type="TabContainer"]
+[node name="Settings" type="TabContainer" unique_id=1205933234]
 custom_minimum_size = Vector2(400, 200)
 anchors_preset = 15
 anchor_right = 1.0

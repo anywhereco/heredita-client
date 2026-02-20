@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1070265sjc22"]
+[gd_scene format=3 uid="uid://b1070265sjc22"]
 
 [ext_resource type="Texture2D" uid="uid://dtur4inp5a2k4" path="res://assets/icons/image.svg" id="1_wbeyb"]
 [ext_resource type="FontVariation" uid="uid://buqkj6hkhmhax" path="res://assets/font/_variants/proitalics450.tres" id="2_6cjg5"]
@@ -10,7 +10,7 @@ shadow_size = 4
 shadow_color = Color(0, 0, 0, 0.48235294)
 shadow_offset = Vector2(0, 0)
 
-[node name="ImagePickedTextContainer" type="MarginContainer"]
+[node name="ImagePickedTextContainer" type="MarginContainer" unique_id=273169898]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -21,11 +21,11 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 8
 
-[node name="Contents" type="VBoxContainer" parent="."]
+[node name="Contents" type="VBoxContainer" parent="." unique_id=1224116714]
 layout_mode = 2
 alignment = 1
 
-[node name="Image" type="TextureRect" parent="Contents"]
+[node name="Image" type="TextureRect" parent="Contents" unique_id=1855489439]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
@@ -33,14 +33,14 @@ texture = ExtResource("1_wbeyb")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Error" type="Label" parent="Contents"]
+[node name="Error" type="Label" parent="Contents" unique_id=89744088]
 visible = false
 layout_mode = 2
 text = "File not accepted."
 label_settings = SubResource("LabelSettings_g1ry1")
 horizontal_alignment = 1
 
-[node name="Filename" type="Label" parent="Contents"]
+[node name="Filename" type="Label" parent="Contents" unique_id=1391766502]
 layout_mode = 2
 text = "fname"
 horizontal_alignment = 1
